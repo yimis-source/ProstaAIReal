@@ -1,0 +1,27 @@
+# --- Datos médicos: NUNCA se suben al repositorio (Ley 1581 de 2012, licencias de los conjuntos) ---
+/datos/
+*.nii
+*.nii.gz
+*.mhd
+*.raw
+*.dcm
+*.zip
+# Pesos de modelos
+/modelos/
+*.pt
+*.pth
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Editores y sistema ---
+.vscode/
+.idea/
+.DS_Store
+*.swp
+.env
