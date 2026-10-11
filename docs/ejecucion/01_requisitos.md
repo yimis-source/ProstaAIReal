@@ -11,7 +11,7 @@ Métodos de verificación: **P** prueba, **I** inspección, **D** demostración,
 | RF-01 | Ingreso a la aplicación mediante un inicio de sesión básico | Should | 4.7 | CU01 | P · C6 |
 | RF-02 | Cargar uno o varios estudios de MRI de prueba desde la aplicación web | Must | 4.1 | CU02 | P · C6 |
 | RF-03 | Validar formato y tamaño de cada archivo; aceptar solo los formatos definidos y rechazar los demás con mensaje claro | Must | 4.1 | CU02 | P · C6 |
-| RF-04 | Detectar archivos corruptos o no válidos y rechazarlos con mensaje claro | Must | — | — | P · C6 |
+| RF-04 | Detectar archivos corruptos o no válidos y rechazarlos con mensaje claro | Must | 4.1 | CU02 | P · C6 |
 | RF-05 | Eliminar los metadatos que identifiquen a una persona o, si no es posible, rechazar el archivo | Must | 2.2 | CU02 | P · C6 |
 | RF-06 | Ejecutar automáticamente control de calidad, preparación, segmentación 3D y generación de la ROI | Must | 4.2 | CU03 | P · C6 |
 | RF-07 | Informar al usuario el estado de cada etapa del procesamiento | Must | 4.2 | CU03 | P · C6 |
