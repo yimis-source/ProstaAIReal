@@ -112,7 +112,7 @@ def contar_casos(conjunto: str, casos: set[str]) -> str:
         for k in casos:
             carpeta, nombre = k.split(":")
             c[carpeta].add(nombre)
-        con_mascara = len(c["imagesTr"] | c["labelsTr"])
+        con_mascara = len(c["imagesTr"] & c["labelsTr"])
         return f"{con_mascara} con máscara (imagesTr/labelsTr) + {len(c['imagesTs'])} sin máscara (imagesTs)"
     return str(len(casos))
 
