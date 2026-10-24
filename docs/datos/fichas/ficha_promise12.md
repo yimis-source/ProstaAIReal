@@ -22,7 +22,7 @@
 | Archivos | 200 en entrenamiento y 120 en prueba (imagen y segmentación en `.mhd` + `.raw`); 1 `a.py` no esperado en cada carpeta; 0 metadatos |
 | Tamaño | 786,5 MB (entrenamiento) + 466,6 MB (prueba) |
 | Formato | MetaImage (`.mhd` + `.raw`) |
-| Etiquetas | Máscara binaria de la glándula en entrenamiento. Si la carpeta de prueba trae máscaras: **por verificar** |
+| Etiquetas | Máscara binaria de la glándula en entrenamiento. La carpeta de prueba también trae máscaras: el inventario muestra 30 casos con 30 archivos `*_segmentation.mhd` |
 | Anonimización | Sin hallazgos en `verificar_anonimizacion.py`: 100 MetaImage de entrenamiento y 60 de prueba revisados, sin claves no estándar |
 | Archivo no esperado | `a.py` en ambas carpetas. Venía en la descarga. No es dato: **no se abre, no se ejecuta ni se importa**; se borra o se ignora |
 | Cómo se descargó | Manual, con registro en el reto (ver `procedimiento_descarga.md`); ubicado en `datos/externos/promise12/{training_data,test_data}` |
