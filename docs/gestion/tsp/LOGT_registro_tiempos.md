@@ -1,10 +1,10 @@
 # Registro de tiempos (LOGT) · Prosta-AI
 
-**Versión:** L1 · **Fecha:** 13/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L2 · **Fecha:** 24/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Primera versión: horas reales de Inicio y H002 (reconstruidas) y plan del ciclo 1. En el ciclo 1 solo está hecho el lanzamiento (1200).
+Ciclo 1 con horas reales. La tarea 1209 (cierre) sigue en curso al corte: se termina el 25/10 con la etiqueta v0.1-ciclo1.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -75,34 +75,40 @@ Primera versión: horas reales de Inicio y H002 (reconstruidas) y plan del ciclo
 | ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
 |---|---|---|---:|---:|---:|---:|---:|
 | 1200 | Lanzamiento del ciclo 1 (metas, roles, plan, LOGD/LOGT) | Fernando | 3 | 3 | 0 % | 6,4 % | 6,4 % |
-| 1201 | Criterios de selección de conjuntos | Juan | 4 | — | — | 8,5 % | 0 % |
-| 1202 | Elección del conjunto principal (MSD Task05) y respaldo | Juan | 5 | — | — | 10,6 % | 0 % |
-| 1203 | Una ficha de licencia por conjunto | Juan | 6 | — | — | 12,8 % | 0 % |
-| 1204 | Descarga e inventario con SHA-256 | Yeison | 6 | — | — | 12,8 % | 0 % |
-| 1205 | Verificación de anonimización | Fernando | 5 | — | — | 10,6 % | 0 % |
-| 1206 | Análisis de tamaños, espaciado y casos | Juan | 6 | — | — | 12,8 % | 0 % |
-| 1207 | Revisión visual en 3D Slicer | Sergio | 5 | — | — | 10,6 % | 0 % |
-| 1208 | Informe de datos | Juan | 4 | — | — | 8,5 % | 0 % |
-| 1209 | Cierre: trazabilidad, LOGD/LOGT, etiqueta | Yimis | 3 | — | — | 6,4 % | 0 % |
+| 1201 | Criterios de selección de conjuntos | Juan | 4 | 4,5 | +12 % | 8,5 % | 8,5 % |
+| 1202 | Elección del conjunto principal (MSD Task05) y respaldo | Juan | 5 | 6 | +20 % | 10,6 % | 10,6 % |
+| 1203 | Una ficha de licencia por conjunto | Juan | 6 | 7 | +17 % | 12,8 % | 12,8 % |
+| 1204 | Descarga e inventario con SHA-256 | Yeison | 6 | 8 | +33 % | 12,8 % | 12,8 % |
+| 1205 | Verificación de anonimización | Fernando | 5 | 5,5 | +10 % | 10,6 % | 10,6 % |
+| 1206 | Análisis de tamaños, espaciado y casos | Juan | 6 | 7 | +17 % | 12,8 % | 12,8 % |
+| 1207 | Revisión visual en 3D Slicer | Sergio | 5 | 6 | +20 % | 10,6 % | 10,6 % |
+| 1208 | Informe de datos | Juan | 4 | 4,5 | +12 % | 8,5 % | 8,5 % |
+| 1209 | Cierre: trazabilidad, LOGD/LOGT, etiqueta | Yimis | 3 | 1,5 (en curso) | — | 6,4 % | 0 % |
 
-**Suma del ciclo:** plan 3 h de tareas terminadas, real 3 h, desviación 0 %. Valor ganado: 3 h plan de 47 (6,4 %).
+**Suma del ciclo (al corte):** plan 44 h de tareas terminadas, real 51,5 h, desviación +17 %. Valor ganado: 44 h plan de 47 (93,6 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
 | Quién ayudó | A quién | Horas | Tarea | Nota |
 |---|---|---:|---|---|
 | Juan | Fernando | 1 | 1200 Lanzamiento del ciclo 1 (metas, roles, plan, LOGD/LOGT) | crea LOGD |
+| Yimis | Juan | 1,5 | 1203 Una ficha de licencia por conjunto | — |
+| Yeison | Juan | 2 | 1206 Análisis de tamaños, espaciado y casos | — |
+| Juan | Sergio | 1,5 | 1207 Revisión visual en 3D Slicer | — |
+| Sergio | Juan | 0,5 | 1208 Informe de datos | — |
 
-**Totales por persona:**
+**Totales por persona (al corte):**
 
 | Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
 |---|---:|---:|---:|---:|
-| Yimis | 0 | 0 | 0 | 0 |
-| Juan | 0 | 0 | 1 | 1 |
-| Sergio | 0 | 0 | 0 | 0 |
-| Yeison | 0 | 0 | 0 | 0 |
-| Fernando | 3 | 3 | 0 | 3 |
-| **Equipo** | 3 | 3 | 1 | 4 |
+| Yimis | 0 | 0 | 1,5 | 1,5 |
+| Juan | 25 | 29 | 2,5 | 31,5 |
+| Sergio | 5 | 6 | 0,5 | 6,5 |
+| Yeison | 6 | 8 | 2 | 10 |
+| Fernando | 8 | 8,5 | 0 | 8,5 |
+| **Equipo** | 44 | 51,5 | 6,5 | 58 |
+
+Las horas por día de C1 se calculan al cierre del ciclo (la tarea en curso todavía no está terminada).
 
 ### Valor ganado acumulado
 
@@ -110,7 +116,7 @@ Primera versión: horas reales de Inicio y H002 (reconstruidas) y plan del ciclo
 |---|---:|---:|---:|---:|
 | Inicio | 16 | 16 | 100,0 % | 16 |
 | H002 | 28 | 28 | 100,0 % | 44 |
-| C1 | 47 | 3 | 6,4 % | 47 |
+| C1 | 47 | 44 | 93,6 % | 88 |
 
 ---
 
