@@ -39,14 +39,49 @@ Propietario del Proyecto: Ing. Jair Enrique Sanclemente Castro (docente).
 - Al cerrar cada ciclo: pull request `desarrollo → main` y etiqueta `v0.N-cicloN`.
 - Mensajes de commit: `tipo(ámbito): descripción` con `feat`, `fix`, `docs`, `test` o `chore`.
 
+## Estado
+
+| Hito / ciclo | Contenido | Estado |
+|---|---|---|
+| H001 | Acta, metodología TSP | Cerrado (05/10) |
+| H002 | SRS, casos de uso, matriz de trazabilidad | Cerrado (12/10) |
+| Ciclo 1 | Adquisición y comprensión de datos | Cerrado (25/10, `v0.1-ciclo1`) |
+
 ## Estructura
 
 ```
-docs/gestion/     Acta, metodología TSP y registros TSP (tsp/)
-docs/ejecucion/   Requisitos y diseño (a partir de H002)
+docs/gestion/     Acta, metodología TSP, trazabilidad y registros TSP (tsp/)
+docs/ejecucion/   Requisitos (SRS, casos de uso, matriz de trazabilidad)
+docs/datos/       Criterios, elección del conjunto, fichas de licencia, revisión en 3D Slicer, informe de datos
+scripts/          Descarga, inventario, anonimización y análisis de geometría
+reports/datos/    Resultados de los scripts (inventario con SHA-256, anonimización, geometría)
+tests/            Pruebas de los scripts
 ```
+
+## Uso rápido
+
+Requiere Python 3.12 con numpy, nibabel y SimpleITK (y pytest para las pruebas).
+
+```bash
+python scripts/descargar_datos.py               # MSD Task05_Prostate (CC BY-SA 4.0) en datos/
+python scripts/inventario_datos.py              # reports/datos/inventario_datos.md y .csv
+python scripts/verificar_anonimizacion.py       # reports/datos/verificacion_anonimizacion.md
+python scripts/analizar_geometria.py            # reports/datos/geometria.md
+python -m pytest -q
+```
+
+Prostate158 y PROMISE12 se descargan a mano (ver `docs/datos/procedimiento_descarga.md`).
 
 ## Datos
 
-Ningún dato médico se sube al repositorio: `datos/`, imágenes (`*.nii*`, `*.mhd`, `*.raw`, `*.dcm`),
-archivos comprimidos y pesos de modelos están en `.gitignore`.
+| Conjunto | Uso en Prosta-AI | Licencia |
+|---|---|---|
+| Medical Segmentation Decathlon, Task05_Prostate (32 casos con máscara) | Conjunto principal | CC BY-SA 4.0 |
+| Prostate158 (139 casos de entrenamiento) | Respaldo, solo de referencia | Sin licencia indicada en Zenodo; el reto exige acuerdo de uso no comercial y sin redistribución |
+| PROMISE12 (50 + 30 casos) | Comparación | Condiciones del reto (registro) |
+
+Detalle en `docs/datos/`. Ningún dato médico se sube al repositorio: `datos/`, imágenes (`*.nii*`, `*.mhd`,
+`*.raw`, `*.dcm`), archivos comprimidos y pesos de modelos están en `.gitignore`.
+
+Cita del conjunto principal: Antonelli, M. et al. The Medical Segmentation Decathlon. *Nat Commun* 13, 4128
+(2022). https://doi.org/10.1038/s41467-022-30695-9
