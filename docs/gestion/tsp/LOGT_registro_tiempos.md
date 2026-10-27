@@ -1,10 +1,10 @@
 # Registro de tiempos (LOGT) · Prosta-AI
 
-**Versión:** L2 · **Fecha:** 24/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L3 · **Fecha:** 26/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Ciclo 1 con horas reales. La tarea 1209 (cierre) sigue en curso al corte: se termina el 25/10 con la etiqueta v0.1-ciclo1.
+Se completa 1209 (3 h reales) y se agrega el plan del ciclo 2. El 1300 (postmortem del ciclo 1 y lanzamiento del 2) ya está hecho.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -83,9 +83,9 @@ Ciclo 1 con horas reales. La tarea 1209 (cierre) sigue en curso al corte: se ter
 | 1206 | Análisis de tamaños, espaciado y casos | Juan | 6 | 7 | +17 % | 12,8 % | 12,8 % |
 | 1207 | Revisión visual en 3D Slicer | Sergio | 5 | 6 | +20 % | 10,6 % | 10,6 % |
 | 1208 | Informe de datos | Juan | 4 | 4,5 | +12 % | 8,5 % | 8,5 % |
-| 1209 | Cierre: trazabilidad, LOGD/LOGT, etiqueta | Yimis | 3 | 1,5 (en curso) | — | 6,4 % | 0 % |
+| 1209 | Cierre: trazabilidad, LOGD/LOGT, etiqueta | Yimis | 3 | 3 | 0 % | 6,4 % | 6,4 % |
 
-**Suma del ciclo (al corte):** plan 44 h de tareas terminadas, real 51,5 h, desviación +17 %. Valor ganado: 44 h plan de 47 (93,6 %).
+**Suma del ciclo:** plan 47 h de tareas terminadas, real 54,5 h, desviación +16 %. Valor ganado: 47 h plan de 47 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
@@ -97,18 +97,62 @@ Ciclo 1 con horas reales. La tarea 1209 (cierre) sigue en curso al corte: se ter
 | Juan | Sergio | 1,5 | 1207 Revisión visual en 3D Slicer | — |
 | Sergio | Juan | 0,5 | 1208 Informe de datos | — |
 
-**Totales por persona (al corte):**
+**Totales por persona:**
 
 | Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
 |---|---:|---:|---:|---:|
-| Yimis | 0 | 0 | 1,5 | 1,5 |
+| Yimis | 3 | 3 | 1,5 | 4,5 |
 | Juan | 25 | 29 | 2,5 | 31,5 |
 | Sergio | 5 | 6 | 0,5 | 6,5 |
 | Yeison | 6 | 8 | 2 | 10 |
 | Fernando | 8 | 8,5 | 0 | 8,5 |
-| **Equipo** | 44 | 51,5 | 6,5 | 58 |
+| **Equipo** | 47 | 54,5 | 6,5 | 61 |
 
-Las horas por día de C1 se calculan al cierre del ciclo (la tarea en curso todavía no está terminada).
+### Ciclo 2 · Preprocesamiento, división por paciente y diseño (26/10–30/10)
+
+| ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
+|---|---|---|---:|---:|---:|---:|---:|
+| 1300 | Postmortem ciclo 1 y lanzamiento ciclo 2 | Fernando | 3 | 3 | 0 % | 5,4 % | 5,4 % |
+| 1301 | Control de calidad (RF-10) | Yeison | 5 | — | — | 8,9 % | 0 % |
+| 1302 | Formato unificado NIfTI | Yeison | 4 | — | — | 7,1 % | 0 % |
+| 1303 | División por paciente 70/15/15 (semilla 2026) | Juan | 4 | — | — | 7,1 % | 0 % |
+| 1304 | Informe del Tester: sin pacientes repetidos + fuga entre conjuntos | Fernando | 4 | — | — | 7,1 % | 0 % |
+| 1305 | Script de preprocesamiento | Yeison | 4 | — | — | 7,1 % | 0 % |
+| 1306 | Diseño de arquitectura (sistema y software) | Yimis | 8 | — | — | 14,3 % | 0 % |
+| 1307 | Diseño de pantallas | Sergio | 10 | — | — | 17,9 % | 0 % |
+| 1308 | Diseño del módulo de IA (componentes y patrones) | Yeison | 5 | — | — | 8,9 % | 0 % |
+| 1309 | Diseño de base de datos | Juan | 5 | — | — | 8,9 % | 0 % |
+| 1310 | Revisión cruzada (inconsistencias), cierre y etiqueta | Yimis / Juan | 4 | — | — | 7,1 % | 0 % |
+
+**Suma del ciclo:** plan 3 h de tareas terminadas, real 3 h, desviación 0 %. Valor ganado: 3 h plan de 56 (5,4 %).
+
+**Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
+
+Sin ayudas registradas.
+
+**Totales por persona:**
+
+| Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
+|---|---:|---:|---:|---:|
+| Yimis | 0 | 0 | 0 | 0 |
+| Juan | 0 | 0 | 0 | 0 |
+| Sergio | 0 | 0 | 0 | 0 |
+| Yeison | 0 | 0 | 0 | 0 |
+| Fernando | 3 | 3 | 0 | 3 |
+| **Equipo** | 3 | 3 | 0 | 3 |
+
+### Horas por día por persona
+
+Método: (horas propias + ayudas dadas) / días calendario en que la persona tuvo una tarea asignada en el ciclo. Es una aproximación a partir de la bitácora (las ayudas suman horas pero no días).
+
+| Persona | C1 h/día |
+|---|---:|
+| Yimis | 2,2 |
+| Juan | 3,9 |
+| Sergio | 3,2 |
+| Yeison | 3,3 |
+| Fernando | 2,8 |
+| **Promedio del equipo** | 3,1 |
 
 ### Valor ganado acumulado
 
@@ -116,7 +160,8 @@ Las horas por día de C1 se calculan al cierre del ciclo (la tarea en curso toda
 |---|---:|---:|---:|---:|
 | Inicio | 16 | 16 | 100,0 % | 16 |
 | H002 | 28 | 28 | 100,0 % | 44 |
-| C1 | 47 | 44 | 93,6 % | 88 |
+| C1 | 47 | 47 | 100,0 % | 91 |
+| C2 | 56 | 3 | 5,4 % | 94 |
 
 ---
 
