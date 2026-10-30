@@ -14,6 +14,8 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gzip
+import zlib
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -38,7 +40,24 @@ class Resultado:
         self.motivos.append(motivo)
 
 
+def gzip_completo(ruta: Path) -> bool:
+    """True si el .gz se descomprime hasta el final (detecta archivos truncados).
+
+    SimpleITK lee un .nii.gz truncado sin error y rellena con ceros lo que falta,
+    así que hay que comprobar el flujo comprimido antes de leerlo.
+    """
+    try:
+        with gzip.open(ruta, "rb") as f:
+            while f.read(1 << 20):
+                pass
+        return True
+    except (EOFError, OSError, zlib.error):
+        return False
+
+
 def leer(ruta: Path) -> sitk.Image:
+    if ruta.name.endswith(".gz") and not gzip_completo(ruta):
+        raise ValueError("archivo comprimido incompleto o dañado")
     return sitk.ReadImage(str(ruta))
 
 
@@ -115,7 +134,7 @@ def escribir(resultados: list[Resultado], salida: Path) -> None:
         "# Control de calidad de imágenes y máscaras (RF-10)",
         "",
         "Generado con `scripts/control_calidad.py`. Detalle por caso en `control_calidad.csv`.",
-        f"Reglas: lectura, 3D/4D, valores finitos, "
+        f"Reglas: lectura completa (incluye comprobar que el .gz no esté truncado), 3D/4D, valores finitos, "
         f"intensidad no constante, ≥ {MIN_CORTES} cortes, ≥ {MIN_LADO}x{MIN_LADO} vóxeles por corte, "
         "espaciado positivo; máscara con la misma forma, etiquetas en {0, 1, 2} y no vacía.",
         "",
