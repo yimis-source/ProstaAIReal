@@ -46,15 +46,18 @@ Propietario del Proyecto: Ing. Jair Enrique Sanclemente Castro (docente).
 | H001 | Acta, metodología TSP | Cerrado (05/10) |
 | H002 | SRS, casos de uso, matriz de trazabilidad | Cerrado (12/10) |
 | Ciclo 1 | Adquisición y comprensión de datos | Cerrado (25/10, `v0.1-ciclo1`) |
+| Ciclo 2 | Control de calidad, formato NIfTI, división por paciente, preprocesamiento y diseño | Cerrado (30/10, `v0.2-ciclo2`) |
 
 ## Estructura
 
 ```
 docs/gestion/     Acta, metodología TSP, trazabilidad y registros TSP (tsp/)
-docs/ejecucion/   Requisitos (SRS, casos de uso, matriz de trazabilidad)
+docs/ejecucion/   Requisitos y diseño (arquitectura, pantallas, módulo de IA, base de datos)
 docs/datos/       Criterios, elección del conjunto, fichas de licencia, revisión en 3D Slicer, informe de datos
-scripts/          Descarga, inventario, anonimización y análisis de geometría
-reports/datos/    Resultados de los scripts (inventario con SHA-256, anonimización, geometría)
+scripts/          Descarga, inventario, anonimización, geometría, control de calidad, conversión a NIfTI,
+                  verificación de fuga y preprocesamiento
+entrenamiento/    División por paciente (division.py, division_task05.json)
+reports/          datos/, calidad/ y division/: resultados de los scripts
 tests/            Pruebas de los scripts
 ```
 
@@ -67,6 +70,10 @@ python scripts/descargar_datos.py               # MSD Task05_Prostate (CC BY-SA 
 python scripts/inventario_datos.py              # reports/datos/inventario_datos.md y .csv
 python scripts/verificar_anonimizacion.py       # reports/datos/verificacion_anonimizacion.md
 python scripts/analizar_geometria.py            # reports/datos/geometria.md
+python scripts/control_calidad.py               # reports/calidad/control_calidad.md (RF-10)
+python scripts/convertir_nifti.py               # datos/convertidos/ (NIfTI 3D)
+python scripts/verificar_fuga.py                # reports/division/verificacion_division.md (RC-04)
+python scripts/preprocesar.py ENTRADA SALIDA    # RAS, 0,5 mm, normalización
 python -m pytest -q
 ```
 
@@ -78,9 +85,10 @@ Prostate158 y PROMISE12 se descargan a mano (ver `docs/datos/procedimiento_desca
 |---|---|---|
 | Medical Segmentation Decathlon, Task05_Prostate (32 casos con máscara) | Conjunto principal | CC BY-SA 4.0 |
 | Prostate158 (139 casos de entrenamiento) | Respaldo, solo de referencia | Sin licencia indicada en Zenodo; el reto exige acuerdo de uso no comercial y sin redistribución |
-| PROMISE12 (50 + 30 casos) | Comparación | Condiciones del reto (registro) |
+| PROMISE12 (50 + 30 casos) | Solo referencia: 12 casos de MSD son el mismo estudio (ver `reports/division/`) | Condiciones del reto (registro) |
 
-Detalle en `docs/datos/`. Ningún dato médico se sube al repositorio: `datos/`, imágenes (`*.nii*`, `*.mhd`,
+Detalle en `docs/datos/`. División por paciente de MSD Task05: 22 entrenamiento / 5 validación / 5 prueba
+(semilla 2026, `entrenamiento/division_task05.json`). Ningún dato médico se sube al repositorio: `datos/`, imágenes (`*.nii*`, `*.mhd`,
 `*.raw`, `*.dcm`), archivos comprimidos y pesos de modelos están en `.gitignore`.
 
 Cita del conjunto principal: Antonelli, M. et al. The Medical Segmentation Decathlon. *Nat Commun* 13, 4128
