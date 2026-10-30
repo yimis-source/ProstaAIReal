@@ -1,10 +1,10 @@
 # Registro de tiempos (LOGT) · Prosta-AI
 
-**Versión:** L3 · **Fecha:** 26/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L4 · **Fecha:** 30/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Se completa 1209 (3 h reales) y se agrega el plan del ciclo 2. El 1300 (postmortem del ciclo 1 y lanzamiento del 2) ya está hecho.
+Ciclo 2 con horas reales. La tarea 1310 (revisión cruzada, cierre y etiqueta) sigue en curso al corte (3,5 h hasta las 15:30); se termina con la etiqueta v0.2-ciclo2 a las 18:00.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -113,33 +113,36 @@ Se completa 1209 (3 h reales) y se agrega el plan del ciclo 2. El 1300 (postmort
 | ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
 |---|---|---|---:|---:|---:|---:|---:|
 | 1300 | Postmortem ciclo 1 y lanzamiento ciclo 2 | Fernando | 3 | 3 | 0 % | 5,4 % | 5,4 % |
-| 1301 | Control de calidad (RF-10) | Yeison | 5 | — | — | 8,9 % | 0 % |
-| 1302 | Formato unificado NIfTI | Yeison | 4 | — | — | 7,1 % | 0 % |
-| 1303 | División por paciente 70/15/15 (semilla 2026) | Juan | 4 | — | — | 7,1 % | 0 % |
-| 1304 | Informe del Tester: sin pacientes repetidos + fuga entre conjuntos | Fernando | 4 | — | — | 7,1 % | 0 % |
-| 1305 | Script de preprocesamiento | Yeison | 4 | — | — | 7,1 % | 0 % |
-| 1306 | Diseño de arquitectura (sistema y software) | Yimis | 8 | — | — | 14,3 % | 0 % |
-| 1307 | Diseño de pantallas | Sergio | 10 | — | — | 17,9 % | 0 % |
-| 1308 | Diseño del módulo de IA (componentes y patrones) | Yeison | 5 | — | — | 8,9 % | 0 % |
-| 1309 | Diseño de base de datos | Juan | 5 | — | — | 8,9 % | 0 % |
-| 1310 | Revisión cruzada de documentos, cierre y etiqueta | Yimis / Juan | 4 | — | — | 7,1 % | 0 % |
+| 1301 | Control de calidad (RF-10) | Yeison | 5 | 7 | +40 % | 8,9 % | 8,9 % |
+| 1302 | Formato unificado NIfTI | Yeison | 4 | 4 | 0 % | 7,1 % | 7,1 % |
+| 1303 | División por paciente 70/15/15 (semilla 2026) | Juan | 4 | 3,5 | -12 % | 7,1 % | 7,1 % |
+| 1304 | Informe del Tester: sin pacientes repetidos + fuga entre conjuntos | Fernando | 4 | 7 | +75 % | 7,1 % | 7,1 % |
+| 1305 | Script de preprocesamiento | Yeison | 4 | 4,5 | +12 % | 7,1 % | 7,1 % |
+| 1306 | Diseño de arquitectura (sistema y software) | Yimis | 8 | 9 | +12 % | 14,3 % | 14,3 % |
+| 1307 | Diseño de pantallas | Sergio | 10 | 12 | +20 % | 17,9 % | 17,9 % |
+| 1308 | Diseño del módulo de IA (componentes y patrones) | Yeison | 5 | 5,5 | +10 % | 8,9 % | 8,9 % |
+| 1309 | Diseño de base de datos | Juan | 5 | 5 | 0 % | 8,9 % | 8,9 % |
+| 1310 | Revisión cruzada de documentos, cierre y etiqueta | Yimis / Juan | 4 | 3,5 (en curso) | — | 7,1 % | 0 % |
 
-**Suma del ciclo:** plan 3 h de tareas terminadas, real 3 h, desviación 0 %. Valor ganado: 3 h plan de 56 (5,4 %).
+**Suma del ciclo (al corte):** plan 52 h de tareas terminadas, real 60,5 h, desviación +16 %. Valor ganado: 52 h plan de 56 (92,9 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
-Sin ayudas registradas.
+| Quién ayudó | A quién | Horas | Tarea | Nota |
+|---|---|---:|---|---|
+| Juan | Fernando | 1,5 | 1304 Informe del Tester: sin pacientes repetidos + fuga entre conjuntos | comparación de vóxeles |
+| Yeison | Yimis | 1 | 1306 Diseño de arquitectura (sistema y software) | — |
 
-**Totales por persona:**
+**Totales por persona (al corte):**
 
 | Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
 |---|---:|---:|---:|---:|
-| Yimis | 0 | 0 | 0 | 0 |
-| Juan | 0 | 0 | 0 | 0 |
-| Sergio | 0 | 0 | 0 | 0 |
-| Yeison | 0 | 0 | 0 | 0 |
-| Fernando | 3 | 3 | 0 | 3 |
-| **Equipo** | 3 | 3 | 0 | 3 |
+| Yimis | 8 | 9 | 0 | 9 |
+| Juan | 9 | 8,5 | 1,5 | 10 |
+| Sergio | 10 | 12 | 0 | 12 |
+| Yeison | 18 | 21 | 1 | 22 |
+| Fernando | 7 | 10 | 0 | 10 |
+| **Equipo** | 52 | 60,5 | 2,5 | 63 |
 
 ### Horas por día por persona
 
@@ -154,6 +157,8 @@ Método: (horas propias + ayudas dadas) / días calendario en que la persona tuv
 | Fernando | 2,8 |
 | **Promedio del equipo** | 3,1 |
 
+Las horas por día de C2 se calculan al cierre del ciclo (la tarea en curso todavía no está terminada).
+
 ### Valor ganado acumulado
 
 | Tramo | Plan h del tramo | Valor ganado h | % del tramo | Acumulado h plan |
@@ -161,7 +166,7 @@ Método: (horas propias + ayudas dadas) / días calendario en que la persona tuv
 | Inicio | 16 | 16 | 100,0 % | 16 |
 | H002 | 28 | 28 | 100,0 % | 44 |
 | C1 | 47 | 47 | 100,0 % | 91 |
-| C2 | 56 | 3 | 5,4 % | 94 |
+| C2 | 56 | 52 | 92,9 % | 143 |
 
 ---
 
