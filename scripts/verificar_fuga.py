@@ -121,7 +121,7 @@ def main() -> None:
         d = "–" if p["dice_mascaras"] is None else f"{p['dice_mascaras']:.4f}"
         lineas.append(f"| {p['msd']} | {en.get(p['msd'], 'fuera de la división')} | {p['promise12']} | idéntica | {d} |")
     n_prueba = sum(en.get(p["msd"]) == "prueba" for p in pares)
-    misma_mascara = [p for p in pares if p["dice_mascaras"] == 1.0]
+    misma_mascara = [p for p in pares if p["dice_mascaras"] is not None and p["dice_mascaras"] > 0.9999]
     lineas += [
         "",
         f"**Resultado:** {len(pares)} casos de MSD Task05 (con máscara) son exactamente el mismo estudio que un caso de "
