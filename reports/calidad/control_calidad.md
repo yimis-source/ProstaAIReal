@@ -1,7 +1,7 @@
 # Control de calidad de imágenes y máscaras (RF-10)
 
 Generado con `scripts/control_calidad.py`. Detalle por caso en `control_calidad.csv`.
-Reglas: lectura, 3D/4D, valores finitos, intensidad no constante, ≥ 8 cortes, ≥ 32x32 vóxeles por corte, espaciado positivo; máscara con la misma forma, etiquetas en {0, 1, 2} y no vacía.
+Reglas: lectura completa (incluye comprobar que el .gz no esté truncado), 3D/4D, valores finitos, intensidad no constante, ≥ 8 cortes, ≥ 32x32 vóxeles por corte, espaciado positivo; máscara con la misma forma, etiquetas en {0, 1, 2} y no vacía.
 
 | Conjunto | Casos revisados | Aprobados | Excluidos |
 |---|---:|---:|---:|
