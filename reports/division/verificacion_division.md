@@ -35,6 +35,6 @@ Se comparan los vóxeles de la imagen T2 de cada par con la misma forma (admitie
 | prostate_24 | entrenamiento | prueba/Case03 | idéntica | 0.9222 |
 | prostate_25 | entrenamiento | prueba/Case04 | idéntica | 0.9043 |
 
-**Resultado:** 12 casos de MSD Task05 (con máscara) son exactamente el mismo estudio que un caso de PROMISE12; 0 de ellos con la misma máscara (ninguno) y el resto con otra anotación. 2 están en el conjunto de prueba.
+**Resultado:** 12 casos de MSD Task05 (con máscara) son exactamente el mismo estudio que un caso de PROMISE12; 1 de ellos con la misma máscara (prostate_16 ≡ entrenamiento/Case23) y el resto con otra anotación. 2 están en el conjunto de prueba.
 
 **Decisión:** PROMISE12 no se usa para entrenar ni para evaluar: mezclarlo con MSD metería los mismos pacientes en entrenamiento y prueba. Se conserva solo como referencia.
