@@ -1,10 +1,10 @@
 # Registro de tiempos (LOGT) · Prosta-AI
 
-**Versión:** L4 · **Fecha:** 30/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L5 · **Fecha:** 31/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Ciclo 2 con horas reales. La tarea 1310 (revisión cruzada, cierre y etiqueta) sigue en curso al corte (3,5 h hasta las 15:30); se termina con la etiqueta v0.2-ciclo2 a las 18:00.
+Se completa 1310 (4,5 h) y se agrega el plan del ciclo 3 **replanificado** (31/10–10/11). El 1401 ya está hecho.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -122,9 +122,9 @@ Ciclo 2 con horas reales. La tarea 1310 (revisión cruzada, cierre y etiqueta) s
 | 1307 | Diseño de pantallas | Sergio | 10 | 12 | +20 % | 17,9 % | 17,9 % |
 | 1308 | Diseño del módulo de IA (componentes y patrones) | Yeison | 5 | 5,5 | +10 % | 8,9 % | 8,9 % |
 | 1309 | Diseño de base de datos | Juan | 5 | 5 | 0 % | 8,9 % | 8,9 % |
-| 1310 | Revisión cruzada de documentos, cierre y etiqueta | Yimis / Juan | 4 | 3,5 (en curso) | — | 7,1 % | 0 % |
+| 1310 | Revisión cruzada de documentos, cierre y etiqueta | Yimis / Juan | 4 | 4,5 | +12 % | 7,1 % | 7,1 % |
 
-**Suma del ciclo (al corte):** plan 52 h de tareas terminadas, real 60,5 h, desviación +16 %. Valor ganado: 52 h plan de 56 (92,9 %).
+**Suma del ciclo:** plan 56 h de tareas terminadas, real 65 h, desviación +16 %. Valor ganado: 56 h plan de 56 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
@@ -133,31 +133,67 @@ Ciclo 2 con horas reales. La tarea 1310 (revisión cruzada, cierre y etiqueta) s
 | Juan | Fernando | 1,5 | 1304 Informe del Tester: sin pacientes repetidos + fuga entre conjuntos | comparación de vóxeles |
 | Yeison | Yimis | 1 | 1306 Diseño de arquitectura (sistema y software) | — |
 
-**Totales por persona (al corte):**
+**Totales por persona:**
 
 | Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
 |---|---:|---:|---:|---:|
-| Yimis | 8 | 9 | 0 | 9 |
-| Juan | 9 | 8,5 | 1,5 | 10 |
+| Yimis | 10 | 11,2 | 0 | 11,2 |
+| Juan | 11 | 10,8 | 1,5 | 12,2 |
 | Sergio | 10 | 12 | 0 | 12 |
 | Yeison | 18 | 21 | 1 | 22 |
 | Fernando | 7 | 10 | 0 | 10 |
-| **Equipo** | 52 | 60,5 | 2,5 | 63 |
+| **Equipo** | 56 | 65 | 2,5 | 67,5 |
+
+### Ciclo 3 · Segmentación 3D, modelo e inferencia (REPLANIFICADO 31/10–10/11; plan original 31/10–13/11)
+
+| ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
+|---|---|---|---:|---:|---:|---:|---:|
+| 1401 | Lanzamiento, postmortem C2 y replanificación | Fernando | 4 | 4 | 0 % | 5,3 % | 5,3 % |
+| 1402 | Selección del modelo preentrenado y licencias | Juan | 6 | — | — | 7,9 % | 0 % |
+| 1403 | Entorno: versiones fijadas de MONAI/torch y guía de instalación | Sergio | 4 | — | — | 5,3 % | 0 % |
+| 1404 | Núcleo del pipeline (stages, errors, io, validators, progress) | Yeison | 8 | — | — | 10,5 % | 0 % |
+| 1405 | Descarga del modelo con versión fija y SHA-256 | Yeison | 3 | — | — | 3,9 % | 0 % |
+| 1406 | Preparación (mismas transformaciones, RF-09) | Yeison | 4 | — | — | 5,3 % | 0 % |
+| 1407 | Segmentación e inferencia por ventana deslizante | Yeison | 8 | — | — | 10,5 % | 0 % |
+| 1408 | Tiempos de preparación e inferencia y memoria (CPU; GPU pendiente) | Fernando | 4 | — | — | 5,3 % | 0 % |
+| 1409 | Protocolo de evaluación y evaluar.py | Juan | 7 | — | — | 9,2 % | 0 % |
+| 1410 | Pruebas del pipeline con datos sintéticos | Fernando | 8 | — | — | 10,5 % | 0 % |
+| 1411 | Verificación de la división y evaluación en los 5 casos de prueba | Fernando | 4 | — | — | 5,3 % | 0 % |
+| 1412 | Ajuste fino preparado (no ejecutado) y decisión del modelo | Yeison | 8 | — | — | 10,5 % | 0 % |
+| 1413 | Revisión en 3D Slicer de las máscaras predichas | Sergio | 4 | — | — | 5,3 % | 0 % |
+| 1414 | Matriz de trazabilidad, LOGD/LOGT y cierre (v0.3-ciclo3) | Yimis | 4 | — | — | 5,3 % | 0 % |
+
+**Suma del ciclo:** plan 4 h de tareas terminadas, real 4 h, desviación 0 %. Valor ganado: 4 h plan de 76 (5,3 %).
+
+**Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
+
+| Quién ayudó | A quién | Horas | Tarea | Nota |
+|---|---|---:|---|---|
+| Yimis | Fernando | 1 | 1401 Lanzamiento, postmortem C2 y replanificación | aprobación y riesgos |
+
+**Totales por persona:**
+
+| Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
+|---|---:|---:|---:|---:|
+| Yimis | 0 | 0 | 1 | 1 |
+| Juan | 0 | 0 | 0 | 0 |
+| Sergio | 0 | 0 | 0 | 0 |
+| Yeison | 0 | 0 | 0 | 0 |
+| Fernando | 4 | 4 | 0 | 4 |
+| **Equipo** | 4 | 4 | 1 | 5 |
 
 ### Horas por día por persona
 
 Método: (horas propias + ayudas dadas) / días calendario en que la persona tuvo una tarea asignada en el ciclo. Es una aproximación a partir de la bitácora (las ayudas suman horas pero no días).
 
-| Persona | C1 h/día |
-|---|---:|
-| Yimis | 2,2 |
-| Juan | 3,9 |
-| Sergio | 3,2 |
-| Yeison | 3,3 |
-| Fernando | 2,8 |
-| **Promedio del equipo** | 3,1 |
-
-Las horas por día de C2 se calculan al cierre del ciclo (la tarea en curso todavía no está terminada).
+| Persona | C1 h/día | C2 h/día |
+|---|---:|---:|
+| Yimis | 2,2 | 1,2 |
+| Juan | 3,9 | 1,4 |
+| Sergio | 3,2 | 1,7 |
+| Yeison | 3,3 | 2,8 |
+| Fernando | 2,8 | 3,3 |
+| **Promedio del equipo** | 3,1 | 2,1 |
 
 ### Valor ganado acumulado
 
@@ -166,7 +202,8 @@ Las horas por día de C2 se calculan al cierre del ciclo (la tarea en curso toda
 | Inicio | 16 | 16 | 100,0 % | 16 |
 | H002 | 28 | 28 | 100,0 % | 44 |
 | C1 | 47 | 47 | 100,0 % | 91 |
-| C2 | 56 | 52 | 92,9 % | 143 |
+| C2 | 56 | 56 | 100,0 % | 147 |
+| C3 | 76 | 4 | 5,3 % | 151 |
 
 ---
 
