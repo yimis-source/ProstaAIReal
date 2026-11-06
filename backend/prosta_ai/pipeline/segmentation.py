@@ -97,7 +97,7 @@ class PretrainedUNetStrategy(SegmentationStrategy):
             red.load_state_dict(estado)
         except Exception as exc:
             raise StageError(SEGMENTACION, "Los pesos del modelo están dañados o no son compatibles.") from exc
-        self._model = red.to(self._device)
+        self._model = red.to(self._device).eval()
         return self._model
 
     def segment(self, prepared: PreparedVolume) -> np.ndarray:
