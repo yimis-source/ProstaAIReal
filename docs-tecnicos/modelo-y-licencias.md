@@ -1,14 +1,15 @@
 # Modelo de segmentación y licencias
 
-Responsable: Juan David Riascos Erazo (Analista). Tarea 1402 del ciclo 3.
+Responsable: Juan David Riascos Erazo (Analista). Tareas 1402 y 1411 del ciclo 3.
 
-## 1. Propuesta (pendiente de evaluación)
+## 1. Decisión vigente
 
-Se propone usar el modelo preentrenado `prostate_mri_anatomy` del MONAI Model Zoo como modelo del ciclo 3, sin ajuste propio por ahora.
+Desde el 04/11/2026, Prosta-AI usa **por ahora** el modelo preentrenado `prostate_mri_anatomy` del MONAI Model Zoo, sin ajuste propio.
 
-- **Motivo:** es una U-Net 3D (lo que pide el Acta), entrenada para segmentar la próstata en T2, con licencia abierta y pesos que se pueden fijar a una revisión. Responde al riesgo 1 del Acta («modelos preentrenados con ajustes ligeros») y nos ahorra el entrenamiento completo, que con la GPU gratuita de Colab no es viable en el tiempo del ciclo.
-- **Condición para adoptarlo:** que en el conjunto de prueba de Task05 alcance un Dice medio ≥ 0,80 (RF-24) y que la inferencia en CPU tarde menos de 120 s (RR-01). Lo verifican la evaluación (tarea 1411) y la medición de rendimiento (tarea 1408).
-- **Ajuste ligero:** se prepara en `entrenamiento/` y solo se adoptaría si mejora al preentrenado en el mismo conjunto de prueba.
+- **Motivo:** la inferencia ya integrada en el pipeline delimita bien la glándula en los primeros casos revisados y funciona en CPU en menos de 20 s por estudio, dentro de RR-01 (≤ 120 s). Además se ajusta a la respuesta prevista para el riesgo 1 del Acta: «modelos preentrenados con ajustes ligeros». La evaluación formal del 06/11/2026 lo confirmó: en el conjunto de prueba de Task05 obtiene un Dice medio de 0,8925, frente a la meta de 0,80 (RF-24).
+- **Ajuste ligero:** queda como mejora posterior. El procedimiento ya está preparado en `entrenamiento/`.
+  - Si se ejecuta, el modelo ajustado solo se adopta si mejora el Dice del preentrenado en el mismo conjunto de prueba.
+  - Cambiar de modelo no requiere tocar código: basta con dejar la carpeta del modelo en `modelos/<nombre>/` con su `preparacion.json` (ver `entrenamiento/README.md`).
 
 ## 2. Ficha del modelo
 
@@ -58,10 +59,10 @@ Fuente: `modelos/prostate_mri_anatomy/docs/README.md` y `configs/metadata.json`,
 ### Cómo lo usa Prosta-AI
 
 - **Preprocesamiento:** el mismo de la configuración de inferencia del modelo (RF-09). Orientación RAS, espaciado de 0,5 mm, `ScaleIntensity` y `NormalizeIntensity`. Los parámetros están en `modelos/prostate_mri_anatomy/preparacion.json`, que genera `scripts/descargar_modelo.py` a partir de `configs/inference.json`.
-- **Inferencia:** por ventana deslizante de 96³, con `sw_batch_size` 4 y solapamiento de 0,5.
+- **Inferencia:** por ventana deslizante de 96³, con `sw_batch_size` 4 y solapamiento de 0,5. La red se usa siempre en modo evaluación (`.eval()`; ver el defecto registrado en el LOGD del ciclo 3).
 - **Posprocesado:** se conserva el componente conexo más grande de cada etiqueta.
 - **Máscara de próstata:** es la unión de las etiquetas > 0. La ROI no distingue zonas.
-- **Evaluación propia:** pendiente (tarea 1411), sobre los 5 casos de prueba de MSD Task05 con la división por paciente del ciclo 2. El protocolo está en `docs/datos/protocolo_evaluacion.md`.
+- **Evaluación propia:** en MSD Task05 (división por paciente, semilla 2026) da un Dice medio de 0,8925 ± 0,034 en los 5 casos de prueba (informe del 06/11/2026 en `reports/evaluacion/`).
 
 ## 3. Con qué datos se evalúa y por qué no con los otros conjuntos
 
@@ -85,7 +86,7 @@ La evaluación del modelo se hace **solo con los 5 casos de prueba de MSD Task05
 
 ## 5. Riesgos y conclusión
 
-**Conclusión (licencias):** el modelo **se puede usar** en Prosta-AI tal como está planteado. El proyecto es académico, no comercial y no clínico, y no redistribuye datos de pacientes.
+**Conclusión:** el modelo **se puede usar** en Prosta-AI tal como está planteado. El proyecto es académico, no comercial y no clínico, y no redistribuye datos de pacientes.
 
 | Riesgo | Nivel | Explicación | Respuesta |
 |---|---|---|---|
