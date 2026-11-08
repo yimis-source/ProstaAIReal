@@ -1,10 +1,10 @@
 # Registro de tiempos (LOGT) · Prosta-AI
 
-**Versión:** L5 · **Fecha:** 31/10/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L6 · **Fecha:** 08/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Se completa 1310 (4,5 h) y se agrega el plan del ciclo 3 **replanificado** (31/10–10/11). El 1401 ya está hecho.
+Se agrega el plan del ciclo 4 (08/11–12/11). El ciclo 3 sigue abierto (cierra el 10/11), por eso aparece solo con plan; sus horas reales entran en la L7. El 1501 (lanzamiento del 4) ya está hecho.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -182,6 +182,38 @@ Se completa 1310 (4,5 h) y se agrega el plan del ciclo 3 **replanificado** (31/1
 | Fernando | 4 | 4 | 0 | 4 |
 | **Equipo** | 4 | 4 | 1 | 5 |
 
+### Ciclo 4 · Generación de la ROI (REPLANIFICADO 08/11–12/11; plan original 14/11–20/11)
+
+| ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
+|---|---|---|---:|---:|---:|---:|---:|
+| 1501 | Lanzamiento del ciclo 4 (con el ciclo 3 en cierre) | Fernando | 3 | 3 | 0 % | 7,1 % | 7,1 % |
+| 1502 | Diseño del visor y de la superposición de la ROI | Sergio | 6 | — | — | 14,3 % | 0 % |
+| 1503 | Etapa ROI (rejilla original, NIfTI de salida) | Yeison | 6 | — | — | 14,3 % | 0 % |
+| 1504 | Imagen de la ROI con aviso no clínico | Yeison | 6 | — | — | 14,3 % | 0 % |
+| 1505 | Texto explicativo de la ROI y revisión de lenguaje no clínico | Sergio | 3 | — | — | 7,1 % | 0 % |
+| 1506 | Pruebas de la ROI y de la imagen con aviso | Fernando | 5 | — | — | 11,9 % | 0 % |
+| 1507 | Verificación de alineación (3D Slicer + script) | Juan | 4 | — | — | 9,5 % | 0 % |
+| 1508 | Análisis de errores por caso (incluye prostate_07, 32 casos) | Juan | 3 | — | — | 7,1 % | 0 % |
+| 1509 | Postmortem del ciclo 3 | Fernando | 2 | — | — | 4,8 % | 0 % |
+| 1510 | Postmortem C4, matriz y cierre (v0.4-ciclo4) | Fernando / Yimis | 4 | — | — | 9,5 % | 0 % |
+
+**Suma del ciclo:** plan 3 h de tareas terminadas, real 3 h, desviación 0 %. Valor ganado: 3 h plan de 42 (7,1 %).
+
+**Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
+
+Sin ayudas registradas.
+
+**Totales por persona:**
+
+| Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
+|---|---:|---:|---:|---:|
+| Yimis | 0 | 0 | 0 | 0 |
+| Juan | 0 | 0 | 0 | 0 |
+| Sergio | 0 | 0 | 0 | 0 |
+| Yeison | 0 | 0 | 0 | 0 |
+| Fernando | 3 | 3 | 0 | 3 |
+| **Equipo** | 3 | 3 | 0 | 3 |
+
 ### Horas por día por persona
 
 Método: (horas propias + ayudas dadas) / días calendario en que la persona tuvo una tarea asignada en el ciclo. Es una aproximación a partir de la bitácora (las ayudas suman horas pero no días).
@@ -204,6 +236,7 @@ Método: (horas propias + ayudas dadas) / días calendario en que la persona tuv
 | C1 | 47 | 47 | 100,0 % | 91 |
 | C2 | 56 | 56 | 100,0 % | 147 |
 | C3 | 76 | 4 | 5,3 % | 151 |
+| C4 | 42 | 3 | 7,1 % | 154 |
 
 ---
 
