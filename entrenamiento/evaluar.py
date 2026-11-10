@@ -1,8 +1,10 @@
 """Evaluación del modelo sobre el conjunto de PRUEBA (RF-23, RF-24).
 
 Usa `build_pipeline`, la misma ruta de inferencia que usará la aplicación: control
-de calidad, preparación, segmentación y paso a la rejilla original; Dice e IoU se
-calculan en el espacio de la imagen original contra la etiqueta (próstata = etiqueta > 0).
+de calidad, preparación, segmentación y ROI (máscara en la rejilla original); Dice e
+IoU se calculan en el espacio de la imagen original contra la etiqueta (próstata =
+etiqueta > 0). Las imágenes y máscaras de la ROI se escriben en una carpeta temporal
+que se borra al terminar cada caso (no se guardan imágenes de los datos).
 
 Uso (desde la raíz del repositorio):
     backend/.venv/bin/python -m entrenamiento.evaluar --modelo prostate_mri_anatomy
@@ -17,6 +19,7 @@ import csv
 import json
 import platform
 import sys
+import tempfile
 import time
 from datetime import date
 from pathlib import Path
@@ -62,10 +65,11 @@ def evaluar_casos(modelo: str, carpeta: Path, datos: Path, ids: list[str], dispo
     filas = []
     for n, caso in enumerate(ids, 1):
         imagen, etiqueta = rutas_caso(datos, caso)
-        entrada = PipelineInput(files=[imagen], fmt="NIfTI", reference_files=[etiqueta])
-        t0 = time.perf_counter()
-        salida = pipeline.run(entrada, PipelineProgress())
-        segundos = time.perf_counter() - t0
+        with tempfile.TemporaryDirectory() as tmp:
+            entrada = PipelineInput(files=[imagen], fmt="NIfTI", reference_files=[etiqueta], output_dir=Path(tmp))
+            t0 = time.perf_counter()
+            salida = pipeline.run(entrada, PipelineProgress())
+            segundos = time.perf_counter() - t0
         fila = {"caso": caso, "dice": salida.dice, "iou": salida.iou, "tiempo_s": round(segundos, 1)}
         filas.append(fila)
         print(f"[{n}/{len(ids)}] {caso}: Dice={fila['dice']:.4f} IoU={fila['iou']:.4f} ({segundos:.0f} s)", flush=True)
@@ -114,7 +118,7 @@ def construir_informe(modelo: str, info: dict, division: dict, filas: list[dict]
         f"- División: `entrenamiento/division_task05.json`, semilla {division['semilla']}, "
         f"{division['cantidades']}, huella `{division['huella_sha256'][:16]}…`.",
         f"- Conjunto evaluado: prueba ({len(filas)} casos: {', '.join(f['caso'] for f in filas)}).",
-        "- Tiempo por caso: todo el pipeline (lectura, preparación, segmentación, paso al espacio original), "
+        "- Tiempo por caso: todo el pipeline (lectura, preparación, segmentación, ROI en el espacio original), "
         "incluida la carga de los pesos, que se hace una sola vez en el primer caso.",
         "- Desviación: típica muestral (n-1).",
         "",
