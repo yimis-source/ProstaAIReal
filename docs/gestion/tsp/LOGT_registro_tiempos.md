@@ -1,10 +1,10 @@
 # Registro de tiempos (LOGT) · Prosta-AI
 
-**Versión:** L6 · **Fecha:** 08/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L7 · **Fecha:** 09/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Se agrega el plan del ciclo 4 (08/11–12/11). El ciclo 3 sigue abierto (cierra el 10/11), por eso aparece solo con plan; sus horas reales entran en la L7. El 1501 (lanzamiento del 4) ya está hecho.
+Ciclo 3 con horas reales. La tarea 1414 (trazabilidad, LOGD/LOGT y cierre) sigue en curso al corte (2,5 h); el ciclo 4 sigue solo con plan (salvo 1501).
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -149,38 +149,44 @@ Se agrega el plan del ciclo 4 (08/11–12/11). El ciclo 3 sigue abierto (cierra 
 | ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
 |---|---|---|---:|---:|---:|---:|---:|
 | 1401 | Lanzamiento, postmortem C2 y replanificación | Fernando | 4 | 4 | 0 % | 5,3 % | 5,3 % |
-| 1402 | Selección del modelo preentrenado y licencias | Juan | 6 | — | — | 7,9 % | 0 % |
-| 1403 | Entorno: versiones fijadas de MONAI/torch y guía de instalación | Sergio | 4 | — | — | 5,3 % | 0 % |
-| 1404 | Núcleo del pipeline (stages, errors, io, validators, progress) | Yeison | 8 | — | — | 10,5 % | 0 % |
-| 1405 | Descarga del modelo con versión fija y SHA-256 | Yeison | 3 | — | — | 3,9 % | 0 % |
-| 1406 | Preparación (mismas transformaciones, RF-09) | Yeison | 4 | — | — | 5,3 % | 0 % |
-| 1407 | Segmentación e inferencia por ventana deslizante | Yeison | 8 | — | — | 10,5 % | 0 % |
-| 1408 | Tiempos de preparación e inferencia y memoria (CPU; GPU pendiente) | Fernando | 4 | — | — | 5,3 % | 0 % |
-| 1409 | Protocolo de evaluación y evaluar.py | Juan | 7 | — | — | 9,2 % | 0 % |
-| 1410 | Pruebas del pipeline con datos sintéticos | Fernando | 8 | — | — | 10,5 % | 0 % |
-| 1411 | Verificación de la división y evaluación en los 5 casos de prueba | Fernando | 4 | — | — | 5,3 % | 0 % |
-| 1412 | Ajuste fino preparado (no ejecutado) y decisión del modelo | Yeison | 8 | — | — | 10,5 % | 0 % |
-| 1413 | Revisión en 3D Slicer de las máscaras predichas | Sergio | 4 | — | — | 5,3 % | 0 % |
-| 1414 | Matriz de trazabilidad, LOGD/LOGT y cierre (v0.3-ciclo3) | Yimis | 4 | — | — | 5,3 % | 0 % |
+| 1402 | Selección del modelo preentrenado y licencias | Juan | 6 | 7 | +17 % | 7,9 % | 7,9 % |
+| 1403 | Entorno: versiones fijadas de MONAI/torch y guía de instalación | Sergio | 4 | 5 | +25 % | 5,3 % | 5,3 % |
+| 1404 | Núcleo del pipeline (stages, errors, io, validators, progress) | Yeison | 8 | 9 | +12 % | 10,5 % | 10,5 % |
+| 1405 | Descarga del modelo con versión fija y SHA-256 | Yeison | 3 | 3 | 0 % | 3,9 % | 3,9 % |
+| 1406 | Preparación (mismas transformaciones, RF-09) | Yeison | 4 | 4,5 | +12 % | 5,3 % | 5,3 % |
+| 1407 | Segmentación e inferencia por ventana deslizante | Yeison | 8 | 11 | +38 % | 10,5 % | 10,5 % |
+| 1408 | Tiempos de preparación e inferencia y memoria (CPU; GPU pendiente) | Fernando | 4 | 5 | +25 % | 5,3 % | 5,3 % |
+| 1409 | Protocolo de evaluación y evaluar.py | Juan | 7 | 8 | +14 % | 9,2 % | 9,2 % |
+| 1410 | Pruebas del pipeline con datos sintéticos | Fernando | 8 | 9 | +12 % | 10,5 % | 10,5 % |
+| 1411 | Verificación de la división y evaluación en los 5 casos de prueba | Fernando | 4 | 4 | 0 % | 5,3 % | 5,3 % |
+| 1412 | Ajuste fino preparado (no ejecutado) y decisión del modelo | Yeison | 8 | 9 | +12 % | 10,5 % | 10,5 % |
+| 1413 | Revisión en 3D Slicer de las máscaras predichas | Sergio | 4 | 4,5 | +12 % | 5,3 % | 5,3 % |
+| 1414 | Matriz de trazabilidad, LOGD/LOGT y cierre (v0.3-ciclo3) | Yimis | 4 | 2,5 (en curso) | — | 5,3 % | 0 % |
 
-**Suma del ciclo:** plan 4 h de tareas terminadas, real 4 h, desviación 0 %. Valor ganado: 4 h plan de 76 (5,3 %).
+**Suma del ciclo (al corte):** plan 72 h de tareas terminadas, real 83 h, desviación +15 %. Valor ganado: 72 h plan de 76 (94,7 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
 | Quién ayudó | A quién | Horas | Tarea | Nota |
 |---|---|---:|---|---|
 | Yimis | Fernando | 1 | 1401 Lanzamiento, postmortem C2 y replanificación | aprobación y riesgos |
+| Juan | Yeison | 1 | 1406 Preparación (mismas transformaciones, RF-09) | — |
+| Fernando | Yeison | 2,5 | 1407 Segmentación e inferencia por ventana deslizante | depuración en pareja, D-007 |
+| Yeison | Fernando | 1 | 1408 Tiempos de preparación e inferencia y memoria (CPU; GPU pendiente) | — |
+| Yeison | Juan | 1,5 | 1409 Protocolo de evaluación y evaluar.py | coautor |
+| Juan | Fernando | 2 | 1411 Verificación de la división y evaluación en los 5 casos de prueba | análisis del informe |
+| Juan | Sergio | 1,5 | 1413 Revisión en 3D Slicer de las máscaras predichas | — |
 
-**Totales por persona:**
+**Totales por persona (al corte):**
 
 | Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
 |---|---:|---:|---:|---:|
 | Yimis | 0 | 0 | 1 | 1 |
-| Juan | 0 | 0 | 0 | 0 |
-| Sergio | 0 | 0 | 0 | 0 |
-| Yeison | 0 | 0 | 0 | 0 |
-| Fernando | 4 | 4 | 0 | 4 |
-| **Equipo** | 4 | 4 | 1 | 5 |
+| Juan | 13 | 15 | 4,5 | 19,5 |
+| Sergio | 8 | 9,5 | 0 | 9,5 |
+| Yeison | 31 | 36,5 | 2,5 | 39 |
+| Fernando | 20 | 22 | 2,5 | 24,5 |
+| **Equipo** | 72 | 83 | 10,5 | 93,5 |
 
 ### Ciclo 4 · Generación de la ROI (REPLANIFICADO 08/11–12/11; plan original 14/11–20/11)
 
@@ -227,6 +233,8 @@ Método: (horas propias + ayudas dadas) / días calendario en que la persona tuv
 | Fernando | 2,8 | 3,3 |
 | **Promedio del equipo** | 3,1 | 2,1 |
 
+Las horas por día de C3 se calculan al cierre del ciclo (la tarea en curso todavía no está terminada).
+
 ### Valor ganado acumulado
 
 | Tramo | Plan h del tramo | Valor ganado h | % del tramo | Acumulado h plan |
@@ -235,8 +243,8 @@ Método: (horas propias + ayudas dadas) / días calendario en que la persona tuv
 | H002 | 28 | 28 | 100,0 % | 44 |
 | C1 | 47 | 47 | 100,0 % | 91 |
 | C2 | 56 | 56 | 100,0 % | 147 |
-| C3 | 76 | 4 | 5,3 % | 151 |
-| C4 | 42 | 3 | 7,1 % | 154 |
+| C3 | 76 | 72 | 94,7 % | 219 |
+| C4 | 42 | 3 | 7,1 % | 222 |
 
 ---
 
