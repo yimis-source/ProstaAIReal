@@ -47,6 +47,8 @@ Propietario del Proyecto: Ing. Jair Enrique Sanclemente Castro (docente).
 | H002 | SRS, casos de uso, matriz de trazabilidad | Cerrado (12/10) |
 | Ciclo 1 | Adquisición y comprensión de datos | Cerrado (25/10, `v0.1-ciclo1`) |
 | Ciclo 2 | Control de calidad, formato NIfTI, división por paciente, preprocesamiento y diseño | Cerrado (30/10, `v0.2-ciclo2`) |
+| Ciclo 3 | Segmentación 3D con el modelo preentrenado, inferencia y evaluación preliminar | Cerrado (10/11, `v0.3-ciclo3`; replanificado desde el 13/11) |
+| Ciclo 4 | Generación de la región de interés (ROI) | En curso (08/11–12/11) |
 
 ## Estructura
 
@@ -56,14 +58,16 @@ docs/ejecucion/   Requisitos y diseño (arquitectura, pantallas, módulo de IA, 
 docs/datos/       Criterios, elección del conjunto, fichas de licencia, revisión en 3D Slicer, informe de datos
 scripts/          Descarga, inventario, anonimización, geometría, control de calidad, conversión a NIfTI,
                   verificación de fuga y preprocesamiento
-entrenamiento/    División por paciente (division.py, division_task05.json)
-reports/          datos/, calidad/ y division/: resultados de los scripts
+entrenamiento/    División por paciente, evaluación (evaluar.py) y ajuste fino preparado (entrenar.py, cuaderno de Colab)
+backend/          Paquete prosta_ai: pipeline de control de calidad, preparación, segmentación 3D y evaluación
+docs-tecnicos/    Modelo preentrenado y licencias
+reports/          datos/, calidad/, division/, evaluacion/ y rendimiento/: resultados de los scripts
 tests/            Pruebas de los scripts
 ```
 
 ## Uso rápido
 
-Requiere Python 3.12 con numpy, nibabel y SimpleITK (y pytest para las pruebas).
+Requiere Python 3.12 con las versiones de `backend/pyproject.toml` (guía en `docs/entorno_desarrollo.md`).
 
 ```bash
 python scripts/descargar_datos.py               # MSD Task05_Prostate (CC BY-SA 4.0) en datos/
@@ -74,10 +78,22 @@ python scripts/control_calidad.py               # reports/calidad/control_calida
 python scripts/convertir_nifti.py               # datos/convertidos/ (NIfTI 3D)
 python scripts/verificar_fuga.py                # reports/division/verificacion_division.md (RC-04)
 python scripts/preprocesar.py ENTRADA SALIDA    # RAS, 0,5 mm, normalización
+python scripts/descargar_modelo.py              # modelos/prostate_mri_anatomy (Apache 2.0)
+python -m entrenamiento.evaluar --modelo prostate_mri_anatomy   # reports/evaluacion/
+python scripts/medir_rendimiento.py             # reports/rendimiento/ (tarea 1408)
 python -m pytest -q
 ```
 
 Prostate158 y PROMISE12 se descargan a mano (ver `docs/datos/procedimiento_descarga.md`).
+
+## Modelo y resultados
+
+- Modelo: `prostate_mri_anatomy` v0.3.6 del MONAI Model Zoo (U-Net 3D, Apache 2.0), entrenado por sus autores
+  con Prostate158; por eso Prostate158 no sirve para evaluarlo. Ver `docs-tecnicos/modelo-y-licencias.md`.
+- Evaluación en los 5 casos de prueba de MSD Task05: **Dice 0,8925 ± 0,0340**, IoU 0,8071 ± 0,0534
+  (meta RF-24: ≥ 0,80). Es una evaluación técnica preliminar; la formal es del ciclo 5.
+- Rendimiento (CPU AMD Ryzen 5 5600G, sin GPU): 13–16 s por estudio, memoria pico ≈ 2 GB (RR-01: ≤ 120 s).
+  La medición en GPU queda pendiente (Colab, ciclo 5).
 
 ## Datos
 
