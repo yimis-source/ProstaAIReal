@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import time
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -11,7 +11,7 @@ import numpy as np
 from . import stages
 from .errors import StageError
 from .evaluation import dice, iou
-from .io import Volume, load_volume
+from .io import Volume, load_volume, save_nifti
 from .preparation import PreparationConfig, PreparedVolume, prepare_volume
 from .progress import PipelineProgress, TimingRecorder
 from .roi import mask_to_original_space
@@ -23,13 +23,14 @@ from .validators import detailed_validation
 class PipelineInput:
     files: list[Path]
     fmt: str
-    reference_files: list[Path] = field(default_factory=list)
+    reference_files: list[Path]
+    output_dir: Path
 
 
 @dataclass
 class PipelineOutput:
-    mask: np.ndarray  # máscara binaria en la rejilla de la imagen original
-    affine: np.ndarray  # afín de la imagen original
+    image_path: Path
+    mask_path: Path
     dice: float | None
     iou: float | None
     durations: dict[str, float]
@@ -44,6 +45,8 @@ class PipelineContext:
     prepared: PreparedVolume | None = None
     mask: np.ndarray | None = None  # en el espacio preparado
     mask_original: np.ndarray | None = None
+    image_path: Path | None = None
+    mask_path: Path | None = None
     dice: float | None = None
     iou: float | None = None
 
@@ -59,6 +62,7 @@ class BasePipeline(ABC):
             (stages.CONTROL_CALIDAD, self.quality_control),
             (stages.PREPARACION, self.prepare),
             (stages.SEGMENTACION, self.segment),
+            (stages.ROI, self.build_roi),
             (stages.EVALUACION, self.evaluate),
         ]
         for nombre, funcion in etapas:
@@ -74,10 +78,10 @@ class BasePipeline(ABC):
                 progress.notify_failed(nombre, err.message)
                 raise err from exc
             progress.notify_end(nombre, time.perf_counter() - t0)
-        assert ctx.mask_original is not None and ctx.volume is not None
+        assert ctx.image_path is not None and ctx.mask_path is not None
         return PipelineOutput(
-            mask=ctx.mask_original,
-            affine=ctx.volume.affine,
+            image_path=ctx.image_path,
+            mask_path=ctx.mask_path,
             dice=ctx.dice,
             iou=ctx.iou,
             durations=dict(timing.durations),
@@ -91,6 +95,9 @@ class BasePipeline(ABC):
 
     @abstractmethod
     def segment(self, inp: PipelineInput, ctx: PipelineContext) -> None: ...
+
+    @abstractmethod
+    def build_roi(self, inp: PipelineInput, ctx: PipelineContext) -> None: ...
 
     @abstractmethod
     def evaluate(self, inp: PipelineInput, ctx: PipelineContext) -> None: ...
@@ -127,11 +134,18 @@ class Segmentation3DPipeline(BasePipeline):
         assert ctx.prepared is not None
         ctx.mask = self.strategy.segment(ctx.prepared)
 
-    def evaluate(self, inp: PipelineInput, ctx: PipelineContext) -> None:
-        # las métricas se calculan en la rejilla de la imagen original, no en la preparada
+    def build_roi(self, inp: PipelineInput, ctx: PipelineContext) -> None:
+        """ROI = máscara en la rejilla original, guardada junto a la imagen (misma forma y afín)."""
         assert ctx.volume is not None and ctx.prepared is not None and ctx.mask is not None
         ctx.mask_original = mask_to_original_space(ctx.mask, ctx.prepared, ctx.volume)
-        if ctx.reference is None:
+        out = Path(inp.output_dir)
+        ctx.image_path = out / "imagen.nii.gz"
+        ctx.mask_path = out / "mascara.nii.gz"
+        save_nifti(ctx.volume.data, ctx.volume.affine, ctx.image_path)
+        save_nifti(ctx.mask_original, ctx.volume.affine, ctx.mask_path)
+
+    def evaluate(self, inp: PipelineInput, ctx: PipelineContext) -> None:
+        if ctx.reference is None or ctx.mask_original is None:
             return  # sin referencia: dice = iou = None
         ctx.dice = dice(ctx.mask_original, ctx.reference)
         ctx.iou = iou(ctx.mask_original, ctx.reference)
