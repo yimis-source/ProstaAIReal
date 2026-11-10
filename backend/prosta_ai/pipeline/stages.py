@@ -3,7 +3,7 @@
 CONTROL_CALIDAD = "control de calidad"
 PREPARACION = "preparación"
 SEGMENTACION = "segmentación"
+ROI = "ROI"
 EVALUACION = "evaluación"
 
-# La etapa ROI (máscara alineada con la imagen original y guardada en disco) entra en el ciclo 4.
-STAGES = [CONTROL_CALIDAD, PREPARACION, SEGMENTACION, EVALUACION]
+STAGES = [CONTROL_CALIDAD, PREPARACION, SEGMENTACION, ROI, EVALUACION]

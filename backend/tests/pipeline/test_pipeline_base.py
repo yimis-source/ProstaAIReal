@@ -33,7 +33,8 @@ def test_punta_a_punta_nifti(tmp_path, nifti_path, referencia_path, config_prep)
     prog = PipelineProgress()
     prog.attach(reg)
     prog.attach(tiempos)
-    res = pipeline(config_prep).run(PipelineInput([nifti_path], "NIfTI", [referencia_path]), prog)
+    out = tmp_path / "salida"
+    res = pipeline(config_prep).run(PipelineInput([nifti_path], "NIfTI", [referencia_path], out), prog)
 
     # orden de etapas y notificaciones
     esperado = []
@@ -43,23 +44,25 @@ def test_punta_a_punta_nifti(tmp_path, nifti_path, referencia_path, config_prep)
     assert list(tiempos.durations) == stages.STAGES
     assert list(res.durations) == stages.STAGES
 
-    # la máscara vuelve a la geometría de la imagen original
+    # salidas con la geometría de la imagen original
+    img, msk = nib.load(str(res.image_path)), nib.load(str(res.mask_path))
     orig = nib.load(str(nifti_path))
-    assert res.mask.shape == orig.shape and res.mask.dtype == np.uint8
-    assert np.allclose(res.affine, orig.affine)
-    assert set(np.unique(res.mask)) <= {0, 1}
+    assert res.image_path.name == "imagen.nii.gz" and res.mask_path.name == "mascara.nii.gz"
+    assert msk.shape == orig.shape == img.shape
+    assert np.allclose(msk.affine, orig.affine) and np.allclose(img.affine, orig.affine)
+    assert set(np.unique(msk.get_fdata())) <= {0.0, 1.0}
     assert res.dice > 0.8 and 0 < res.iou <= res.dice
 
 
 def test_sin_referencia_deja_metricas_vacias(tmp_path, nifti_path, config_prep):
-    res = pipeline(config_prep).run(PipelineInput([nifti_path], "NIfTI", []), PipelineProgress())
+    res = pipeline(config_prep).run(PipelineInput([nifti_path], "NIfTI", [], tmp_path / "o"), PipelineProgress())
     assert res.dice is None and res.iou is None
     assert "evaluación" in res.durations
 
 
 def test_dicom_aun_no_disponible(tmp_path, nifti_path, config_prep):
     with pytest.raises(StageError) as e:
-        pipeline(config_prep).run(PipelineInput([nifti_path], "DICOM", []), PipelineProgress())
+        pipeline(config_prep).run(PipelineInput([nifti_path], "DICOM", [], tmp_path / "o"), PipelineProgress())
     assert e.value.stage == "control de calidad" and "ciclo 6" in e.value.message
 
 
@@ -72,7 +75,7 @@ def test_fallo_en_control_de_calidad(tmp_path, affine_demo, config_prep):
     estrategia = EstrategiaUmbral()
     p = Segmentation3DPipeline(estrategia, config=config_prep)
     with pytest.raises(StageError) as e:
-        p.run(PipelineInput([pequeno], "NIfTI", []), prog)
+        p.run(PipelineInput([pequeno], "NIfTI", [], tmp_path / "o"), prog)
     assert e.value.stage == "control de calidad" and "cortes" in e.value.message
     assert reg.eventos[0] == ("inicio", "control de calidad")
     assert reg.eventos[1][:2] == ("fallo", "control de calidad")
@@ -95,7 +98,7 @@ def test_otros_fallos_de_calidad(tmp_path, affine_demo, referencia_path, config_
         nib.save(nib.Nifti1Image(np.zeros((48, 48, 10), np.uint8), affine_demo), str(r))
         refs = [r]
     with pytest.raises(StageError) as e:
-        pipeline(config_prep).run(PipelineInput([p], "NIfTI", refs), PipelineProgress())
+        pipeline(config_prep).run(PipelineInput([p], "NIfTI", refs, tmp_path / "o"), PipelineProgress())
     assert e.value.stage == "control de calidad"
 
 
@@ -109,7 +112,7 @@ def test_error_inesperado_se_convierte_en_stage_error(tmp_path, nifti_path, conf
     prog.attach(reg)
     with pytest.raises(StageError) as e:
         Segmentation3DPipeline(Mala(), config=config_prep).run(
-            PipelineInput([nifti_path], "NIfTI", []), prog
+            PipelineInput([nifti_path], "NIfTI", [], tmp_path / "o"), prog
         )
     assert e.value.stage == "segmentación"
     assert reg.eventos[-1][:2] == ("fallo", "segmentación")
