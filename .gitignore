@@ -12,6 +12,9 @@
 *.pt
 *.pth
 *.ckpt
+# Salidas locales (ROI, volúmenes preparados)
+/salidas/
+
 # --- Python ---
 __pycache__/
 *.py[cod]
