@@ -48,20 +48,24 @@ Propietario del Proyecto: Ing. Jair Enrique Sanclemente Castro (docente).
 | Ciclo 1 | Adquisición y comprensión de datos | Cerrado (25/10, `v0.1-ciclo1`) |
 | Ciclo 2 | Control de calidad, formato NIfTI, división por paciente, preprocesamiento y diseño | Cerrado (30/10, `v0.2-ciclo2`) |
 | Ciclo 3 | Segmentación 3D con el modelo preentrenado, inferencia y evaluación preliminar | Cerrado (10/11, `v0.3-ciclo3`; replanificado desde el 13/11) |
-| Ciclo 4 | Generación de la región de interés (ROI) | En curso (08/11–12/11) |
+| Ciclo 4 | Generación de la región de interés (ROI) e imagen con aviso no clínico | Cerrado (12/11, `v0.4-ciclo4`; replanificado desde el 20/11) |
+| Ciclos 5–7 | Evaluación técnica, aplicación web integrada, cierre | Pendientes |
 
 ## Estructura
 
 ```
 docs/gestion/     Acta, metodología TSP, trazabilidad y registros TSP (tsp/)
 docs/ejecucion/   Requisitos y diseño (arquitectura, pantallas, módulo de IA, base de datos)
-docs/datos/       Criterios, elección del conjunto, fichas de licencia, revisión en 3D Slicer, informe de datos
+docs/datos/       Criterios, elección del conjunto, fichas de licencia, revisiones en 3D Slicer, informe de datos,
+                  protocolo de evaluación
+docs/diseno/      Visor y texto explicativo de la ROI
 scripts/          Descarga, inventario, anonimización, geometría, control de calidad, conversión a NIfTI,
                   verificación de fuga y preprocesamiento
 entrenamiento/    División por paciente, evaluación (evaluar.py) y ajuste fino preparado (entrenar.py, cuaderno de Colab)
-backend/          Paquete prosta_ai: pipeline de control de calidad, preparación, segmentación 3D y evaluación
+backend/          Paquete prosta_ai: pipeline de control de calidad, preparación, segmentación 3D, ROI y
+                  evaluación; imagen de la ROI con el aviso experimental (pipeline/visualizacion.py)
 docs-tecnicos/    Modelo preentrenado y licencias
-reports/          datos/, calidad/, division/, evaluacion/ y rendimiento/: resultados de los scripts
+reports/          datos/, calidad/, division/, evaluacion/, rendimiento/ y roi/: resultados de los scripts
 tests/            Pruebas de los scripts
 ```
 
@@ -81,6 +85,8 @@ python scripts/preprocesar.py ENTRADA SALIDA    # RAS, 0,5 mm, normalización
 python scripts/descargar_modelo.py              # modelos/prostate_mri_anatomy (Apache 2.0)
 python -m entrenamiento.evaluar --modelo prostate_mri_anatomy   # reports/evaluacion/
 python scripts/medir_rendimiento.py             # reports/rendimiento/ (tarea 1408)
+python scripts/generar_roi.py --caso prostate_13   # salidas/: imagen, máscara y PNG con aviso
+python scripts/verificar_roi.py                 # reports/roi/
 python -m pytest -q
 ```
 
@@ -94,6 +100,9 @@ Prostate158 y PROMISE12 se descargan a mano (ver `docs/datos/procedimiento_desca
   (meta RF-24: ≥ 0,80). Es una evaluación técnica preliminar; la formal es del ciclo 5.
 - Rendimiento (CPU AMD Ryzen 5 5600G, sin GPU): 13–16 s por estudio, memoria pico ≈ 2 GB (RR-01: ≤ 120 s).
   La medición en GPU queda pendiente (Colab, ciclo 5).
+- ROI: la máscara vuelve a la rejilla de la imagen original (vecino más cercano); en los 5 casos de prueba la
+  forma y la afín coinciden con la imagen y el Dice recalculado desde la máscara guardada es el mismo
+  (`reports/roi/`). La imagen exportada lleva impreso el aviso de uso académico y no diagnóstico.
 
 ## Datos
 
