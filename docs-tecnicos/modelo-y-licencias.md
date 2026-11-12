@@ -1,6 +1,6 @@
 # Modelo de segmentación y licencias
 
-Responsable: Juan David Riascos Erazo (Analista). Tareas 1402 y 1411 del ciclo 3.
+Responsable: Juan David Riascos Erazo (Analista). Tareas 1402 y 1411 del ciclo 3; actualizado en el ciclo 4 (imagen de la ROI con aviso).
 
 ## 1. Decisión vigente
 
@@ -83,6 +83,8 @@ La evaluación del modelo se hace **solo con los 5 casos de prueba de MSD Task05
 | Datos de evaluación (MSD Task05_Prostate) | CC BY-SA 4.0 | Usar, adaptar y compartir, incluso con fines comerciales | Atribución, y compartir bajo la misma licencia lo que se derive de los datos | Los datos no se versionan (`datos/` está en `.gitignore`). Se cita en `README.md`, en `docs/datos/fichas/` y en los informes. Los informes publican solo métricas, no imágenes |
 | MONAI | Apache 2.0 | Uso libre | Conservar avisos | Dependencia instalada, no modificada |
 | PyTorch | BSD (3 cláusulas) | Uso libre | Conservar avisos | Dependencia instalada, no modificada |
+| Pillow | MIT-CMU (HPND) | Uso libre | Conservar avisos | Dependencia instalada para dibujar la imagen de la ROI |
+| Fuente DejaVu Sans (texto del aviso en la imagen de la ROI) | Licencia libre de Bitstream Vera / DejaVu | Uso y redistribución | Conservar el aviso | Incluida en `backend/prosta_ai/recursos/` junto con `DejaVuSans-LICENCIA.txt` |
 
 ## 5. Riesgos y conclusión
 
@@ -91,7 +93,7 @@ La evaluación del modelo se hace **solo con los 5 casos de prueba de MSD Task05
 | Riesgo | Nivel | Explicación | Respuesta |
 |---|---|---|---|
 | Restricciones heredadas de Prostate158 | Bajo para uso académico | Los pesos tienen licencia Apache 2.0, pero se entrenaron con datos cuyo acuerdo del reto limita el uso a investigación no comercial. Que un modelo entrenado sea «obra derivada» de los datos no está resuelto jurídicamente. Los propios autores del conjunto publicaron los pesos con licencia abierta, lo que indica su consentimiento | Mantener el uso académico y no comercial. Si el proyecto pasara a uso comercial, consultar a los autores o entrenar con datos de licencia compatible |
-| Uso clínico | Fuera de alcance | Los autores del modelo y del conjunto lo excluyen expresamente | Toda salida lleva el aviso experimental: la imagen de la ROI en el ciclo 4 y las pantallas de resultados en el ciclo 6 |
+| Uso clínico | Fuera de alcance | Los autores del modelo y del conjunto lo excluyen expresamente | La imagen de la ROI (`pipeline/visualizacion.py`, `scripts/generar_roi.py`) lleva impreso el aviso experimental; las pantallas de resultados lo mostrarán en el ciclo 6 |
 | Atribución | Bajo | Apache 2.0 y CC BY-SA 4.0 exigen reconocer la autoría | Se cita en `README.md`, en este documento, en `FICHA.md` y en los informes de evaluación. Incluir las citas en la presentación final |
 | Compartir bajo la misma licencia (CC BY-SA) | Bajo | Afectaría a material derivado de Task05 que se publique, por ejemplo imágenes con la ROI o un modelo ajustado con Task05 | Si se publican capturas con imágenes de Task05 o un modelo ajustado con ellas, hacerlo bajo CC BY-SA 4.0 y con atribución |
 | Sobreestimación de métricas | Medio (técnico, no legal) | No se puede descartar que el preentrenamiento haya visto datos parecidos a Task05 | Documentado en el informe de evaluación |
@@ -100,7 +102,7 @@ La evaluación del modelo se hace **solo con los 5 casos de prueba de MSD Task05
 **Obligaciones del equipo:**
 1. Mantener `LICENSE` y `FICHA.md` junto a los pesos si alguna vez se redistribuyen.
 2. Citar el modelo, Prostate158 y el Medical Segmentation Decathlon en la documentación final y en la presentación.
-3. No subir al repositorio imágenes ni máscaras de los conjuntos de datos.
+3. No subir al repositorio imágenes ni máscaras de los conjuntos de datos (tampoco las ROI que genera `scripts/generar_roi.py`, que van a `salidas/`).
 4. No presentar la aplicación como herramienta de diagnóstico.
 
 Referencias de licencias:

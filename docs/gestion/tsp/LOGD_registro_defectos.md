@@ -1,8 +1,8 @@
 # Registro de defectos (LOGD) · Prosta-AI
 
-**Versión:** D4 · **Fecha:** 09/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** D5 · **Fecha:** 12/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
 
-Se agrega D-007 (ciclo 3). D-006 sigue abierto.
+Se agrega D-008 (ciclo 4). D-006 sigue abierto y se corrige en el ciclo 6, cuando se implemente la interfaz.
 
 ## Leyenda
 
@@ -46,6 +46,7 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | D-005 | 29/10 | C2 | 1304 | 80 | IMP | PU | 0,2 h | `verificar_fuga.py` comparaba el Dice de las máscaras con `== 1.0` (flotante) y no marcaba prostate_16 ≡ Case23 como misma máscara. | Fernando | Fernando (con Juan) | PR #19 |
 | D-006 | 28/10 | C2 | 1307 | 50 | DIS | REV (detectado; sin corregir) | — (abierto) | La pantalla CU03 y el diagrama de navegación dicen «Ejecutar»; debe ser «Procesar». Se corrige al implementar la interfaz en el ciclo 6. | Juan (revisión del PR #17) | Sergio (pendiente) | PR #17 (abierto) |
 | D-007 | 05/11 | C3 | 1407 | 80 | IMP | PU | 2,5 h | Sin `.eval()` el dropout (0,15) y la normalización por lotes seguían en modo entrenamiento: prostate_13 Dice 0,2065 (61 289 vóxeles) y prostate_28 0,1726; con `.eval()` 0,9012 (22 172 vóxeles) y 0,8320. Prueba de regresión `assert not modelo.training`. | Fernando (depuración en pareja) | Yeison | PR #29 |
+| D-008 | 10/11 | C4 | 1503 | 50 | IMP | PU | 0,5 h | Al agregar la etapa ROI, `PipelineInput` exige `output_dir` y `entrenamiento/evaluar.py` dejó de funcionar; ahora escribe las salidas en una carpeta temporal. | Yeison (al correr la evaluación) | Yeison | PR #41 |
 
 ## Resumen por ciclo
 
@@ -55,7 +56,8 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | C1 | 2 | IMP 1, DIS 1 | REV 2 | 80: 1, 10: 1 | 0,5 h | 2 de 2 (100 %) |
 | C2 | 3 | IMP 2, DIS 1 | PU 2, REV 1 | 60: 1, 80: 1, 50: 1 | 1,7 h | 1 de 3 (33 %) |
 | C3 | 1 | IMP 1 | PU 1 | 80: 1 | 2,5 h | 0 de 1 (0 %) |
-| **Acumulado** | 7 | | | | 5,0 h | 4 de 7 (57 %) |
+| C4 | 1 | IMP 1 | PU 1 | 50: 1 | 0,5 h | 0 de 1 (0 %) |
+| **Acumulado** | 8 | | | | 5,5 h | 4 de 8 (50 %) |
 
 **Defectos por fase (acumulado):**
 
@@ -63,16 +65,16 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 |---|---:|---:|
 | REQ | 1 | 0 |
 | DIS | 2 | 0 |
-| IMP | 4 | 0 |
+| IMP | 5 | 0 |
 | REV | 0 | 4 |
-| PU | 0 | 3 |
+| PU | 0 | 4 |
 
 **Defectos por tipo (acumulado):**
 
 | Tipo | Cantidad |
 |---|---:|
 | 10 Documentación | 2 |
-| 50 Interfaz | 1 |
+| 50 Interfaz | 2 |
 | 60 Chequeo | 1 |
 | 80 Función | 3 |
 

@@ -1,7 +1,7 @@
-"""Devuelve la máscara al espacio del volumen original.
+"""Devuelve la máscara al espacio del volumen original (RF-12).
 
-En el ciclo 3 se usa para medir Dice e IoU en la rejilla de la imagen original.
-La etapa ROI completa (guardar imagen y máscara alineadas) es del ciclo 4.
+La ROI es la máscara de la próstata en la MISMA rejilla (forma y afín) que la imagen
+original, para poder superponerla y compararla con ella (RF-13, RF-14).
 """
 from __future__ import annotations
 
@@ -10,11 +10,11 @@ import numpy as np
 from .errors import StageError
 from .io import Volume
 from .preparation import PreparedVolume
-from .stages import EVALUACION
+from .stages import ROI
 
 
 def mask_to_original_space(mask: np.ndarray, prepared: PreparedVolume, original: Volume,
-                           stage: str = EVALUACION) -> np.ndarray:
+                           stage: str = ROI) -> np.ndarray:
     """Remuestrea (vecino más cercano) la máscara preparada a la rejilla de la imagen original.
 
     Para cada vóxel original se calcula su posición en mundo con la afín original

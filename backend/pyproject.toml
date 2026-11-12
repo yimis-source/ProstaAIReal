@@ -1,6 +1,6 @@
 [project]
 name = "prosta-ai"
-version = "0.3.0"
+version = "0.4.0"
 description = "Prosta-AI: segmentación 3D experimental de próstata en MRI (uso académico, no diagnóstico)"
 requires-python = ">=3.11,<3.13"
 dependencies = [
@@ -9,6 +9,7 @@ dependencies = [
   "SimpleITK==2.4.0",
   "monai==1.4.0",
   "torch==2.5.1",
+  "pillow==11.1.0",
 ]
 
 [project.optional-dependencies]
@@ -24,3 +25,6 @@ explicit = true
 
 [tool.setuptools.packages.find]
 include = ["prosta_ai*"]
+
+[tool.setuptools.package-data]
+"prosta_ai.recursos" = ["*.ttf", "*.txt"]
