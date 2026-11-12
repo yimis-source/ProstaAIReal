@@ -1,10 +1,10 @@
 # Registro de tiempos (LOGT) · Prosta-AI
 
-**Versión:** L7 · **Fecha:** 09/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L8 · **Fecha:** 12/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Ciclo 3 con horas reales. La tarea 1414 (trazabilidad, LOGD/LOGT y cierre) sigue en curso al corte (2,5 h); el ciclo 4 sigue solo con plan (salvo 1501).
+Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -161,9 +161,9 @@ Ciclo 3 con horas reales. La tarea 1414 (trazabilidad, LOGD/LOGT y cierre) sigue
 | 1411 | Verificación de la división y evaluación en los 5 casos de prueba | Fernando | 4 | 4 | 0 % | 5,3 % | 5,3 % |
 | 1412 | Ajuste fino preparado (no ejecutado) y decisión del modelo | Yeison | 8 | 9 | +12 % | 10,5 % | 10,5 % |
 | 1413 | Revisión en 3D Slicer de las máscaras predichas | Sergio | 4 | 4,5 | +12 % | 5,3 % | 5,3 % |
-| 1414 | Matriz de trazabilidad, LOGD/LOGT y cierre (v0.3-ciclo3) | Yimis | 4 | 2,5 (en curso) | — | 5,3 % | 0 % |
+| 1414 | Matriz de trazabilidad, LOGD/LOGT y cierre (v0.3-ciclo3) | Yimis | 4 | 4,5 | +12 % | 5,3 % | 5,3 % |
 
-**Suma del ciclo (al corte):** plan 72 h de tareas terminadas, real 83 h, desviación +15 %. Valor ganado: 72 h plan de 76 (94,7 %).
+**Suma del ciclo:** plan 76 h de tareas terminadas, real 87,5 h, desviación +15 %. Valor ganado: 76 h plan de 76 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
@@ -176,64 +176,69 @@ Ciclo 3 con horas reales. La tarea 1414 (trazabilidad, LOGD/LOGT y cierre) sigue
 | Yeison | Juan | 1,5 | 1409 Protocolo de evaluación y evaluar.py | coautor |
 | Juan | Fernando | 2 | 1411 Verificación de la división y evaluación en los 5 casos de prueba | análisis del informe |
 | Juan | Sergio | 1,5 | 1413 Revisión en 3D Slicer de las máscaras predichas | — |
+| Juan | Yimis | 1 | 1414 Matriz de trazabilidad, LOGD/LOGT y cierre (v0.3-ciclo3) | LOGD |
 
-**Totales por persona (al corte):**
+**Totales por persona:**
 
 | Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
 |---|---:|---:|---:|---:|
-| Yimis | 0 | 0 | 1 | 1 |
-| Juan | 13 | 15 | 4,5 | 19,5 |
+| Yimis | 4 | 4,5 | 1 | 5,5 |
+| Juan | 13 | 15 | 5,5 | 20,5 |
 | Sergio | 8 | 9,5 | 0 | 9,5 |
 | Yeison | 31 | 36,5 | 2,5 | 39 |
 | Fernando | 20 | 22 | 2,5 | 24,5 |
-| **Equipo** | 72 | 83 | 10,5 | 93,5 |
+| **Equipo** | 76 | 87,5 | 11,5 | 99 |
 
 ### Ciclo 4 · Generación de la ROI (REPLANIFICADO 08/11–12/11; plan original 14/11–20/11)
 
 | ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
 |---|---|---|---:|---:|---:|---:|---:|
 | 1501 | Lanzamiento del ciclo 4 (con el ciclo 3 en cierre) | Fernando | 3 | 3 | 0 % | 7,1 % | 7,1 % |
-| 1502 | Diseño del visor y de la superposición de la ROI | Sergio | 6 | — | — | 14,3 % | 0 % |
-| 1503 | Etapa ROI (rejilla original, NIfTI de salida) | Yeison | 6 | — | — | 14,3 % | 0 % |
-| 1504 | Imagen de la ROI con aviso no clínico | Yeison | 6 | — | — | 14,3 % | 0 % |
-| 1505 | Texto explicativo de la ROI y revisión de lenguaje no clínico | Sergio | 3 | — | — | 7,1 % | 0 % |
-| 1506 | Pruebas de la ROI y de la imagen con aviso | Fernando | 5 | — | — | 11,9 % | 0 % |
-| 1507 | Verificación de alineación (3D Slicer + script) | Juan | 4 | — | — | 9,5 % | 0 % |
-| 1508 | Análisis de errores por caso (incluye prostate_07, 32 casos) | Juan | 3 | — | — | 7,1 % | 0 % |
-| 1509 | Postmortem del ciclo 3 | Fernando | 2 | — | — | 4,8 % | 0 % |
-| 1510 | Postmortem C4, matriz y cierre (v0.4-ciclo4) | Fernando / Yimis | 4 | — | — | 9,5 % | 0 % |
+| 1502 | Diseño del visor y de la superposición de la ROI | Sergio | 6 | 7 | +17 % | 14,3 % | 14,3 % |
+| 1503 | Etapa ROI (rejilla original, NIfTI de salida) | Yeison | 6 | 6,5 | +8 % | 14,3 % | 14,3 % |
+| 1504 | Imagen de la ROI con aviso no clínico | Yeison | 6 | 7,5 | +25 % | 14,3 % | 14,3 % |
+| 1505 | Texto explicativo de la ROI y revisión de lenguaje no clínico | Sergio | 3 | 3 | 0 % | 7,1 % | 7,1 % |
+| 1506 | Pruebas de la ROI y de la imagen con aviso | Fernando | 5 | 6 | +20 % | 11,9 % | 11,9 % |
+| 1507 | Verificación de alineación (3D Slicer + script) | Juan | 4 | 4,5 | +12 % | 9,5 % | 9,5 % |
+| 1508 | Análisis de errores por caso (incluye prostate_07, 32 casos) | Juan | 3 | 3,5 | +17 % | 7,1 % | 7,1 % |
+| 1509 | Postmortem del ciclo 3 | Fernando | 2 | 2 | 0 % | 4,8 % | 4,8 % |
+| 1510 | Postmortem C4, matriz y cierre (v0.4-ciclo4) | Fernando / Yimis | 4 | 4 | 0 % | 9,5 % | 9,5 % |
 
-**Suma del ciclo:** plan 3 h de tareas terminadas, real 3 h, desviación 0 %. Valor ganado: 3 h plan de 42 (7,1 %).
+**Suma del ciclo:** plan 42 h de tareas terminadas, real 47 h, desviación +12 %. Valor ganado: 42 h plan de 42 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
-Sin ayudas registradas.
+| Quién ayudó | A quién | Horas | Tarea | Nota |
+|---|---|---:|---|---|
+| Sergio | Yeison | 1,5 | 1504 Imagen de la ROI con aviso no clínico | coautor |
+| Juan | Fernando | 1 | 1506 Pruebas de la ROI y de la imagen con aviso | — |
+| Sergio | Juan | 1 | 1507 Verificación de alineación (3D Slicer + script) | — |
 
 **Totales por persona:**
 
 | Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
 |---|---:|---:|---:|---:|
-| Yimis | 0 | 0 | 0 | 0 |
-| Juan | 0 | 0 | 0 | 0 |
-| Sergio | 0 | 0 | 0 | 0 |
-| Yeison | 0 | 0 | 0 | 0 |
-| Fernando | 3 | 3 | 0 | 3 |
-| **Equipo** | 3 | 3 | 0 | 3 |
+| Yimis | 2 | 2 | 0 | 2 |
+| Juan | 7 | 8 | 1 | 9 |
+| Sergio | 9 | 10 | 2,5 | 12,5 |
+| Yeison | 12 | 14 | 0 | 14 |
+| Fernando | 12 | 13 | 0 | 13 |
+| **Equipo** | 42 | 47 | 3,5 | 50,5 |
 
 ### Horas por día por persona
 
 Método: (horas propias + ayudas dadas) / días calendario en que la persona tuvo una tarea asignada en el ciclo. Es una aproximación a partir de la bitácora (las ayudas suman horas pero no días).
 
-| Persona | C1 h/día | C2 h/día |
-|---|---:|---:|
-| Yimis | 2,2 | 1,2 |
-| Juan | 3,9 | 1,4 |
-| Sergio | 3,2 | 1,7 |
-| Yeison | 3,3 | 2,8 |
-| Fernando | 2,8 | 3,3 |
-| **Promedio del equipo** | 3,1 | 2,1 |
+| Persona | C1 h/día | C2 h/día | C3 h/día | C4 h/día |
+|---|---:|---:|---:|---:|
+| Yimis | 2,2 | 1,2 | 2,8 | 2,0 |
+| Juan | 3,9 | 1,4 | 3,4 | 9,0 |
+| Sergio | 3,2 | 1,7 | 2,4 | 3,1 |
+| Yeison | 3,3 | 2,8 | 4,9 | 4,7 |
+| Fernando | 2,8 | 3,3 | 3,5 | 3,2 |
+| **Promedio del equipo** | 3,1 | 2,1 | 3,4 | 4,4 |
 
-Las horas por día de C3 se calculan al cierre del ciclo (la tarea en curso todavía no está terminada).
+Promedio de las personas con tarea: ciclos 1–2 ≈ 2,6 h/día; ciclos 3–4 ≈ 3,9 h/día. El valor de Juan en el ciclo 4 (9 h en un solo día, 11/11) es un pico por 1507 + 1508 el mismo día; sin él el promedio de los ciclos 3–4 baja a 3,3 h/día.
 
 ### Valor ganado acumulado
 
@@ -243,8 +248,8 @@ Las horas por día de C3 se calculan al cierre del ciclo (la tarea en curso toda
 | H002 | 28 | 28 | 100,0 % | 44 |
 | C1 | 47 | 47 | 100,0 % | 91 |
 | C2 | 56 | 56 | 100,0 % | 147 |
-| C3 | 76 | 72 | 94,7 % | 219 |
-| C4 | 42 | 3 | 7,1 % | 222 |
+| C3 | 76 | 76 | 100,0 % | 223 |
+| C4 | 42 | 42 | 100,0 % | 265 |
 
 ---
 
