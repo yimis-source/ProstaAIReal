@@ -1,6 +1,6 @@
 # Entorno de desarrollo del módulo de IA (tarea 1403)
 
-Responsable: Sergio Gabriel Meneses Silva (Gerente de soporte). Ciclo 3.
+Responsable: Sergio Gabriel Meneses Silva (Gerente de soporte). Ciclo 3; actualizado en el ciclo 4.
 
 Objetivo: que los cinco integrantes y Google Colab ejecuten el pipeline con **las mismas versiones** (RA-01).
 Las versiones quedan fijadas en `backend/pyproject.toml`; no instale otras sin pasar por control de cambios.
@@ -15,6 +15,7 @@ Las versiones quedan fijadas en `backend/pyproject.toml`; no instale otras sin p
 | SimpleITK | 2.4.0 | Componentes conexos en el posproceso de la máscara |
 | monai | 1.4.0 | Transformaciones de preparación, U-Net y ventana deslizante |
 | torch | 2.5.1 (CPU) | Red neuronal; en Colab se usa la versión con CUDA |
+| pillow | 11.1.0 | Dibujar la imagen de la ROI con el aviso (ciclo 4) |
 | pytest | 8.3.4 | Pruebas (dependencia de desarrollo) |
 
 PyTorch se instala desde el índice de CPU (`download.pytorch.org/whl/cpu`) para no descargar ~2 GB de CUDA en
@@ -46,7 +47,8 @@ backend/.venv/bin/python scripts/descargar_datos.py      # MSD Task05 en datos/
 backend/.venv/bin/python scripts/descargar_modelo.py     # bundle prostate_mri_anatomy en modelos/
 ```
 
-`datos/`, `modelos/` y los pesos (`*.pt`, `*.pth`) están en `.gitignore`. Antes de cada commit revise
+`datos/`, `modelos/`, `salidas/` (ROI generadas con `scripts/generar_roi.py`) y los pesos (`*.pt`, `*.pth`) están
+en `.gitignore`. Antes de cada commit revise
 `git status`: no debe aparecer ningún archivo de imagen médica ni de pesos.
 
 ## Problemas frecuentes
