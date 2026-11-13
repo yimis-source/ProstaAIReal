@@ -2,14 +2,9 @@ $schema: https://api.gitbook.com/gitbook-docs.yaml
 site:
   title: Prosta-AI
   structure:
-    - type: section
-      key: prosta-ai
-      title: Prosta-AI
-      path: prosta-ai
-      children:
-        - type: space
-          key: documentacion
-          title: Documentación del proyecto
-          path: documentacion
-          content:
-            directory: ./gitbook
+    - type: space
+      key: documentacion
+      title: Documentación del proyecto
+      default: true
+      content:
+        directory: ./gitbook
