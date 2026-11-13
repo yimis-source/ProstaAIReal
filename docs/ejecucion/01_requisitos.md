@@ -10,7 +10,7 @@ Métodos de verificación: **P** prueba, **I** inspección, **D** demostración,
 |---|---|---|---|---|---|
 | RF-01 | Ingreso a la aplicación mediante un inicio de sesión básico | Should | 4.7 | CU01 | P · C6 |
 | RF-02 | Cargar uno o varios estudios de MRI de prueba desde la aplicación web | Must | 4.1 | CU02 | P · C6 |
-| RF-03 | Validar formato y tamaño de cada archivo; aceptar solo los formatos definidos y rechazar los demás con mensaje claro | Must | 4.1 | CU02 | P · C6 |
+| RF-03 | Validar formato y tamaño de cada archivo; aceptar solo los formatos definidos y rechazar los demás con mensaje claro (máximo 50 MB por archivo y 150 MB por estudio) | Must | 4.1 | CU02 | P · C6 |
 | RF-04 | Detectar archivos corruptos o no válidos y rechazarlos con mensaje claro | Must | 4.1 | CU02 | P · C6 |
 | RF-05 | Eliminar los metadatos que identifiquen a una persona o, si no es posible, rechazar el archivo | Must | 2.2 | CU02 | P · C6 |
 | RF-06 | Ejecutar automáticamente control de calidad, preparación, segmentación 3D y generación de la ROI | Must | 4.2 | CU03 | P · C6 |
@@ -54,12 +54,12 @@ Métodos de verificación: **P** prueba, **I** inspección, **D** demostración,
 | RA-02 | Atributo (trazabilidad) | Cada requisito vinculado en la matriz a necesidad, entregable, prueba e interesado | Must | 6.1, 6.4 | I · cada ciclo |
 
 ## Requisitos que quedan fuera del SRS
-Los requisitos de gestión del proyecto (matriz 1.1–1.4 y 6.2–6.5) se documentan en el Plan para la Dirección del Proyecto. La matriz además tiene los requisitos de datos 2.1, 3.1 y 3.3, que en el SRS aparecen como restricciones (RC-03, RC-04).
+Los requisitos de gestión del proyecto (matriz 1.1–1.4 y 6.2, 6.3 y 6.5) se documentan en el Plan para la Dirección del Proyecto. La matriz además tiene los requisitos de datos 2.1, 3.1 y 3.3, que en el SRS aparecen como restricciones (RC-03, RC-04).
 
 ## Decisiones vigentes que precisan el SRS
 - **DEC-01 (identificación en el primer acceso):** no existe registro de cuentas (RC-05). El acceso es con alias y contraseña; la primera vez que alguien entra, el sistema le pide confirmar la contraseña para poder reconocerlo en los siguientes accesos y guarda solo el alias y el hash. Sin formulario de registro, roles, permisos ni datos personales.
 - **DEC-02 (inicio del procesamiento):** el usuario carga (CU02) y luego pulsa «Procesar» (CU03); desde ahí todo el flujo corre solo.
-- **Formatos admitidos:** DICOM y NIfTI.
+- **Formatos admitidos:** DICOM y NIfTI; 50 MB por archivo y 150 MB por estudio.
 - **Google Colab:** servicio externo para entrenar el modelo y para pruebas de inferencia durante el desarrollo; la aplicación en uso infiere en su servidor.
 
 ## Exclusiones (Won't, Acta 3.1.2)

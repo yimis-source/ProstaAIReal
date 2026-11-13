@@ -47,7 +47,7 @@ Transiciones principales:
 - Acceso (usuario) → «Continuar» → Acceso (contraseña) si existe, o Acceso (primera vez) si es nuevo.
 - Acceso (contraseña) → «Acceder» → Inicio; Acceso (primera vez) → «Acceder por primera vez» → Inicio.
 - Inicio → Cargar estudios («Cargar un estudio / Cargar archivos»), Procesamiento («Ir a procesamiento / Procesar»), Mis estudios («Ver todos los estudios»), Visualizar ROI («Abrir comparador / Ver ROI»), Asistente IA («Abrir asistente»).
-- Cargar estudios → «Continuar a procesamiento» → Procesamiento; en Procesamiento el botón «Procesar» inicia el procesamiento (en las pantallas de la versión entregada aparece como «Ejecutar», ver I-02); «Ver resultados» → Visualizar ROI.
+- Cargar estudios → «Continuar a procesamiento» → Procesamiento; en Procesamiento el botón «Procesar» inicia el procesamiento (el diseño se corrigió el 13/11/2026, ver I-02); «Ver resultados» → Visualizar ROI.
 - Visualizar ROI ↔ Mis estudios («Mis estudios» / «Ver ROI»); Mis estudios → «Cargar un estudio», «Procesar / Ver detalles».
 - Menú lateral en todo el espacio de trabajo: Inicio, Cargar estudios, Procesamiento, Visualizar ROI, Mis estudios, Asistente IA, Cerrar sesión.
 

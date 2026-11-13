@@ -25,7 +25,7 @@ Restricciones del estilo (Shaw y Garlan): la API no llama directamente a la segm
 | Nodo | Ejecuta | Observación |
 |---|---|---|
 | Equipo del usuario | Navegador con React | No guarda estudios ni resultados |
-| Servidor de la aplicación | API, tarea de procesamiento, módulo de IA, PostgreSQL y almacenamiento privado | Equipo de un integrante o cualquier servidor de demostración; un solo proceso de backend |
+| Servidor de la aplicación | API, tarea de procesamiento, módulo de IA, PostgreSQL y almacenamiento privado | Equipo de un integrante o cualquier servidor de demostración; un solo backend |
 | Google Colab | Entrenamiento y ajuste del modelo con GPU gratuita; pruebas de inferencia durante el desarrollo (riesgo 1) | Externo; no forma parte de la aplicación en uso; entrega los pesos |
 | GitHub | Código, configuración versionada y documentación | Rama principal protegida, etiquetas por ciclo |
 
