@@ -13,7 +13,7 @@ Métodos de verificación: **P** prueba, **I** inspección, **D** demostración,
 | RF-03 | Validar formato y tamaño de cada archivo; aceptar solo los formatos definidos y rechazar los demás con mensaje claro (máximo 50 MB por archivo y 150 MB por estudio) | Must | 4.1 | CU02 | P · C6 |
 | RF-04 | Detectar archivos corruptos o no válidos y rechazarlos con mensaje claro | Must | 4.1 | CU02 | P · C6 |
 | RF-05 | Eliminar los metadatos que identifiquen a una persona o, si no es posible, rechazar el archivo | Must | 2.2 | CU02 | P · C6 |
-| RF-06 | Ejecutar automáticamente control de calidad, preparación, segmentación 3D y generación de la ROI | Must | 4.2 | CU03 | P · C6 |
+| RF-06 | Ejecutar automáticamente control de calidad, preparación, segmentación 3D y generación de la ROI desde que el usuario pulsa «Procesar» | Must | 4.2 | CU03 | P · C6 |
 | RF-07 | Informar al usuario el estado de cada etapa del procesamiento | Must | 4.2 | CU03 | P · C6 |
 | RF-08 | Mostrar mensaje claro y detener el flujo de forma controlada si falla una etapa | Must | 4.2 | CU03 | P · C6 |
 | RF-09 | Aplicar en la inferencia las mismas transformaciones de preparación usadas en el entrenamiento | Must | 3.2 | CU03 | P · C2 |

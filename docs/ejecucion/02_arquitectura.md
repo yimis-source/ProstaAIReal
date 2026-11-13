@@ -52,7 +52,7 @@ Estados del trabajo: **pendiente → en proceso → completado | fallido**; un f
 ## Control de factibilidad
 | Riesgo / condición | Acción | Decisión |
 |---|---|---|
-| Riesgo 1: tiempo de inferencia | Ciclo 3, actividad 1408: medir CPU, GPU y memoria con un estudio representativo | Si > 120 s: Colab, modelo preentrenado más ligero o menor resolución; si persiste, documentar la limitación |
+| Riesgo 1: tiempo de inferencia | Ciclo 3, actividad 1408: medir CPU, GPU y memoria con un estudio representativo | Si > 120 s: modelo preentrenado más ligero o menor resolución (Colab solo para pruebas); si persiste, documentar la limitación |
 | Bloqueo de la interfaz | Comprobar que la interfaz consulta el estado mientras corre la tarea | Si se bloquea, separar el procesador |
 | Privacidad e integridad | Rechazo de datos no aptos y recuperación del resultado | Ajustar validación sin ampliar alcance |
 
