@@ -65,6 +65,8 @@ entrenamiento/    División por paciente, evaluación (evaluar.py) y ajuste fino
 backend/          Paquete prosta_ai: pipeline de control de calidad, preparación, segmentación 3D, ROI y
                   evaluación; imagen de la ROI con el aviso experimental (pipeline/visualizacion.py)
 docs-tecnicos/    Modelo preentrenado y licencias
+docs/docsf/       Documentos originales entregados (PM², Open PM, TSP), organizados por grupo de procesos
+gitbook/          Libro de documentación publicado con GitBook (sincronizado desde main)
 reports/          datos/, calidad/, division/, evaluacion/, rendimiento/ y roi/: resultados de los scripts
 tests/            Pruebas de los scripts
 ```

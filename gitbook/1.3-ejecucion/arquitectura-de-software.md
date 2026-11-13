@@ -17,7 +17,7 @@ Detalla los componentes internos de Prosta-AI, sus responsabilidades y dependenc
 * **Estilo elegido:** monolito modular de un solo proceso, frente a un backend con ejecutor separado y a microservicios.
 * **Siete componentes:** presentación React, API y servicios (FastAPI), validación y preparación, segmentación y ROI, evaluación (Dice e IoU), repositorios y archivos (PostgreSQL), y orientación opcional con agentes de IA.
 * **Coordinación:** la API nunca invoca directamente la segmentación; la tabla de trabajos en PostgreSQL es el punto de coordinación.
-* **Control de factibilidad:** el tiempo de inferencia se mide en el Ciclo 3 (actividad 1408); si supera 120 s se usa Colab, un modelo más ligero o menor resolución.
+* **Control de factibilidad:** el tiempo de inferencia se mide en el Ciclo 3 (actividad 1408); si supera 120 s se usa un modelo más ligero o menor resolución (Colab solo para pruebas).
 * **Cobertura:** una tabla relaciona los casos de uso con componentes para comprobar que cubren los requisitos de la matriz.
 * **Alcance:** esquemas de tablas, rutas y algoritmos quedan para entregables posteriores.
 * **Complemento:** véase la [justificación de la arquitectura](justificacion-arquitectura.md) y la [arquitectura de datos](arquitectura-de-datos.md).
