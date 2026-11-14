@@ -7,7 +7,7 @@ Define cómo se elabora, supervisa y controla el cronograma, y cómo se gestiona
 | Campo | Detalle |
 |---|---|
 | Paquete EDT | 1.2.2 |
-| Fecha y versión | 11/10/2026 según los metadatos del PDF; no indica versión |
+| Fecha y versión | 11/10/2026; no indica versión |
 | Responsable | Planeación (Fernando José Angulo Núñez) mantiene el cronograma; el líder lo valida y gestiona su aprobación |
 | Formato | PDF de 14 páginas |
 
