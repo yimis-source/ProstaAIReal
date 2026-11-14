@@ -31,4 +31,4 @@ El seguimiento operativo de estas métricas está en los [artefactos de control 
 
 ## Documento original
 
-* [Plan de calidad (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.2%20Planeaci%C3%B3n/1.2.3%20Plan%20de%20Calidad%20-%20Prosta-AI%20%28versi%C3%B3n%20cuarta%20entrega%29.pdf)
+* [Plan de calidad (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.3 Plan de Calidad - Prosta-AI (versión cuarta entrega).pdf`

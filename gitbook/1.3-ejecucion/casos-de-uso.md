@@ -13,7 +13,7 @@ Modelo UML de las interacciones del usuario académico con Prosta-AI; sustenta l
 
 ## Contenido principal
 
-![Diagrama de casos de uso de Prosta-AI](https://raw.githubusercontent.com/yimis-source/ProstaAIReal/main/docs/docsf/1.3%20Ejecuci%C3%B3n/1.3.1.1%20Requerimientos%20-%20Caso%20de%20uso%20%28corregido%29.png)
+![Diagrama de casos de uso de Prosta-AI](../imagenes/casos-de-uso.png)
 
 * **Actor único:** el usuario académico (estudiante o docente).
 * **CU01** Acceder a la aplicación.
@@ -26,5 +26,5 @@ Modelo UML de las interacciones del usuario académico con Prosta-AI; sustenta l
 
 ## Documento original
 
-* [Diagrama de casos de uso (PNG)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.3%20Ejecuci%C3%B3n/1.3.1.1%20Requerimientos%20-%20Caso%20de%20uso%20%28corregido%29.png)
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/ejecucion/01_requisitos.md)
+* [Diagrama de casos de uso (PNG)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.1.1 Requerimientos - Caso de uso (corregido).png`
+* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/01_requisitos.md`

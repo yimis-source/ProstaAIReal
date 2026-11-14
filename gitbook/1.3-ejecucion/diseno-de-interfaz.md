@@ -23,5 +23,5 @@ Presenta la navegación entre las pantallas de los casos de uso CU01 a CU06 y lo
 
 ## Documento original
 
-* [Diseño de interfaz y módulos (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.3%20Ejecuci%C3%B3n/1.3.2.1%20Dise%C3%B1o%20de%20interfaz%20y%20m%C3%B3dulos%20del%20sistema.pdf)
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/ejecucion/03_modulos.md)
+* [Diseño de interfaz y módulos (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.2.1 Diseño de interfaz y módulos del sistema.pdf`
+* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/03_modulos.md`
