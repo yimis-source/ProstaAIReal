@@ -9,4 +9,3 @@ Mientras tanto, el calendario de los ciclos está en el [cronograma](../1.2-plan
 ## Enlaces
 
 * [Carpeta de documentos del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs)
-* [README del repositorio](https://github.com/yimis-source/ProstaAIReal)
