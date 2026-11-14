@@ -9,6 +9,7 @@ Describe cómo fluyen y se almacenan los datos de Prosta-AI y define el modelo d
 | Paquete EDT | 1.3.2.5 |
 | Fecha y versión | 22/10/2026 |
 | Autores | Yeison Bolaños Ruiz, Juan David Riascos Erazo, Sergio Gabriel Meneses Silva, Yimis Buenaventura y Fernando José Angulo Núñez |
+| Responsable | Sergio Gabriel Meneses Silva (Diseñador) |
 | Formato | PDF |
 
 ## Contenido principal

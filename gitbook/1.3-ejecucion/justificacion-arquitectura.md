@@ -9,6 +9,7 @@ Documenta las decisiones arquitectónicas según el estándar IEEE 1471 y el enf
 | Paquete EDT | 1.3.2.4 |
 | Fecha y versión | 24/10/2026 |
 | Autores | Yeison Bolaños Ruiz, Juan David Riascos Erazo, Sergio Gabriel Meneses Silva, Yimis Buenaventura y Fernando José Angulo Núñez |
+| Responsable | Sergio Gabriel Meneses Silva (Diseñador) |
 | Formato | PDF |
 
 ## Contenido principal
