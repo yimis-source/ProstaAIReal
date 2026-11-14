@@ -24,5 +24,5 @@ Detalla los componentes internos de Prosta-AI, sus responsabilidades y dependenc
 
 ## Documento original
 
-* [Arquitectura de software (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.2.4 Arquitectura de software.pdf`
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/02_arquitectura.md`
+* [Arquitectura de software (PDF)](../carpeta-docs.md) — `docs/docsf/1.3 Ejecución/1.3.2.4 Arquitectura de software.pdf`
+* [Resumen en Markdown del repositorio](../carpeta-docs.md) — `docs/ejecucion/02_arquitectura.md`

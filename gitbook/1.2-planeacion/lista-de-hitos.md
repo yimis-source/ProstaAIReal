@@ -31,4 +31,4 @@ Cada ciclo se cierra con una etiqueta de versión del repositorio (v0.1 a v0.6 y
 
 ## Documento original
 
-* [Lista de hitos (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.2.2 Lista de hitos.pdf`
+* [Lista de hitos (PDF)](../carpeta-docs.md) — `docs/docsf/1.2 Planeación/1.2.2.2 Lista de hitos.pdf`

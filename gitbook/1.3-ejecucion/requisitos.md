@@ -25,5 +25,5 @@ Especificación de requisitos de software (SRS) del Entregable 1: define qué de
 
 ## Documento original
 
-* [SRS, requisitos (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.1.1 Requerimientos funcionales y no funcionales (ISO 29148).pdf`
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/01_requisitos.md`
+* [SRS, requisitos (PDF)](../carpeta-docs.md) — `docs/docsf/1.3 Ejecución/1.3.1.1 Requerimientos funcionales y no funcionales (ISO 29148).pdf`
+* [Resumen en Markdown del repositorio](../carpeta-docs.md) — `docs/ejecucion/01_requisitos.md`

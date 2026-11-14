@@ -29,5 +29,5 @@ Plan integrador que reúne los planes subsidiarios, las líneas base, el ciclo d
 
 ## Documento original
 
-* [Plan para la dirección v5 (DOCX)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.4 Plan para la dirección del proyecto - Prosta-AI v5.docx`
-* [Plan para la dirección (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.4 Plan para la dirección del proyecto - Prosta-AI.pdf`
+* [Plan para la dirección v5 (DOCX)](../carpeta-docs.md) — `docs/docsf/1.2 Planeación/1.2.4 Plan para la dirección del proyecto - Prosta-AI v5.docx`
+* [Plan para la dirección (PDF)](../carpeta-docs.md) — `docs/docsf/1.2 Planeación/1.2.4 Plan para la dirección del proyecto - Prosta-AI.pdf`
