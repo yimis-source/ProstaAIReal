@@ -5,6 +5,7 @@ site:
     - type: space
       key: documentacion
       title: Documentación del proyecto
+      path: documentacion
       default: true
       content:
         directory: ./gitbook
