@@ -19,7 +19,9 @@ El proyecto se gestiona con la Guía del PMBOK (sexta edición) y plantillas PM�
 
 ## Cómo está organizado el libro
 
-El libro sigue la Estructura de Desglose del Trabajo (EDT) por grupos de procesos. Cada página resume un documento entregado y enlaza al original en GitHub.
+Este sitio tiene dos partes: **Gestión del proyecto** (esta) y **Documentación de desarrollo** (documentación técnica del programa), que se eligen en el menú superior.
+
+La parte de gestión sigue la Estructura de Desglose del Trabajo (EDT) por grupos de procesos. Cada página resume un documento entregado y enlaza al original en GitHub.
 
 | Grupo | Contenido | Primera página |
 |---|---|---|
@@ -27,7 +29,6 @@ El libro sigue la Estructura de Desglose del Trabajo (EDT) por grupos de proceso
 | 1.2 Planeación | Planes de dirección, alcance, tiempo y calidad; trazabilidad, EDT, actividades, hitos y cronograma | [Plan para la dirección](1.2-planeacion/plan-para-la-direccion.md) |
 | 1.3 Ejecución | Requisitos, casos de uso, diseño y arquitecturas | [Requisitos](1.3-ejecucion/requisitos.md) |
 | 1.4 Monitoreo y control | Artefactos de control TSP | [Artefactos TSP](1.4-monitoreo-y-control/artefactos-tsp.md) |
-| Desarrollo | Avance del producto por ciclo | [Avance del desarrollo](desarrollo/README.md) |
 
 ## Calendario de hitos
 
@@ -47,4 +48,4 @@ Fechas de la Lista de hitos (11/10/2026), coherentes con el Acta de constitució
 
 ## Repositorio
 
-Código y documentos: [github.com/yimis-source/ProstaAIReal](https://github.com/yimis-source/ProstaAIReal).
+Documentos originales: ver [Carpeta de documentos](carpeta-docs.md).

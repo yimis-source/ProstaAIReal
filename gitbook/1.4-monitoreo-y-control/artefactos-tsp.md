@@ -26,5 +26,5 @@ Inventario, formatos, métricas y libro de Excel que usa el equipo para monitore
 
 ## Documento original
 
-* [Artefactos de control TSP, documento (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.4 Monitoreo y Control/1.4.1 Artefactos de control TSP - Documento.pdf`
-* [Artefactos de control TSP, libro de cálculo (XLSX)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.4 Monitoreo y Control/1.4.1 Artefactos de control TSP - Prosta-AI.xlsx`
+* [Artefactos de control TSP, documento (PDF)](../carpeta-docs.md) — `docs/docsf/1.4 Monitoreo y Control/1.4.1 Artefactos de control TSP - Documento.pdf`
+* [Artefactos de control TSP, libro de cálculo (XLSX)](../carpeta-docs.md) — `docs/docsf/1.4 Monitoreo y Control/1.4.1 Artefactos de control TSP - Prosta-AI.xlsx`

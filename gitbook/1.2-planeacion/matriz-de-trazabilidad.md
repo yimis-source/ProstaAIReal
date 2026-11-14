@@ -23,4 +23,4 @@ Vincula cada requisito con su necesidad, objetivo, entregable, diseño, desarrol
 
 ## Documento original
 
-* [Matriz de trazabilidad corregida (XLSX)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.1.1 Matriz de trazabilidad de requisitos - Prosta-AI (corregida).xlsx`
+* [Matriz de trazabilidad corregida (XLSX)](../carpeta-docs.md) — `docs/docsf/1.2 Planeación/1.2.1.1 Matriz de trazabilidad de requisitos - Prosta-AI (corregida).xlsx`
