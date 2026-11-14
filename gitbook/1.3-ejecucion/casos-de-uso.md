@@ -26,5 +26,5 @@ Modelo UML de las interacciones del usuario académico con Prosta-AI; sustenta l
 
 ## Documento original
 
-* [Diagrama de casos de uso (PNG)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.1.1 Requerimientos - Caso de uso (corregido).png`
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/01_requisitos.md`
+* [Diagrama de casos de uso (PNG)](../carpeta-docs.md) — `docs/docsf/1.3 Ejecución/1.3.1.1 Requerimientos - Caso de uso (corregido).png`
+* [Resumen en Markdown del repositorio](../carpeta-docs.md) — `docs/ejecucion/01_requisitos.md`

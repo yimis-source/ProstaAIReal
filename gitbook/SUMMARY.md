@@ -35,6 +35,6 @@
 
 * [Artefactos de control TSP](1.4-monitoreo-y-control/artefactos-tsp.md)
 
-## Desarrollo del producto
+## Anexos
 
-* [Avance del desarrollo](desarrollo/README.md)
+* [Carpeta de documentos](carpeta-docs.md)

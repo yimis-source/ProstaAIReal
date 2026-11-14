@@ -31,4 +31,4 @@ Los números del diagrama son los ID de la [Lista de actividades](lista-de-activ
 
 ## Documento original
 
-* [Cronograma (PNG)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.2.3 Cronograma del proyecto (corregido).png`
+* [Cronograma (PNG)](../carpeta-docs.md) — `docs/docsf/1.2 Planeación/1.2.2.3 Cronograma del proyecto (corregido).png`

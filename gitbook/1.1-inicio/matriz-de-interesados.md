@@ -25,4 +25,4 @@ Registro de las personas y organizaciones que afectan o son afectadas por el pro
 
 ## Documento original
 
-* [Matriz de interesados (XLSX)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.1 Inicio/1.1.2 Matriz de Interesados - Prosta-AI.xlsx`
+* [Matriz de interesados (XLSX)](../carpeta-docs.md) — `docs/docsf/1.1 Inicio/1.1.2 Matriz de Interesados - Prosta-AI.xlsx`

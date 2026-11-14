@@ -23,5 +23,5 @@ Describe Prosta-AI en bloques grandes: qué partes tiene, qué información inte
 
 ## Documento original
 
-* [Arquitectura del sistema (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.2.3 Arquitectura del sistema.pdf`
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/02_arquitectura.md`
+* [Arquitectura del sistema (PDF)](../carpeta-docs.md) — `docs/docsf/1.3 Ejecución/1.3.2.3 Arquitectura del sistema.pdf`
+* [Resumen en Markdown del repositorio](../carpeta-docs.md) — `docs/ejecucion/02_arquitectura.md`
