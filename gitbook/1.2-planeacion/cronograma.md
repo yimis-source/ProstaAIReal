@@ -13,7 +13,7 @@ Diagrama de Gantt con los ciclos, las actividades por rango de ID, los hitos H00
 
 ## Contenido principal
 
-![Cronograma del proyecto Prosta-AI](https://raw.githubusercontent.com/yimis-source/ProstaAIReal/main/docs/docsf/1.2%20Planeaci%C3%B3n/1.2.2.3%20Cronograma%20del%20proyecto%20%28corregido%29.png)
+![Cronograma del proyecto Prosta-AI](../imagenes/cronograma.png)
 
 | Etapa | Fechas | Actividades | Hito de cierre |
 |---|---|---|---|
@@ -31,4 +31,4 @@ Los números del diagrama son los ID de la [Lista de actividades](lista-de-activ
 
 ## Documento original
 
-* [Cronograma (PNG)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.2%20Planeaci%C3%B3n/1.2.2.3%20Cronograma%20del%20proyecto%20%28corregido%29.png)
+* [Cronograma (PNG)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.2.3 Cronograma del proyecto (corregido).png`

@@ -22,5 +22,5 @@ Documenta las decisiones arquitectónicas según el estándar IEEE 1471 y el enf
 
 ## Documento original
 
-* [Justificación de la arquitectura (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.3%20Ejecuci%C3%B3n/1.3.2.4%20Arquitectura%20de%20software%20-%20Justificaci%C3%B3n.pdf)
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/ejecucion/02_arquitectura.md)
+* [Justificación de la arquitectura (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.2.4 Arquitectura de software - Justificación.pdf`
+* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/02_arquitectura.md`

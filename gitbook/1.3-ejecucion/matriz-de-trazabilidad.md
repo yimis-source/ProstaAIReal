@@ -21,5 +21,5 @@ Versión de la matriz usada durante la ejecución para relacionar requisitos, ca
 
 ## Documento original
 
-* [Matriz de trazabilidad (XLSX)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.3%20Ejecuci%C3%B3n/1.3.1.2%20Matriz%20de%20trazabilidad%20-%20Prosta-AI.xlsx)
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/ejecucion/01_requisitos.md)
+* [Matriz de trazabilidad (XLSX)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.1.2 Matriz de trazabilidad - Prosta-AI.xlsx`
+* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/01_requisitos.md`

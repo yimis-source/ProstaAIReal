@@ -31,4 +31,4 @@ Las actividades 1001 a 1003 figuran como finalizadas en la lista. Cada ciclo cie
 
 ## Documento original
 
-* [Lista de actividades (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.2%20Planeaci%C3%B3n/1.2.2.1%20Lista%20de%20actividades.pdf)
+* [Lista de actividades (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.2.1 Lista de actividades.pdf`

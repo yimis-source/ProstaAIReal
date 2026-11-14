@@ -24,5 +24,5 @@ Describe cómo fluyen y se almacenan los datos de Prosta-AI y define el modelo d
 
 ## Documento original
 
-* [Arquitectura de datos (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.3%20Ejecuci%C3%B3n/1.3.2.5%20Arquitectura%20de%20datos%20%28base%20de%20datos%29.pdf)
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/ejecucion/04_modelo_datos.md)
+* [Arquitectura de datos (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.2.5 Arquitectura de datos (base de datos).pdf`
+* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/04_modelo_datos.md`
