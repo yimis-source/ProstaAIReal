@@ -27,7 +27,7 @@ Documento del grupo de procesos de Inicio que autoriza el proyecto y fija caso d
 * **Riesgos:** ocho riesgos con probabilidad por impacto. Los mayores: capacidad de cómputo insuficiente (nivel 16), y curva de aprendizaje, datos insuficientes o sesgados, retrasos del equipo e integración final (nivel 12 cada uno).
 * **Costo:** el docente indicó dejar el presupuesto sin resolver; la tabla de costos queda en blanco.
 * **Hitos del Acta:** nueve hitos entre el 05/10/2026 y el 09/12/2026 (ver [Lista de hitos](../1.2-planeacion/lista-de-hitos.md)).
-* **Gobernanza:** el docente es propietario; cada integrante combina un rol de producto con un rol de gestión (ver la [portada](../README.md)).
+* **Gobernanza:** el docente es propietario; cada integrante combina un rol de producto con un rol de gestión (ver la portada).
 
 ## Documento original
 
