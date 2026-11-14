@@ -29,5 +29,5 @@ Explica seis patrones de diseño y cómo se aplican a Prosta-AI, vinculados a ca
 
 ## Documento original
 
-* [Informe de patrones (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.3%20Ejecuci%C3%B3n/1.3.2.2%20Informe%20de%20patrones%20de%20dise%C3%B1o%20aplicados.pdf)
-* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/ejecucion/03_modulos.md)
+* [Informe de patrones (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.3 Ejecución/1.3.2.2 Informe de patrones de diseño aplicados.pdf`
+* [Resumen en Markdown del repositorio](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/ejecucion/03_modulos.md`

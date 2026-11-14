@@ -31,5 +31,5 @@ Documento del grupo de procesos de Inicio que autoriza el proyecto y fija caso d
 
 ## Documento original
 
-* [Acta corregida v1.1 (DOCX)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.1%20Inicio/1.1.1%20Acta%20de%20inicio%20-%20Prosta-AI%20%28corregida%29.docx)
-* [Acta original v1.0 (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.1%20Inicio/1.1.1%20Acta%20de%20inicio%20-%20Prosta-AI.pdf)
+* [Acta corregida v1.1 (DOCX)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.1 Inicio/1.1.1 Acta de inicio - Prosta-AI (corregida).docx`
+* [Acta original v1.0 (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.1 Inicio/1.1.1 Acta de inicio - Prosta-AI.pdf`

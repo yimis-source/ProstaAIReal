@@ -28,4 +28,4 @@ Define cómo se define, valida y controla el alcance de Prosta-AI, e incluye el 
 
 ## Documento original
 
-* [Plan de alcance v1.0 (DOCX)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.2%20Planeaci%C3%B3n/1.2.1%20Plan%20de%20Alcance%20-%20Prosta-AI%20v1.0.docx)
+* [Plan de alcance v1.0 (DOCX)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.1 Plan de Alcance - Prosta-AI v1.0.docx`

@@ -30,4 +30,4 @@ Documentos derivados: [Lista de actividades](lista-de-actividades.md), [Lista de
 
 ## Documento original
 
-* [Plan de gestión del cronograma (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.2%20Planeaci%C3%B3n/1.2.2%20Plan%20de%20Tiempo%20-%20Plan%20de%20gesti%C3%B3n%20del%20cronograma.pdf)
+* [Plan de gestión del cronograma (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.2 Plan de Tiempo - Plan de gestión del cronograma.pdf`

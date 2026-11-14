@@ -38,4 +38,4 @@ Nota: la numeración de la EDT del diagrama (por ejemplo 1.2.4 plan de riesgos) 
 
 ## Documento original
 
-* [EDT (PDF)](https://github.com/yimis-source/ProstaAIReal/blob/main/docs/docsf/1.2%20Planeaci%C3%B3n/1.2.1.2%20EDT.pdf)
+* [EDT (PDF)](https://github.com/yimis-source/ProstaAIReal/tree/main/docs) — `docs/docsf/1.2 Planeación/1.2.1.2 EDT.pdf`
