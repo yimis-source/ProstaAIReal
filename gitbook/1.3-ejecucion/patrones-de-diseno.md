@@ -9,6 +9,7 @@ Explica seis patrones de diseño y cómo se aplican a Prosta-AI, vinculados a ca
 | Paquete EDT | 1.3.2.2 |
 | Fecha y versión | 22/10/2026 |
 | Autores | Yimis Buenaventura, Juan David Riascos Erazo, Sergio Gabriel Meneses Silva, Yeison Bolaños Ruiz y Fernando José Angulo Núñez |
+| Responsable | Sergio Gabriel Meneses Silva (Diseñador) |
 | Formato | PDF |
 
 ## Contenido principal

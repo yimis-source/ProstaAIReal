@@ -8,7 +8,7 @@ Vincula cada requisito con su necesidad, objetivo, entregable, diseño, desarrol
 |---|---|
 | Paquete EDT | 1.2.1.1 (el mismo archivo se entrega como 1.3.1.2 en Ejecución) |
 | Fecha y versión | Versión 1.0 del 08/10/2026 (según su encabezado); archivo marcado «corregida» |
-| Autor | Equipo Prosta-AI; propietario: Jair Enrique Sanclemente Castro |
+| Autor | Equipo Prosta-AI; responsable: Yimis Buenaventura (Trazabilidad) |
 | Formato | Hoja de cálculo XLSX (3 hojas: matriz, catálogo e instrucciones) |
 
 ## Contenido principal

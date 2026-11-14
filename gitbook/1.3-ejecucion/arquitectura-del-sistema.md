@@ -9,6 +9,7 @@ Describe Prosta-AI en bloques grandes: qué partes tiene, qué información inte
 | Paquete EDT | 1.3.2.3 |
 | Fecha y versión | 22/10/2026 |
 | Autores | Yeison Bolaños Ruiz, Juan David Riascos Erazo, Sergio Gabriel Meneses Silva, Yimis Buenaventura y Fernando José Angulo Núñez |
+| Responsable | Sergio Gabriel Meneses Silva (Diseñador) |
 | Formato | PDF |
 
 ## Contenido principal

@@ -7,8 +7,8 @@ Descompone el proyecto en grupos de procesos, fases y paquetes de trabajo; es la
 | Campo | Detalle |
 |---|---|
 | Paquete EDT | 1.2.1.2 |
-| Fecha y versión | No indicadas en el documento |
-| Responsable | No indicado |
+| Fecha y versión | 11/10/2026; no indica versión |
+| Responsable | Fernando José Angulo Núñez (Planeación) |
 | Formato | PDF (un diagrama de una página) |
 
 ## Contenido principal

@@ -14,7 +14,6 @@ Base de conocimiento en Markdown de los entregables de **Ejecución** (fase de a
 ## Equipo y roles
 | Integrante | Rol PM² | Rol de gestión | Rol de desarrollo |
 |---|---|---|---|
-| Jair Enrique Sanclemente Castro | Propietario del Proyecto (product owner, docente) | — | — |
 | Yimis Buenaventura | Director de Proyecto | Trazabilidad | Líder |
 | Juan David Riascos Erazo | Equipo central | Monitoreo y control | Analista |
 | Sergio Gabriel Meneses Silva | Equipo central | Cierre | Diseñador |
