@@ -15,7 +15,6 @@ El proyecto se gestiona con la Guía del PMBOK (sexta edición) y plantillas PM�
 | Sergio Gabriel Meneses Silva | Diseñador | Cierre |
 | Yeison Bolaños Ruiz | Desarrollador | Inicio |
 | Fernando José Angulo Núñez | Tester | Planeación |
-| Jair Enrique Sanclemente Castro | Docente y propietario del proyecto | |
 
 ## Cómo está organizado el libro
 

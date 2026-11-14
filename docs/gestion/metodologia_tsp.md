@@ -51,7 +51,6 @@ Cada integrante tiene tres roles: el de **desarrollo** del Acta, el de **gestió
 | Fernando José Angulo Núñez | Tester | Planeación | Gerente de planeación |
 | Juan David Riascos Erazo | Analista | Monitoreo y control | Gerente de calidad y proceso |
 | Sergio Gabriel Meneses Silva | Diseñador | Cierre | Gerente de soporte |
-| Jair Enrique Sanclemente Castro | Propietario del Proyecto (docente) | | |
 
 Qué hace cada rol TSP:
 

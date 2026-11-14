@@ -9,6 +9,7 @@ Presenta la navegación entre las pantallas de los casos de uso CU01 a CU06 y lo
 | Paquete EDT | 1.3.2.1 |
 | Fecha y versión | 23/10/2026 |
 | Autores | Yeison Bolaños Ruiz, Juan David Riascos Erazo, Sergio Gabriel Meneses Silva, Yimis Buenaventura y Fernando José Angulo Núñez |
+| Responsable | Sergio Gabriel Meneses Silva (Diseñador) |
 | Formato | PDF |
 
 ## Contenido principal

@@ -8,7 +8,8 @@ Inventario, formatos, métricas y libro de Excel que usa el equipo para monitore
 |---|---|
 | Paquete EDT | 1.4.1 |
 | Fecha y versión | 23/10/2026; el libro de Excel es la versión 0.1 |
-| Autores | Yeison Bolaños Ruiz, Juan David Riascos Erazo, Sergio Gabriel Meneses Silva, Yimis Buenaventura y Fernando José Angulo Núñez; Monitoreo y control lo lidera Juan David Riascos Erazo |
+| Autores | Yeison Bolaños Ruiz, Juan David Riascos Erazo, Sergio Gabriel Meneses Silva, Yimis Buenaventura y Fernando José Angulo Núñez |
+| Responsable | Juan David Riascos Erazo (Monitoreo y control) |
 | Formato | PDF (documento) y XLSX (libro de 11 hojas) |
 
 ## Contenido principal

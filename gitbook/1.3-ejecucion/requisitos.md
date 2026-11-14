@@ -9,6 +9,7 @@ Especificación de requisitos de software (SRS) del Entregable 1: define qué de
 | Paquete EDT | 1.3.1.1 |
 | Fecha y versión | Octubre de 2026, versión 1.0 (sujeta a aprobación del propietario en el hito H002) |
 | Autores | Yimis Buenaventura, Juan David Riascos Erazo, Sergio Gabriel Meneses Silva, Yeison Bolaños Ruiz y Fernando José Angulo Núñez |
+| Responsable | Juan David Riascos Erazo (Analista) |
 | Formato | PDF |
 
 ## Contenido principal
