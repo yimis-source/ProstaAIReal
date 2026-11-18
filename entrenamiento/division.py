@@ -4,7 +4,7 @@ Cada caso del Medical Segmentation Decathlon Task05 es un paciente distinto
 (el conjunto no trae un identificador de paciente aparte), así que dividir por
 caso equivale a dividir por paciente.
 
-Uso (desde la raíz del repositorio):
+Uso (desde la raíz del repositorio):.
     backend/.venv/bin/python -m entrenamiento.division
 """
 from __future__ import annotations
