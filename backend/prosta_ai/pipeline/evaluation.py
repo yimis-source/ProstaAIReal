@@ -68,7 +68,10 @@ def hd95(
 
     Dos máscaras vacías producen 0; si solo una está vacía, produce infinito.
     """
-    return float(np.percentile(_distancias_superficie(pred, ref, spacing), 95))
+    distancias = _distancias_superficie(pred, ref, spacing)
+    if distancias.size == 1 and np.isinf(distancias[0]):
+        return float("inf")
+    return float(np.percentile(distancias, 95))
 
 
 def distancia_media_superficie(
@@ -80,4 +83,7 @@ def distancia_media_superficie(
 
     Dos máscaras vacías producen 0; si solo una está vacía, produce infinito.
     """
-    return float(np.mean(_distancias_superficie(pred, ref, spacing)))
+    distancias = _distancias_superficie(pred, ref, spacing)
+    if distancias.size == 1 and np.isinf(distancias[0]):
+        return float("inf")
+    return float(np.mean(distancias))
