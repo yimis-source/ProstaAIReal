@@ -10,7 +10,7 @@ import numpy as np
 
 from . import stages
 from .errors import StageError
-from .evaluation import dice, iou
+from .evaluation import dice, distancia_media_superficie, hd95, iou
 from .io import Volume, load_volume, save_nifti
 from .preparation import PreparationConfig, PreparedVolume, prepare_volume
 from .progress import PipelineProgress, TimingRecorder
@@ -33,6 +33,8 @@ class PipelineOutput:
     mask_path: Path
     dice: float | None
     iou: float | None
+    hd95: float | None
+    distancia_media_superficie: float | None
     durations: dict[str, float]
 
 
@@ -49,6 +51,8 @@ class PipelineContext:
     mask_path: Path | None = None
     dice: float | None = None
     iou: float | None = None
+    hd95: float | None = None
+    distancia_media_superficie: float | None = None
 
 
 class BasePipeline(ABC):
@@ -84,6 +88,8 @@ class BasePipeline(ABC):
             mask_path=ctx.mask_path,
             dice=ctx.dice,
             iou=ctx.iou,
+            hd95=ctx.hd95,
+            distancia_media_superficie=ctx.distancia_media_superficie,
             durations=dict(timing.durations),
         )
 
@@ -149,3 +155,8 @@ class Segmentation3DPipeline(BasePipeline):
             return  # sin referencia: dice = iou = None
         ctx.dice = dice(ctx.mask_original, ctx.reference)
         ctx.iou = iou(ctx.mask_original, ctx.reference)
+        assert ctx.volume is not None
+        ctx.hd95 = hd95(ctx.mask_original, ctx.reference, spacing=ctx.volume.spacing)
+        ctx.distancia_media_superficie = distancia_media_superficie(
+            ctx.mask_original, ctx.reference, spacing=ctx.volume.spacing
+        )

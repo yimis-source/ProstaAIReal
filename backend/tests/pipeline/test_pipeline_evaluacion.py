@@ -1,7 +1,9 @@
 import numpy as np
 import pytest
 
-from prosta_ai.pipeline.evaluation import dice, iou
+from prosta_ai.pipeline.evaluation import (
+    dice, distancia_media_superficie, hd95, iou,
+)
 
 
 def test_identicas():
@@ -40,3 +42,30 @@ def test_uno_vacio():
 def test_formas_distintas():
     with pytest.raises(ValueError):
         dice(np.zeros((2, 2)), np.zeros((3, 3)))
+
+
+def test_metricas_superficie_identicas_y_spacing():
+    a = np.zeros(10, np.uint8)
+    b = np.zeros(10, np.uint8)
+    a[1] = 1
+    b[4] = 1
+    assert hd95(a, a) == 0.0
+    assert distancia_media_superficie(a, a) == 0.0
+    assert hd95(a, b, spacing=(2.0,)) == pytest.approx(6.0)
+    assert distancia_media_superficie(a, b, spacing=(2.0,)) == pytest.approx(6.0)
+
+
+def test_metricas_superficie_mascaras_vacias():
+    vacia = np.zeros((3, 3), dtype=np.uint8)
+    llena = vacia.copy()
+    llena[1, 1] = 1
+    assert hd95(vacia, vacia) == 0.0
+    assert distancia_media_superficie(vacia, vacia) == 0.0
+    assert np.isinf(hd95(vacia, llena))
+    assert np.isinf(distancia_media_superficie(vacia, llena))
+
+
+def test_spacing_invalido():
+    m = np.ones((3, 3), dtype=np.uint8)
+    with pytest.raises(ValueError):
+        hd95(m, m, spacing=(1.0,))
