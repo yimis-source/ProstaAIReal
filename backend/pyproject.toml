@@ -5,6 +5,7 @@ description = "Prosta-AI: segmentación 3D experimental de próstata en MRI (uso
 requires-python = ">=3.11,<3.13"
 dependencies = [
   "numpy==1.26.4",
+  "scipy==1.14.1",
   "nibabel==5.3.2",
   "SimpleITK==2.4.0",
   "monai==1.4.0",
