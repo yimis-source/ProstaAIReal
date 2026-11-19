@@ -2,8 +2,9 @@
 
 Usa `build_pipeline`, la misma ruta de inferencia que usará la aplicación: control
 de calidad, preparación, segmentación y ROI (máscara en la rejilla original); Dice e
-IoU se calculan en el espacio de la imagen original contra la etiqueta (próstata =
-etiqueta > 0). Las imágenes y máscaras de la ROI se escriben en una carpeta temporal
+IoU, HD95 y distancia media de superficie se calculan en el espacio de la imagen
+original contra la etiqueta (próstata = etiqueta > 0). Las métricas de distancia se
+expresan en milímetros. Las imágenes y máscaras de la ROI se escriben en una carpeta temporal
 que se borra al terminar cada caso (no se guardan imágenes de los datos).
 
 Uso (desde la raíz del repositorio):
@@ -70,9 +71,18 @@ def evaluar_casos(modelo: str, carpeta: Path, datos: Path, ids: list[str], dispo
             t0 = time.perf_counter()
             salida = pipeline.run(entrada, PipelineProgress())
             segundos = time.perf_counter() - t0
-        fila = {"caso": caso, "dice": salida.dice, "iou": salida.iou, "tiempo_s": round(segundos, 1)}
+        fila = {
+            "caso": caso, "dice": salida.dice, "iou": salida.iou,
+            "hd95": salida.hd95,
+            "distancia_media_superficie": salida.distancia_media_superficie,
+            "tiempo_s": round(segundos, 1),
+        }
         filas.append(fila)
-        print(f"[{n}/{len(ids)}] {caso}: Dice={fila['dice']:.4f} IoU={fila['iou']:.4f} ({segundos:.0f} s)", flush=True)
+        print(
+            f"[{n}/{len(ids)}] {caso}: Dice={fila['dice']:.4f} IoU={fila['iou']:.4f} "
+            f"HD95={fila['hd95']:.2f} mm Dist. media={fila['distancia_media_superficie']:.2f} mm "
+            f"({segundos:.0f} s)", flush=True
+        )
     return filas
 
 
@@ -83,12 +93,21 @@ def resumen(filas: list[dict], clave: str) -> tuple[float, float]:
 
 
 def tabla(filas: list[dict]) -> str:
-    lineas = ["| Caso | Dice | IoU | Tiempo (s) |", "|---|---:|---:|---:|"]
-    lineas += [f"| {f['caso']} | {f['dice']:.4f} | {f['iou']:.4f} | {f['tiempo_s']:.1f} |" for f in filas]
+    lineas = ["| Caso | Dice | IoU | HD95 (mm) | Distancia media (mm) | Tiempo (s) |", "|---|---:|---:|---:|---:|---:|"]
+    lineas += [
+        f"| {f['caso']} | {f['dice']:.4f} | {f['iou']:.4f} | {f['hd95']:.2f} | "
+        f"{f['distancia_media_superficie']:.2f} | {f['tiempo_s']:.1f} |"
+        for f in filas
+    ]
     dm, ds = resumen(filas, "dice")
     im, is_ = resumen(filas, "iou")
+    hm, hs = resumen(filas, "hd95")
+    sm, ss = resumen(filas, "distancia_media_superficie")
     tm, ts = resumen(filas, "tiempo_s")
-    lineas.append(f"| **Media ± desv.** | **{dm:.4f} ± {ds:.4f}** | **{im:.4f} ± {is_:.4f}** | **{tm:.1f} ± {ts:.1f}** |")
+    lineas.append(
+        f"| **Media ± desv.** | **{dm:.4f} ± {ds:.4f}** | **{im:.4f} ± {is_:.4f}** | "
+        f"**{hm:.2f} ± {hs:.2f}** | **{sm:.2f} ± {ss:.2f}** | **{tm:.1f} ± {ts:.1f}** |"
+    )
     return "\n".join(lineas)
 
 
@@ -147,7 +166,6 @@ def construir_informe(modelo: str, info: dict, division: dict, filas: list[dict]
         "el modelo se entrenó para dos zonas. Los criterios de delimitación de los anotadores pueden diferir "
         "(p. ej. en base y ápex).",
         "- Un solo conjunto público y un solo observador por caso (sin variabilidad entre observadores).",
-        "- Las métricas de superficie (Hausdorff, etc.) no se calculan; solo Dice e IoU.",
         "- Los tiempos dependen del equipo; no representan el rendimiento en otro hardware.",
         "- No hay validación clínica ni externa a estos datos públicos.",
         "",
@@ -218,9 +236,12 @@ def main() -> None:
     pertenece = {c: k for k, v in conj.items() for c in v}
     with open(args.salida / f"{base}.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["caso", "conjunto", "dice", "iou", "tiempo_s"])
+        w.writerow(["caso", "conjunto", "dice", "iou", "hd95_mm", "distancia_media_superficie_mm", "tiempo_s"])
         for fila in todos or filas:
-            w.writerow([fila["caso"], pertenece[fila["caso"]], f"{fila['dice']:.6f}", f"{fila['iou']:.6f}", fila["tiempo_s"]])
+            w.writerow([
+                fila["caso"], pertenece[fila["caso"]], f"{fila['dice']:.6f}", f"{fila['iou']:.6f}",
+                f"{fila['hd95']:.6f}", f"{fila['distancia_media_superficie']:.6f}", fila["tiempo_s"],
+            ])
     print(f"Informe escrito en {args.salida / (base + '.md')}")
 
 

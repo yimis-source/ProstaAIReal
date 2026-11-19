@@ -52,11 +52,14 @@ def test_punta_a_punta_nifti(tmp_path, nifti_path, referencia_path, config_prep)
     assert np.allclose(msk.affine, orig.affine) and np.allclose(img.affine, orig.affine)
     assert set(np.unique(msk.get_fdata())) <= {0.0, 1.0}
     assert res.dice > 0.8 and 0 < res.iou <= res.dice
+    assert res.hd95 is not None and res.hd95 >= 0
+    assert res.distancia_media_superficie is not None and res.distancia_media_superficie >= 0
 
 
 def test_sin_referencia_deja_metricas_vacias(tmp_path, nifti_path, config_prep):
     res = pipeline(config_prep).run(PipelineInput([nifti_path], "NIfTI", [], tmp_path / "o"), PipelineProgress())
     assert res.dice is None and res.iou is None
+    assert res.hd95 is None and res.distancia_media_superficie is None
     assert "evaluación" in res.durations
 
 
