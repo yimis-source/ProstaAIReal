@@ -140,7 +140,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
 |---|---:|---:|---:|---:|
 | Yimis | 10 | 11,2 | 0 | 11,2 |
-| Juan | 11 | 10,8 | 1,5 | 12,2 |
+| Juan | 11 | 10,8 | 1,5 | 12,3 |
 | Sergio | 10 | 12 | 0 | 12 |
 | Yeison | 18 | 21,5 | 1,25 | 22,75 |
 | Fernando | 7 | 10 | 0 | 10 |
