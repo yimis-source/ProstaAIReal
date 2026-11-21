@@ -29,7 +29,7 @@ Por persona:
 | Persona | Plan h | Real h | Desviación | Ayuda dada h | Total trabajado h | h/día (días con tarea) |
 |---|---:|---:|---:|---:|---:|---:|
 | Yimis | 10 | 11,2 | +12 % | 0 | 11,2 | 1,2 |
-| Juan | 11 | 10,8 | -2 % | 1,5 | 12,2 | 1,4 |
+| Juan | 11 | 10,8 | -2 % | 1,5 | 12,3 | 1,4 |
 | Sergio | 10 | 12 | +20 % | 0 | 12 | 1,7 |
 | Yeison | 18 | 21 | +17 % | 1 | 22 | 2,8 |
 | Fernando | 7 | 10 | +43 % | 0 | 10 | 3,3 |

@@ -115,7 +115,7 @@ Licencias consultadas el 02/11/2026.
 
 ## Ciclo 5 · Decisión del ajuste fino (1603)
 
-Se eligió la época 85 con cinco casos de validación. En los cinco casos de prueba el Dice medio del modelo ajustado fue 0.873464. El umbral de adopción era superar 0,8925. Se conserva el modelo preentrenado.
+Se eligió la época 85 con cinco casos de validación. En los cinco casos de prueba el Dice medio del modelo ajustado fue 0,8735. El umbral de adopción era superar 0,8925. Se conserva el modelo preentrenado.
 
 - [prostate_mri_anatomy](../reports/evaluacion/evaluacion_prostate_mri_anatomy_2026-11-21.md)
 - [prostate_task05_ft](../reports/evaluacion/evaluacion_prostate_task05_ft_2026-11-21.md)
