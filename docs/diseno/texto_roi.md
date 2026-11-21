@@ -37,7 +37,7 @@ En los 5 casos de prueba el HD95 medio fue 4,09 ± 0,92 mm y la distancia media 
 - Cambio de dominio: el modelo se entrenó con otros datos (Prostate158) y los casos de prueba (MSD Task05) tienen otra resolución y protocolo, con cortes gruesos de 4 mm.
 - Los cortes gruesos hacen que los bordes de la base y el ápex sean menos precisos.
 - Posible sesgo del modelo preentrenado: la documentación no menciona los datos de Task05, pero no se puede garantizar que no se hayan usado en su entrenamiento; si así fuera, las cifras estarían sobreestimadas.
-- Al ampliar a los 32 casos, el Dice medio baja a 0,8736 ± 0,1222 porque prostate_07 tiene Dice 0,2255: el modelo marcó una región falsa cerca del borde del campo de visión (24 225 vóxeles) El HD95 medio sube a 7,51 ± 18,99 mm; en prostate_07 llega a 111,46 mm. Ese caso muestra que la ROI puede fallar.
+- Al ampliar a los 32 casos, el Dice medio baja a 0,8736 ± 0,1222 porque prostate_07 tiene Dice 0,2255: el modelo marcó una región falsa cerca del borde del campo de visión (24 225 vóxeles). El HD95 medio sube a 7,51 ± 18,99 mm; en prostate_07 llega a 111,46 mm. Ese caso muestra que la ROI puede fallar.
 - Uso académico: no hay validación clínica ni externa.
 
 ## 2. Revisión de lenguaje no clínico (RF-15, RF-16)

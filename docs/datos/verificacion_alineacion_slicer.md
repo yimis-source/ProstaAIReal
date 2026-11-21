@@ -4,7 +4,7 @@
 |---|---|
 | Tarea | 1507, repetida en 1606 |
 | Responsable | Juan David Riascos Erazo (Analista) con Sergio Gabriel Meneses Silva (Diseñador) |
-| Fecha | [20/11/2026] |
+| Fecha | 20/11/2026 |
 | Versión | 1.1 |
 
 > **Esto es una revisión visual, sin métricas nuevas.** Complementa las comprobaciones automáticas de `reports/roi/verificacion_roi_2026-11-11.md`. Uso académico y experimental; no es una evaluación clínica ni diagnóstica.
