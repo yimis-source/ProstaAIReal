@@ -4,7 +4,7 @@
 |---|---|
 | Tarea | 1413, repetida en 1606 |
 | Responsable | Sergio Gabriel Meneses Silva (Diseñador, gerente de soporte), con Juan David Riascos Erazo |
-| Fecha | [21/11/2026] |
+| Fecha | 21/11/2026 |
 | Versión | 1.1 |
 
 > **Esto es una revisión visual, sin métricas nuevas.** No se calculó ninguna medida. Las únicas cifras (Dice, HD95) vienen de `reports/evaluacion/informe_metricas_ciclo5.md`. Uso académico y experimental; no es una evaluación clínica ni diagnóstica.
@@ -19,7 +19,7 @@
 
 1. Abrir 3D Slicer (esta revisión usó la 5.12.4; instalación en `docs/datos/revision_3d_slicer.md`, tarea 1207).
 2. *File → Add Data*: cargar la imagen del caso desde `datos/Task05_Prostate/imagesTr` (no se verificó qué canal se cargó).
-3. Cargar la referencia de `labelsTr` como **Segmentation** y la máscara predicha local también como **Segmentation**. Dejar la referencia en un color y la predicha en otro.
+3. Cargar la referencia de `labelsTr` como **Segmentation** y la máscara predicha local también como **Segmentation**. La referencia tiene dos etiquetas y Slicer la carga como dos segmentos con sus colores por defecto: **verde** = zona periférica (etiqueta 1) y **amarillo** = zona de transición (etiqueta 2). La predicha se deja en un color distinto.
 4. En el módulo *Segmentations* usar *Jump slices* para ir a la máscara, y alternar la visibilidad con el icono del ojo.
 5. Disposición de tres planos (axial, sagital, coronal) y vista 3D. Recorrer el deslizador axial de S negativo (ápex) a S positivo (base) y revisar varios cortes por caso, no todos.
 6. Anotar, por caso: (a) si la predicha y la referencia ocupan la misma zona, (b) en qué cortes difieren (base, ápex, bordes laterales), (c) si aparece alguna región predicha lejos de la glándula.
@@ -52,11 +52,13 @@ Son impresiones de una revisión visual hecha por personas que no son profesiona
 
 ### Observaciones por caso
 
+Colores: **verde** = zona periférica de la referencia, **amarillo** = zona de transición de la referencia y «modelo» = máscara predicha. Por eso en algunos cortes se ven tres máscaras: el modelo y las dos zonas de la referencia.
+
 | Caso | Ápex (S negativo) | Zona media | Base (S positivo) |
 |---|---|---|---|
 | prostate_13 | Modelo y referencia empiezan casi en el mismo corte. | — | Terminan en el mismo corte que la zona amarilla; en S = -8,9 mm el modelo es un trazo muy pequeño dentro de la referencia. |
 | prostate_17 | Empiezan juntos, pero el modelo no cubre toda la zona amarilla. | El modelo cubre casi toda la zona amarilla. | El modelo cubre toda la zona amarilla y termina un corte después que ella (comparado con el amarillo). |
-| prostate_28 | En S = -94,5 mm el modelo es el más pequeño de las tres máscaras. |  el modelo y el verde tienen tamaño parecido; el amarillo es menor. | En S = -58,5 mm el verde ya no aparece y el modelo cubre menos que el amarillo; termina junto con el amarillo, cubriendo menos. |
+| prostate_28 | En S = -94,5 mm el modelo es el más pequeño de las tres máscaras. | El modelo y el verde tienen tamaño parecido; el amarillo es menor. | En S = -58,5 mm el verde ya no aparece y el modelo cubre menos que el amarillo; termina junto con el amarillo, cubriendo menos. |
 | prostate_34 | En S = -92,3 mm el modelo cubre más que la zona amarilla. | En S = -80,3 mm los tres tamaños son parecidos (el amarillo, algo menor). | El verde desaparece y el modelo cubre mucho menos que el amarillo; en S = -40,3 mm es una franja delgada sobre él. |
 | prostate_44 | En S = -37,2 mm aparece solo el modelo. | En S = -26,4 mm el modelo y el amarillo tienen el mismo tamaño. En S = -1,2 mm los dos son grandes. | En S = 6,0 mm solo queda el modelo, sin amarillo ni verde. |
 
