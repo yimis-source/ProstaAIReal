@@ -1,5 +1,7 @@
 # Registro de tiempos (LOGT) · Prosta-AI
 
+> Corrección del 21/11/2026: se ajustaron las horas reales de Yeison (tareas 1204, 1301, 1305, 1404, 1406, 1412, 1503 y 1504, y sus ayudas) y de Sergio (1502) en los ciclos 1 a 4, con estimaciones retrospectivas. Los postmortems de esos ciclos conservan las cifras registradas al cierre; las vigentes son las de este registro.
+
 **Versión:** L8 · **Fecha:** 12/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
@@ -85,7 +87,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | 1208 | Informe de datos | Juan | 4 | 4,5 | +12 % | 8,5 % | 8,5 % |
 | 1209 | Cierre: trazabilidad, LOGD/LOGT, etiqueta | Yimis | 3 | 3 | 0 % | 6,4 % | 6,4 % |
 
-**Suma del ciclo:** plan 47 h de tareas terminadas, real 54,5 h, desviación +16 %. Valor ganado: 47 h plan de 47 (100,0 %).
+**Suma del ciclo:** plan 47 h de tareas terminadas, real 54 h, desviación +15 %. Valor ganado: 47 h plan de 47 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
@@ -106,7 +108,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | Sergio | 5 | 6 | 0,5 | 6,5 |
 | Yeison | 6 | 7,5 | 1,25 | 8,75 |
 | Fernando | 8 | 8,5 | 0 | 8,5 |
-| **Equipo** | 47 | 54,5 | 6,5 | 61 |
+| **Equipo** | 47 | 54 | 5,75 | 59,75 |
 
 ### Ciclo 2 · Preprocesamiento, división por paciente y diseño (26/10–30/10)
 
@@ -124,7 +126,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | 1309 | Diseño de base de datos | Juan | 5 | 5 | 0 % | 8,9 % | 8,9 % |
 | 1310 | Revisión cruzada de documentos, cierre y etiqueta | Yimis / Juan | 4 | 4,5 | +12 % | 7,1 % | 7,1 % |
 
-**Suma del ciclo:** plan 56 h de tareas terminadas, real 65 h, desviación +16 %. Valor ganado: 56 h plan de 56 (100,0 %).
+**Suma del ciclo:** plan 56 h de tareas terminadas, real 65,5 h, desviación +17 %. Valor ganado: 56 h plan de 56 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
@@ -142,7 +144,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | Sergio | 10 | 12 | 0 | 12 |
 | Yeison | 18 | 21,5 | 1,25 | 22,75 |
 | Fernando | 7 | 10 | 0 | 10 |
-| **Equipo** | 56 | 65 | 2,5 | 67,5 |
+| **Equipo** | 56 | 65,5 | 2,75 | 68,25 |
 
 ### Ciclo 3 · Segmentación 3D, modelo e inferencia (REPLANIFICADO 31/10–10/11; plan original 31/10–13/11)
 
@@ -163,7 +165,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | 1413 | Revisión en 3D Slicer de las máscaras predichas | Sergio | 4 | 4,5 | +12 % | 5,3 % | 5,3 % |
 | 1414 | Matriz de trazabilidad, LOGD/LOGT y cierre (v0.3-ciclo3) | Yimis | 4 | 4,5 | +12 % | 5,3 % | 5,3 % |
 
-**Suma del ciclo:** plan 76 h de tareas terminadas, real 87,5 h, desviación +15 %. Valor ganado: 76 h plan de 76 (100,0 %).
+**Suma del ciclo:** plan 76 h de tareas terminadas, real 88 h, desviación +16 %. Valor ganado: 76 h plan de 76 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
@@ -187,7 +189,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | Sergio | 8 | 9,5 | 0 | 9,5 |
 | Yeison | 31 | 37 | 3,25 | 40,25 |
 | Fernando | 20 | 22 | 2,5 | 24,5 |
-| **Equipo** | 76 | 87,5 | 11,5 | 99 |
+| **Equipo** | 76 | 88 | 12,25 | 100,25 |
 
 ### Ciclo 4 · Generación de la ROI (REPLANIFICADO 08/11–12/11; plan original 14/11–20/11)
 
@@ -204,7 +206,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | 1509 | Postmortem del ciclo 3 | Fernando | 2 | 2 | 0 % | 4,8 % | 4,8 % |
 | 1510 | Postmortem C4, matriz y cierre (v0.4-ciclo4) | Fernando / Yimis | 4 | 4 | 0 % | 9,5 % | 9,5 % |
 
-**Suma del ciclo:** plan 42 h de tareas terminadas, real 46 h, desviación +10 %. Valor ganado: 42 h plan de 42 (100,0 %).
+**Suma del ciclo:** plan 42 h de tareas terminadas, real 45 h, desviación +7 %. Valor ganado: 42 h plan de 42 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
@@ -223,7 +225,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | Sergio | 9 | 9 | 2,5 | 11,5 |
 | Yeison | 12 | 13 | 0 | 13 |
 | Fernando | 12 | 13 | 0 | 13 |
-| **Equipo** | 42 | 46 | 3,5 | 49,5 |
+| **Equipo** | 42 | 45 | 3,5 | 48,5 |
 
 ### Horas por día por persona
 
@@ -236,7 +238,7 @@ Método: (horas propias + ayudas dadas) / días calendario en que la persona tuv
 | Sergio | 3,2 | 1,7 | 2,4 | 3,1 |
 | Yeison | 2,9 | 2,8 | 5,0 | 4,3 |
 | Fernando | 2,8 | 3,3 | 3,5 | 3,2 |
-| **Promedio del equipo** | 3,1 | 2,1 | 3,4 | 4,4 |
+| **Promedio del equipo** | 3,0 | 2,1 | 3,4 | 4,3 |
 
 Promedio de las personas con tarea: ciclos 1–2 ≈ 2,6 h/día; ciclos 3–4 ≈ 3,9 h/día. El valor de Juan en el ciclo 4 (9 h en un solo día, 11/11) es un pico por 1507 + 1508 el mismo día; sin él el promedio de los ciclos 3–4 baja a 3,3 h/día.
 
