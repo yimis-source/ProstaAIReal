@@ -1,0 +1,38 @@
+{
+  "nombre": "prostate_task05_ft",
+  "version": "1.0.0",
+  "fecha": "2026-11-21T21:51:20",
+  "hash_pesos_sha256": "59676d68a88ead47ece3a04cd996ab4f7ca7a5e009d192bfe420b52e6268dcb7",
+  "punto_de_partida": "ajuste fino desde prostate_mri_anatomy (v0.3.6)",
+  "semilla": 2026,
+  "hiperparametros": {
+    "max_epocas": 100,
+    "tasa_aprendizaje": 0.0001,
+    "tamano_lote": 2,
+    "recortes_por_caso": 4,
+    "validar_cada": 5,
+    "perdida": "DiceCELoss",
+    "optimizador": "AdamW"
+  },
+  "mejor_epoca": 85,
+  "mejor_dice_validacion": 0.848670984630642,
+  "division": {
+    "archivo": "division.json",
+    "semilla": 2026,
+    "huella_sha256": "728fae869f02e7c7587aab5081d7b12050dd92164c3d52f96c122cd97369da81",
+    "cantidades": {
+      "entrenamiento": 22,
+      "validacion": 5,
+      "prueba": 5
+    }
+  },
+  "entorno": {
+    "dispositivo": "cuda",
+    "python": "3.11.18",
+    "torch": "2.5.1+cu124",
+    "monai": "1.4.0"
+  },
+  "duracion_entrenamiento_s": 1702.3,
+  "prueba_rapida": false,
+  "aviso": "Uso académico y experimental. No apto para diagnóstico."
+}
