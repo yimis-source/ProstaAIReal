@@ -194,7 +194,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
 |---|---|---|---:|---:|---:|---:|---:|
 | 1501 | Lanzamiento del ciclo 4 (con el ciclo 3 en cierre) | Fernando | 3 | 3 | 0 % | 7,1 % | 7,1 % |
-| 1502 | Diseño del visor y de la superposición de la ROI | Sergio | 6 | 7 | +17 % | 14,3 % | 14,3 % |
+| 1502 | Diseño del visor y de la superposición de la ROI | Sergio | 6 | 6 | 0 % | 14,3 % | 14,3 % |
 | 1503 | Etapa ROI (rejilla original, NIfTI de salida) | Yeison | 6 | 6,5 | +8 % | 14,3 % | 14,3 % |
 | 1504 | Imagen de la ROI con aviso no clínico | Yeison | 6 | 7,5 | +25 % | 14,3 % | 14,3 % |
 | 1505 | Texto explicativo de la ROI y revisión de lenguaje no clínico | Sergio | 3 | 3 | 0 % | 7,1 % | 7,1 % |
@@ -204,7 +204,7 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | 1509 | Postmortem del ciclo 3 | Fernando | 2 | 2 | 0 % | 4,8 % | 4,8 % |
 | 1510 | Postmortem C4, matriz y cierre (v0.4-ciclo4) | Fernando / Yimis | 4 | 4 | 0 % | 9,5 % | 9,5 % |
 
-**Suma del ciclo:** plan 42 h de tareas terminadas, real 47 h, desviación +12 %. Valor ganado: 42 h plan de 42 (100,0 %).
+**Suma del ciclo:** plan 42 h de tareas terminadas, real 46 h, desviación +10 %. Valor ganado: 42 h plan de 42 (100,0 %).
 
 **Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
 
@@ -220,10 +220,10 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 |---|---:|---:|---:|---:|
 | Yimis | 2 | 2 | 0 | 2 |
 | Juan | 7 | 8 | 1 | 9 |
-| Sergio | 9 | 10 | 2,5 | 12,5 |
+| Sergio | 9 | 9 | 2,5 | 11,5 |
 | Yeison | 12 | 14 | 0 | 14 |
 | Fernando | 12 | 13 | 0 | 13 |
-| **Equipo** | 42 | 47 | 3,5 | 50,5 |
+| **Equipo** | 42 | 46 | 3,5 | 49,5 |
 
 ### Horas por día por persona
 
