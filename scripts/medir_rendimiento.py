@@ -76,6 +76,20 @@ def ram_total_gb() -> float:
     return float("nan")
 
 
+def es_gpu(dispositivo: str) -> bool:
+    return dispositivo.startswith("cuda")
+
+
+def gpu_nombre(dispositivo: str) -> str:
+    return torch.cuda.get_device_name(torch.device(dispositivo))
+
+
+def sincronizar(dispositivo: str) -> None:
+    """En GPU las operaciones son asíncronas: hay que esperar a que terminen antes de tomar el tiempo."""
+    if es_gpu(dispositivo):
+        torch.cuda.synchronize()
+
+
 def medir(caso: str, datos: Path, modelos: Path, repeticiones: int, dispositivo: str) -> dict:
     imagen = datos / "imagesTr" / f"{caso}.nii.gz"
     pipeline = build_pipeline("prostate_mri_anatomy", modelos / "prostate_mri_anatomy")
@@ -86,6 +100,8 @@ def medir(caso: str, datos: Path, modelos: Path, repeticiones: int, dispositivo:
     info: dict = {}
     for rep in range(1, repeticiones + 1):
         tiempos = {}
+        if es_gpu(dispositivo):
+            torch.cuda.reset_peak_memory_stats()
         t = time.perf_counter()
         vol = load_volume([imagen], "NIfTI")
         detailed_validation(vol)
@@ -97,6 +113,7 @@ def medir(caso: str, datos: Path, modelos: Path, repeticiones: int, dispositivo:
 
         t = time.perf_counter()
         mascara = estrategia.segment(prep)
+        sincronizar(dispositivo)
         tiempos[PASOS[2]] = time.perf_counter() - t
 
         t = time.perf_counter()
@@ -104,7 +121,10 @@ def medir(caso: str, datos: Path, modelos: Path, repeticiones: int, dispositivo:
         tiempos[PASOS[3]] = time.perf_counter() - t
 
         tiempos["total"] = sum(tiempos[p] for p in PASOS)
-        filas.append({"repeticion": rep, "frio": rep == 1, **tiempos, "rss_pico_mb": rss_pico_mb()})
+        fila = {"repeticion": rep, "frio": rep == 1, **tiempos, "rss_pico_mb": rss_pico_mb()}
+        if es_gpu(dispositivo):
+            fila["gpu_pico_mb"] = torch.cuda.max_memory_allocated() / 2**20
+        filas.append(fila)
         if rep == 1:
             info = {
                 "forma_original": tuple(int(s) for s in vol.data.shape),
@@ -113,7 +133,10 @@ def medir(caso: str, datos: Path, modelos: Path, repeticiones: int, dispositivo:
                 "voxeles_mascara": int(original.sum()),
             }
         print(f"repetición {rep}: total {tiempos['total']:.1f} s, pico de memoria {rss_pico_mb():.0f} MB", flush=True)
-    return {"filas": filas, "info": info, "rss_inicio_mb": rss_inicio}
+    res = {"filas": filas, "info": info, "rss_inicio_mb": rss_inicio}
+    if es_gpu(dispositivo):
+        res["gpu"] = gpu_nombre(dispositivo)
+    return res
 
 
 def informe(caso: str, res: dict, dispositivo: str, hilos: int) -> str:
