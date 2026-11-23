@@ -6,7 +6,7 @@
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
+Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados. Ciclo 5 en curso: plan del lanzamiento del 16/11/2026.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -226,6 +226,23 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados.
 | Yeison | 12 | 13 | 0 | 13 |
 | Fernando | 12 | 13 | 0 | 13 |
 | **Equipo** | 42 | 45 | 3,5 | 48,5 |
+
+### Ciclo 5 · Evaluación técnica del modelo (16/11–25/11, con el colchón del ciclo 4; plan original 21/11–25/11)
+
+Plan del lanzamiento (`ciclo5_lanzamiento.md`, 16/11/2026). Las horas reales las registra cada integrante en sus filas al terminar su tarea; el valor ganado se calcula en el postmortem.
+
+| ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
+|---|---|---|---:|---:|---:|---:|---:|
+| 1601 | Lanzamiento del ciclo 5 | Fernando | 3 | — | — | 7,3 % | — |
+| 1602 | Rendimiento en GPU (cierra lo pendiente de la tarea 1408) | Fernando | 5 | — | — | 12,2 % | — |
+| 1603 | Ajuste fino del modelo en Google Colab | Yeison | 10 | — | — | 24,4 % | — |
+| 1604 | Métricas adicionales (HD95 y distancia media de superficie) | Juan | 5 | — | — | 12,2 % | — |
+| 1605 | Informe de métricas y límites (RF-23, RF-24) | Juan | 6 | — | — | 14,6 % | — |
+| 1606 | Revisión visual en 3D Slicer y textos de resultados | Sergio | 5 | — | — | 12,2 % | — |
+| 1607 | Trazabilidad, revisión de PR y cierre (v0.5-ciclo5) | Yimis | 5 | — | — | 12,2 % | — |
+| 1608 | Postmortem del ciclo 5 | Fernando | 2 | — | — | 4,9 % | — |
+
+**Suma del plan:** 41 h. Por persona: Fernando 10 h, Yeison 10 h, Juan 11 h, Sergio 5 h, Yimis 5 h.
 
 ### Horas por día por persona
 
