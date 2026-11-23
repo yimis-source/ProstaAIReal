@@ -18,7 +18,7 @@
   ni validación de tamaño (50/150 MB).
 - **Ajuste fino no ejecutado.** `entrenamiento/entrenar.py` está preparado (incluye `--prueba-rapida`), pero no se
   ha ejecutado y no hay modelo propio; `NnUNetStrategy` es un marcador sin implementación.
-- **Rendimiento medido solo en CPU** (un estudio, un equipo); la medición en GPU está pendiente.
+- **Rendimiento medido con un solo estudio** en CPU (Ryzen 5 5600G) y en GPU (Tesla T4 de Colab); falta la memoria pico de la GPU, que mide el script corregido en la tarea 1602.
 - **Uso no clínico.** Sin validación clínica ni externa; los resultados no son diagnósticos.
 
 ## Mejoras previstas (plan TSP)

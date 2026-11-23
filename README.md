@@ -101,7 +101,7 @@ Prostate158 y PROMISE12 se descargan a mano (ver `docs/datos/procedimiento_desca
 - Evaluación en los 5 casos de prueba de MSD Task05: **Dice 0,8925 ± 0,0340**, IoU 0,8071 ± 0,0534
   (meta RF-24: ≥ 0,80). Es una evaluación técnica preliminar; la formal es del ciclo 5.
 - Rendimiento (CPU AMD Ryzen 5 5600G, sin GPU): 13–16 s por estudio, memoria pico ≈ 2 GB (RR-01: ≤ 120 s).
-  La medición en GPU queda pendiente (Colab, ciclo 5).
+  En GPU (Colab, Tesla T4): unos 5 s por estudio, inferencia 2,3 s (tarea 1602); no son cifras comparables con las de CPU.
 - ROI: la máscara vuelve a la rejilla de la imagen original (vecino más cercano); en los 5 casos de prueba la
   forma y la afín coinciden con la imagen y el Dice recalculado desde la máscara guardada es el mismo
   (`reports/roi/`). La imagen exportada lleva impreso el aviso de uso académico y no diagnóstico.
