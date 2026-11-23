@@ -14,7 +14,9 @@ siguientes reutilizan el modelo ya cargado, como hará la aplicación.
 Uso (desde la raíz del repositorio):
     python scripts/medir_rendimiento.py --caso prostate_13 --repeticiones 3 [--dispositivo cpu]
 
-Escribe `reports/rendimiento/rendimiento_1408_<fecha>.md`.
+Escribe `reports/rendimiento/rendimiento_1408_<fecha>.md` en CPU y
+`reports/rendimiento/rendimiento_1408_gpu_<fecha>.md` en GPU (tarea 1602). En GPU
+también mide la memoria pico de la GPU en cada repetición.
 """
 from __future__ import annotations
 
@@ -139,8 +141,29 @@ def medir(caso: str, datos: Path, modelos: Path, repeticiones: int, dispositivo:
     return res
 
 
+def nombre_informe(dispositivo: str, fecha: str) -> str:
+    return f"rendimiento_1408_gpu_{fecha}.md" if es_gpu(dispositivo) else f"rendimiento_1408_{fecha}.md"
+
+
+def seccion_gpu(res: dict, dispositivo: str) -> list[str]:
+    if not es_gpu(dispositivo):
+        return [
+            "No disponible en este equipo (no hay GPU NVIDIA con CUDA). Queda pendiente medir en Google Colab "
+            "(ciclo 5) con `--dispositivo cuda`; los tiempos de CPU y GPU no son comparables entre sí.",
+        ]
+    pico = max(f["gpu_pico_mb"] for f in res["filas"])
+    return [
+        f"- GPU: {res['gpu']}.",
+        f"- Memoria pico de la GPU (`torch.cuda.max_memory_allocated`): {pico:.0f} MB.",
+        "- Los tiempos de esta medición no son comparables con los de CPU: cambian el equipo, el procesador y "
+        "la memoria. Solo sirven para ver el orden de magnitud y comprobar RR-01 en cada equipo.",
+    ]
+
+
 def informe(caso: str, res: dict, dispositivo: str, hilos: int) -> str:
     filas = res["filas"]
+    gpu = es_gpu(dispositivo)
+    titulo_gpu = f"; GPU: {res['gpu']}" if gpu else ""
     calientes = [f for f in filas if not f["frio"]] or filas
     lineas = [
         f"# Tiempo y memoria de la inferencia (tarea 1408) — {date.today().isoformat()}",
@@ -152,21 +175,23 @@ def informe(caso: str, res: dict, dispositivo: str, hilos: int) -> str:
         f"- Estudio: `{caso}` de MSD Task05 (canal T2), forma {res['info']['forma_original']}, "
         f"espaciado {res['info']['espaciado']} mm; volumen preparado a 0,5 mm: {res['info']['forma_preparada']}.",
         "- Modelo: `prostate_mri_anatomy` 0.3.6, ventana deslizante 96³, lote 4, solape 0,5.",
-        f"- Dispositivo: {dispositivo}. CPU: {cpu_nombre()}; {hilos} hilos de torch; RAM {ram_total_gb():.1f} GB; "
+        f"- Dispositivo: {dispositivo}{titulo_gpu}. CPU: {cpu_nombre()}; {hilos} hilos de torch; RAM {ram_total_gb():.1f} GB; "
         f"{platform.system()} {platform.release()}.",
         f"- Software: Python {platform.python_version()}, torch {torch.__version__}, MONAI {monai.__version__}.",
         f"- Repeticiones: {len(filas)}. La primera incluye la carga de los pesos (arranque en frío).",
-        "- Memoria: pico de memoria residente (RSS) del proceso medido con `resource.getrusage`.",
+        "- Memoria: pico de memoria residente (RSS) del proceso medido con `resource.getrusage`"
+        + ("; en GPU, además, pico de memoria de la GPU con `torch.cuda.max_memory_allocated`." if gpu else "."),
         "",
         "## Resultados por repetición (segundos)",
         "",
-        "| Rep. | " + " | ".join(PASOS) + " | Total | Pico RSS (MB) |",
-        "|---|" + "---:|" * (len(PASOS) + 2),
+        "| Rep. | " + " | ".join(PASOS) + " | Total | Pico RSS (MB) |" + (" Pico GPU (MB) |" if gpu else ""),
+        "|---|" + "---:|" * (len(PASOS) + 2 + (1 if gpu else 0)),
     ]
     for f in filas:
         marca = f"{f['repeticion']} (en frío)" if f["frio"] else str(f["repeticion"])
         lineas.append(f"| {marca} | " + " | ".join(f"{f[p]:.2f}" for p in PASOS)
-                      + f" | **{f['total']:.2f}** | {f['rss_pico_mb']:.0f} |")
+                      + f" | **{f['total']:.2f}** | {f['rss_pico_mb']:.0f} |"
+                      + (f" {f['gpu_pico_mb']:.0f} |" if gpu else ""))
     media = statistics.mean(f["total"] for f in calientes)
     peor = max(f["total"] for f in filas)
     inferencia = statistics.mean(f[PASOS[2]] for f in calientes)
@@ -183,8 +208,7 @@ def informe(caso: str, res: dict, dispositivo: str, hilos: int) -> str:
         "",
         "## GPU",
         "",
-        "No disponible en este equipo (no hay GPU NVIDIA con CUDA). Queda pendiente medir en Google Colab "
-        "(ciclo 5) con `--dispositivo cuda`; los tiempos de CPU y GPU no son comparables entre sí.",
+        *seccion_gpu(res, dispositivo),
         "",
         "## Limitaciones",
         "",
@@ -208,7 +232,7 @@ def main() -> None:
         sys.exit("No hay GPU con CUDA en este equipo; use --dispositivo cpu o ejecútelo en Colab.")
     res = medir(args.caso, args.datos, args.modelos, args.repeticiones, args.dispositivo)
     args.salida.mkdir(parents=True, exist_ok=True)
-    destino = args.salida / f"rendimiento_1408_{date.today().isoformat()}.md"
+    destino = args.salida / nombre_informe(args.dispositivo, date.today().isoformat())
     destino.write_text(informe(args.caso, res, args.dispositivo, torch.get_num_threads()), encoding="utf-8")
     print(f"Informe escrito en {destino}")
 
