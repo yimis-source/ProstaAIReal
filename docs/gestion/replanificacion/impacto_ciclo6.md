@@ -1,6 +1,6 @@
 # Análisis de impacto del recorte de los ciclos 6 y 7
 
-**Autor:** Juan David Riascos Erazo (Analista, Monitoreo y control; Gerente de calidad y proceso) · **Fecha:** 24/11/2026 · **Versión:** 1.1 · **Tarea:** 1701 · **Aprueba:** Yimis Buenaventura (Director de Proyecto) · Proyecto Prosta-AI, Universidad Santiago de Cali 2026-2
+**Autor:** Juan David Riascos Erazo (Analista, Monitoreo y control; Gerente de calidad y proceso) · **Fecha:** 24/11/2026 · **Versión:** 1.2 · **Tarea:** 1701 · **Aprueba:** Yimis Buenaventura (Director de Proyecto) · Proyecto Prosta-AI, Universidad Santiago de Cali 2026-2
 
 Este análisis es el paso 2 de la replanificación (metodología TSP, sección 9) y del control de cambios del Acta (sección 5.2.1). La replanificación se registra en el lanzamiento del ciclo 6 (`docs/gestion/tsp/ciclo6_lanzamiento.md`, a cargo de Fernando), que enlaza este documento. El informe al Propietario del Proyecto está en `informe_docente_ciclo6.md`, en esta misma carpeta.
 
@@ -33,20 +33,20 @@ Prioridad y origen tal como aparecen en la SRS (tablas 5 a 17) y en la matriz. �
 | Requisito | Qué pide (resumen) | CU | Prioridad SRS | Matriz | Decisión | Nota |
 |---|---|---|---|---|---|---|
 | RF-01 | Inicio de sesión básico | CU01 | Should | 4.7 | Se hace | Acceso con alias y contraseña, sin registro de cuentas (DEC-01, RC-05). Es Should, pero lo necesitamos para asociar los estudios a una sesión |
-| RF-02 | Cargar uno o varios estudios | CU02 | Must | 4.1 | Se hace | Solo NIfTI (`.nii`, `.nii.gz`), con selección múltiple |
+| RF-02 | Cargar uno o varios estudios | CU02 | Must | 4.1 | Se hace | Solo NIfTI (`.nii`, `.nii.gz`): un archivo de imagen por estudio y, opcional, su máscara de referencia (`contrato_api.md`, 4.4) |
 | RF-03 | Validar formato y tamaño (50 MB por archivo, 150 MB por estudio) | CU02 | Must | 4.1 | Se hace, con cambio | Formato admitido: NIfTI. La nota de la SRS admite DICOM y NIfTI; DICOM pasa a condicionado (ver RF-02 DICOM abajo). Los límites de tamaño no cambian |
 | RF-04 | Rechazar archivos corruptos con mensaje claro | CU02 | Must | 4.1 | Se hace | Se reutiliza `validators.py` (el NIfTI truncado ya se rechaza en el pipeline) |
 | RF-05 | Eliminar metadatos que identifiquen a una persona o rechazar el archivo | CU02 | Must | 2.2 | Se hace | **No estaba en la lista propuesta (RF-02 a RF-04).** Lo agregamos: es Must y sostiene el criterio de aceptación 6 del Acta (vital). En NIfTI: vaciar los campos de texto de la cabecera y reemplazar el nombre del archivo por el ID anónimo |
 | RF-02 / RF-03 (DICOM) | Carga de DICOM en `.zip` | CU02 | Must (parte de RF-02 y RF-03) | 4.1 | Condicionado | Exige leer series DICOM y desidentificarlas (RF-05), que es lo más costoso de CU02. Si no entra, la versión del 28/11 admite solo NIfTI y se documenta |
 | RF-06 | Flujo automático desde «Procesar» | CU03 | Must | 4.2 | Se hace | En segundo plano; la API llama al pipeline existente. Incluye la corrección de D-006 |
-| RF-07 | Estado de cada etapa | CU03 | Must | 4.2 | Se hace | Las cuatro etapas de `stages.py` (control de calidad, preparación, segmentación y ROI), notificadas con el observador de `progress.py` |
-| RF-08 | Mensaje claro y parada controlada si falla una etapa | CU03 | Must | 4.2 | Se hace | `StageError` del pipeline convertido en estado «Error» con su mensaje |
+| RF-07 | Estado de cada etapa | CU03 | Must | 4.2 | Se hace | Las cinco etapas de `stages.py` (control de calidad, preparación, segmentación, ROI y evaluación), notificadas con el observador de `progress.py` |
+| RF-08 | Mensaje claro y parada controlada si falla una etapa | CU03 | Must | 4.2 | Se hace | `StageError` del pipeline convertido en estado `fallido` con su mensaje |
 | RF-09 | Mismas transformaciones en entrenamiento e inferencia | CU03 | Must | 3.2 | Se mantiene | Verificado (ciclos 2 y 5); la API no cambia la preparación |
 | RF-10 | Excluir y registrar imágenes que no pasen el control de calidad | CU03 | Must | 3.2 | Se mantiene | Verificado en scripts y pipeline |
 | RF-11 | Segmentación 3D y máscara | CU03 | Must | 3.4 | Se mantiene | Modelo preentrenado (decisión de la tarea 1603) |
 | RF-12 | ROI alineada con la imagen original | CU03 | Must | 4.3 | Se mantiene | Verificado (ciclo 4) |
 | RF-13 | ROI superpuesta en el visor | CU04 | Must | 4.3 | Se hace | Visor por cortes 2D de `visor_roi.md`; hoy está «Parcial» en la trazabilidad |
-| RF-14 | Comparar con y sin máscara | CU04 | Must | 4.3 | Se hace | Dos paneles sincronizados e interruptor de la ROI |
+| RF-14 | Comparar con y sin máscara | CU04 | Must | 4.3 | Se hace | Interruptor que muestra u oculta la capa de la máscara sobre el mismo corte (`capa=mascara` en el contrato) |
 | RF-15 | Aviso en toda pantalla de resultados y salida exportada | CU04 | Must | 2.3 | Se hace | Un solo componente de aviso con el texto de `AVISO_EXPERIMENTAL`; la exportación sigue pasando por `renderizador_exportacion()` |
 | RF-16 | Sin lenguaje clínico | CU04 | Must | 2.3 | Se hace | Inspección de todos los textos de las pantallas |
 | RF-17 | Panel de explicación (qué muestra, métricas, limitaciones) | CU04 | Must | 4.4 | Se hace | Texto de `docs/diseno/texto_roi.md` |
@@ -94,7 +94,7 @@ Efecto en las pantallas diseñadas (`docs/ejecucion/assets/pantallas/`):
 
 ### 2.3 Punto de decisión de lo condicionado
 
-**Jueves 26/11 a las 18:00.** Si CU02, CU03 y CU04 pasan la prueba de integración con los 5 casos de prueba, se abre CU05 (RF-19) y, después, la carga de DICOM en `.zip`. Si no pasan, lo condicionado sale y se documenta igual que CU06. Decide Yimis con el informe de pruebas de Fernando. El orden no se invierte: CU05 cuesta menos porque los datos ya están en PostgreSQL; DICOM implica leer series y desidentificarlas.
+**Jueves 26/11 a las 12:00** (el mismo punto del lanzamiento, sección 3). Se abre CU05 (RF-19, tarea 1712) si la carga (1705, 1707) pasó las pruebas de integración (1708) y el procesamiento (1709) ya corre un caso por la API. DICOM en `.zip` se abre solo si además queda tiempo el 27/11 después de CU04 (1713) y RR-01 (1715). Si no se cumple, lo condicionado sale y se documenta igual que CU06. Decide Yimis con el informe de pruebas de Fernando. El orden no se invierte: CU05 cuesta menos porque los datos ya están en PostgreSQL; DICOM implica leer series y desidentificarlas.
 
 ## 3. Impacto en el tiempo
 
@@ -129,7 +129,7 @@ El plan del ciclo 6 es de **81 h** (lanzamiento de Fernando).
 
 ### 3.3 Efecto en el proceso TSP
 
-- **Postmortem del ciclo 6:** la regla de la sección 4 de la metodología dice que se escribe al iniciar el ciclo siguiente. Como el ciclo 7 empieza el 25/11, antes de que termine el 6, el postmortem del ciclo 6 se escribe el 28/11 junto con el del ciclo 7, en su propio PR y antes del merge de cierre.
+- **Postmortem del ciclo 6:** la regla de la sección 4 de la metodología dice que se escribe al iniciar el ciclo siguiente. Como el ciclo 7 empieza el 25/11, antes de que termine el 6, el postmortem del ciclo 6 (tarea 1717) se escribe el 27/11, al congelar el código y antes del merge de cierre de `v0.6-ciclo6`, en su propio PR. El del ciclo 7 va el 28/11.
 - **Lanzamiento del ciclo 7:** Fernando lo escribe el 25/11, con su plan de horas en el LOGT el mismo día (lección 2 del ciclo 5).
 - **Etiquetas:** `v0.6-ciclo6` sobre el merge de cierre del 27/11 y `v0.7-ciclo7` el 28/11.
 - En el postmortem se mide contra las fechas nuevas y también contra el plan original (metodología, sección 9, paso 5).
@@ -148,7 +148,7 @@ El plan del ciclo 6 es de **81 h** (lanzamiento de Fernando).
 | Inspección de pantallas (RF-15, RF-16, RF-17, D-006) | Sí | Sergio y Juan, una sola pasada sobre la versión del 27/11 |
 | Verificación del Tester sin datos personales (RB-02, criterio 6 del Acta) | Sí | Antes de cada integración y sobre la versión congelada |
 | Inspección de RC-05 (sin cuentas ni roles) | Sí | Sobre las tablas de PostgreSQL y las rutas de la API |
-| Criterios de salida de la metodología (sección 8, puntos 1 a 8) | Sí | El punto 6 (postmortem) se cumple el 28/11, como se explicó en la sección 3.3 |
+| Criterios de salida de la metodología (sección 8, puntos 1 a 8) | Sí | El punto 6 (postmortem) se cumple el 27/11 (1717), como se explicó en la sección 3.3 |
 
 ### 4.2 Qué se reduce
 
@@ -159,7 +159,7 @@ El plan del ciclo 6 es de **81 h** (lanzamiento de Fernando).
 ### 4.3 Riesgos de calidad por el ritmo
 
 - Revisiones de PR superficiales: el rendimiento de revisión del ciclo 5 ya fue 0 de 2.
-- Defectos de interfaz (tipo 50) entre la API y React, porque se construyen al mismo tiempo. Se mitiga fijando los contratos de la API el 24/11 a partir de `docs/ejecucion/02_arquitectura.md`.
+- Defectos de interfaz (tipo 50) entre la API y React, porque se construyen al mismo tiempo. Se mitiga fijando los contratos de la API el 24/11 en `docs/ejecucion/contrato_api.md` (tarea 1700).
 - Que la documentación del ciclo 7 describa una versión distinta de la congelada.
 - Que las horas y los defectos no se registren al momento y haya que reconstruirlos (lección 4 del ciclo 5).
 
@@ -186,9 +186,9 @@ Los riesgos 3 (datos insuficientes o con licencias restringidas) y 4 (fuga entre
 |---|---|---|---:|---:|---:|---|---|---|
 | 9 | Defectos que llegan a la entrega porque las revisiones de PR se hacen con prisa | Abierto | 4 | 4 | 16 | Juan David Riascos | Reducir | Lista de verificación corta por PR, revisión en menos de 2 h, LOGD revisado cada noche. Congelamiento el 27/11 para tener un día de verificación sin cambios de código |
 | 10 | Documentación final (ciclo 7) que no coincide con la versión congelada, por hacerse en paralelo | Abierto | 4 | 3 | 12 | Sergio Meneses | Reducir | Hasta el 27/11 se escribe lo que no depende del código (lecciones, riesgos, decisiones); el 28/11 se completan instrucciones, evidencias y capturas sobre la versión `v0.6-ciclo6` |
-| 11 | Entorno de PostgreSQL y procesamiento en segundo plano que no funciona igual en todos los equipos | Abierto | 3 | 4 | 12 | Yeison Bolaños | Reducir | Una guía de instalación y un script que crea las tablas, probados el 24/11 en dos equipos distintos; versiones fijadas en el repositorio |
+| 11 | Entorno de PostgreSQL y procesamiento en segundo plano que no funciona igual en todos los equipos | Abierto | 3 | 4 | 12 | Yimis Buenaventura | Reducir | Una guía de instalación y un script que crea las tablas, probados el 24/11 en dos equipos distintos; versiones fijadas en el repositorio |
 | 12 | Que el Propietario objete el recorte cuando ya no hay tiempo para cambiarlo | Abierto | 2 | 5 | 10 | Yimis Buenaventura | Reducir | Informe enviado el 24/11 con plazo de respuesta el 25/11 a las 12:00. Lo que está en «Se hace» no cambia con ninguna respuesta, así que se avanza en eso mientras tanto |
-| 13 | Que el tiempo de punta a punta en la web (carga y guardado incluidos) pase de 2 minutos | Abierto | 2 | 3 | 6 | Fernando Angulo | Aceptar | La inferencia sola tarda 14,1 s en CPU, lejos del límite. Se mide el 26/11 con los 5 casos; si falla, se documenta la causa (RR-01 es Should) |
+| 13 | Que el tiempo de punta a punta en la web (carga y guardado incluidos) pase de 2 minutos | Abierto | 2 | 3 | 6 | Fernando Angulo | Aceptar | La inferencia sola tarda 14,1 s en CPU, lejos del límite. Se mide el 27/11 con los 5 casos (1715); si falla, se documenta la causa (RR-01 es Should) |
 | 14 | Que las horas y los defectos se registren tarde y haya que reconstruirlos | Abierto | 3 | 2 | 6 | Juan David Riascos | Reducir | Cada persona anota sus horas al terminar cada tarea; Juan revisa el LOGD y Fernando el LOGT cada noche del 24/11 al 28/11 |
 
 ## 6. Efecto en los criterios del Acta
@@ -225,7 +225,7 @@ Los riesgos 3 (datos insuficientes o con licencias restringidas) y 4 (fuga entre
 1. **Aprobar el recorte** con el alcance de la sección 2, con dos ajustes a la propuesta:
    - Agregar **RF-05** (Must) a lo que se hace en CU02. Sin él no se puede sostener el criterio 6 del Acta.
    - Dejar escrito que **RF-03 cambia de contenido**: si DICOM no entra, la versión del 28/11 admite solo NIfTI.
-2. Lo condicionado (RF-19 y DICOM) se decide el **26/11 a las 18:00** con el informe de pruebas, en ese orden. RU-01 se hace reducido el 28/11.
+2. Lo condicionado (RF-19 y DICOM) se decide el **26/11 a las 12:00** con el informe de pruebas, en ese orden. RU-01 se hace reducido el 28/11.
 3. CU06 (RF-20 a RF-22) y el visor 3D **salen** de esta versión. Quedan documentados como trabajo futuro en el Entregable 8 y en la matriz.
 4. Como el cambio toca hitos (H008, H009), el contenido del Entregable 6 y el criterio de aceptación 2, **se eleva al Propietario del Proyecto** para su aprobación explícita (Acta 5.2.1; metodología, sección 9, paso 3). Yimis aprueba la replanificación interna y firma el informe como Director.
 5. Si el Propietario aprueba:
@@ -235,5 +235,7 @@ Los riesgos 3 (datos insuficientes o con licencias restringidas) y 4 (fuga entre
 6. El congelamiento del 27/11 se respeta aunque quede algo condicionado sin terminar: lo que no esté integrado y probado esa noche no entra.
 
 *Versión 1.1 (24/11/2026): al revisar el documento contra las pantallas CU00 a CU06 y el Acta se corrigió el efecto en la pantalla de inicio (CU00) y en el menú lateral, y el estado y la estrategia del riesgo 8. Los números de requisitos, prioridades y orígenes no cambiaron.*
+
+*Versión 1.2 (24/11/2026): en la revisión cruzada con el lanzamiento y el contrato de la API se corrigieron las etapas (son cinco, con evaluación), el estado de error (`fallido`), el punto de decisión de lo condicionado (26/11 a las 12:00, como en el lanzamiento), la fecha del postmortem del ciclo 6 (27/11) y de RR-01 (27/11), la comparación con y sin máscara y el responsable del riesgo 11.*
 
 *Para este análisis no hay horas reales del ciclo 6: las 81 h son las del plan del lanzamiento. Los números de requisitos, prioridades y orígenes son los de la SRS v1.0 y la matriz v1.0.*

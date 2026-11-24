@@ -35,7 +35,7 @@ Se mantienen los 29 requisitos Must de la SRS. Uno cambia de contenido: si la ca
 
 | Elemento | Requisitos (prioridad SRS) | Decisión |
 |---|---|---|
-| CU05 · Historial de estudios | RF-19 (Should); el registro de RF-18 sí se hace | Entra solo si CU02 a CU04 pasan la prueba de integración el 26/11 a las 18:00 |
+| CU05 · Historial de estudios | RF-19 (Should); el registro de RF-18 sí se hace | Entra solo si el 26/11 a las 12:00 la carga y el procesamiento ya pasan las pruebas de integración |
 | Carga de DICOM en `.zip` | Parte de RF-02 y RF-03 (Must) | Después de CU05 y con la misma condición |
 | Usabilidad completa | RU-01 (Should) | Se reduce a una prueba con 3 usuarios sobre la versión congelada |
 | CU06 · Asistente de IA | RF-20 a RF-22 (Could) | Fuera de esta versión, como ya prevé la SRS para este componente |
