@@ -1,10 +1,10 @@
 # Postmortem del ciclo 5 · Evaluación técnica del modelo
 
-**Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Fecha:** 23/11/2026 · **Proyecto:** Prosta-AI, Universidad Santiago de Cali 2026-2
+**Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Fecha:** 23/11/2026 (actualizado el mismo día con las horas reales y el cierre) · **Proyecto:** Prosta-AI, Universidad Santiago de Cali 2026-2
 
 ## 1. Resumen
 
-El ciclo 5 se planeó del 16/11 al 25/11 (hito H007), usando el colchón que dejó el adelanto del ciclo 4. Este postmortem se escribe el 23/11, en su propio PR y antes del cierre, como se acordó en el ciclo 4. Las tareas 1601 a 1606 están terminadas; queda la 1607 (trazabilidad, revisión de PR y cierre con `v0.5-ciclo5`), que hace Yimis del 23/11 al 25/11.
+El ciclo 5 se planeó del 16/11 al 25/11 (hito H007), usando el colchón que dejó el adelanto del ciclo 4. Este postmortem se escribe el 23/11, en su propio PR y antes del cierre, como se acordó en el ciclo 4. Las ocho tareas (1601 a 1608) están terminadas. La 1607 (trazabilidad, revisión de PR y cierre) se hizo el 23/11 y el ciclo cerró ese día con `v0.5-ciclo5` (PR #81), dos días antes del hito H007.
 
 Resultados del modelo preentrenado `prostate_mri_anatomy` en los 5 casos de prueba (`reports/evaluacion/informe_metricas_ciclo5.md`):
 
@@ -24,17 +24,25 @@ Resultados del modelo preentrenado `prostate_mri_anatomy` en los 5 casos de prue
 
 | ID | Tarea | Responsable | Plan h | Real h | Estado | Evidencia |
 |---|---|---|---:|---:|---|---|
-| 1601 | Lanzamiento del ciclo 5 | Fernando | 3 | por registrar | Terminada | `docs/gestion/tsp/ciclo5_lanzamiento.md` |
-| 1602 | Rendimiento en GPU | Fernando | 5 | por registrar | Terminada; falta la memoria de la GPU (ver sección 9) | `reports/rendimiento/rendimiento_1408_gpu_2026-11-13.md`, `scripts/medir_rendimiento.py` |
-| 1603 | Ajuste fino en Google Colab | Yeison | 10 | por registrar | Terminada (PR #75, 21/11) | `docs-tecnicos/modelo-y-licencias.md`, informes del 21/11 |
-| 1604 | HD95 y distancia media de superficie | Juan (ayuda: Yeison) | 5 | por registrar | Terminada (PR #72, 19/11) | `backend/prosta_ai/pipeline/evaluation.py` y sus pruebas |
-| 1605 | Informe de métricas y límites | Juan | 6 | por registrar | Terminada (PR #72, 19/11; comparación en el PR #77, 21/11) | `reports/evaluacion/informe_metricas_ciclo5.md` |
-| 1606 | Revisión visual en 3D Slicer y textos | Sergio | 5 | por registrar | Terminada (PR #74 y #78, 21/11) | `docs/datos/revision_slicer_predicciones.md`, `docs/diseno/texto_roi.md` |
-| 1607 | Trazabilidad, revisión de PR y cierre | Yimis | 5 | por registrar | En curso (23/11–25/11) | `docs/gestion/trazabilidad.md` |
-| 1608 | Postmortem del ciclo 5 | Fernando | 2 | por registrar | Este documento | `docs/gestion/tsp/ciclo5_postmortem.md` |
-| | **Total** | | **41** | | | |
+| 1601 | Lanzamiento del ciclo 5 | Fernando | 3 | 3,5 | Terminada | `docs/gestion/tsp/ciclo5_lanzamiento.md` |
+| 1602 | Rendimiento en GPU | Fernando | 5 | 6,5 | Terminada; falta la memoria de la GPU (ver sección 9) | `reports/rendimiento/rendimiento_1408_gpu_2026-11-13.md`, `scripts/medir_rendimiento.py` |
+| 1603 | Ajuste fino en Google Colab | Yeison | 10 | 12 | Terminada (PR #75, 21/11) | `docs-tecnicos/modelo-y-licencias.md`, informes del 21/11 |
+| 1604 | HD95 y distancia media de superficie | Juan (ayuda: Yeison) | 5 | 5,5 | Terminada (PR #72, 19/11) | `backend/prosta_ai/pipeline/evaluation.py` y sus pruebas |
+| 1605 | Informe de métricas y límites | Juan | 6 | 5 | Terminada (PR #72, 19/11; comparación en el PR #77, 21/11) | `reports/evaluacion/informe_metricas_ciclo5.md` |
+| 1606 | Revisión visual en 3D Slicer y textos | Sergio | 5 | 5,5 | Terminada (PR #74 y #78, 21/11) | `docs/datos/revision_slicer_predicciones.md`, `docs/diseno/texto_roi.md` |
+| 1607 | Trazabilidad, revisión de PR y cierre | Yimis | 5 | 4,5 | Terminada (PR #80 y #81, 23/11) | `docs/gestion/trazabilidad.md` |
+| 1608 | Postmortem del ciclo 5 | Fernando | 2 | 2 | Terminada (PR #79, 23/11) | `docs/gestion/tsp/ciclo5_postmortem.md` |
+| | **Total** | | **41** | **44,5** | | |
 
-**Horas reales:** cada integrante debe registrar las suyas en el LOGT (sección «Ciclo 5»), como se hizo con la corrección de horas del 21/11. Cuando estén, se completan aquí la desviación por tarea y por persona, las horas por día y las ayudas (por ejemplo, la de Yeison a Juan en la 1604).
+**Desviación del ciclo:** +9 % (44,5 h reales frente a 41 h plan), la segunda más baja después del ciclo 4 (C1 +15 %, C2 +17 %, C3 +16 %, C4 +7 %).
+
+- Lo que más se pasó fue la 1602 (+30 %): corregir D-010 y escribir las pruebas de los dos modos no estaba en el plan.
+- La 1603 (+20 %) se alargó por las sesiones de Colab que se cortaban y había que retomar.
+- La 1605 (-17 %) y la 1607 (-10 %) quedaron por debajo: el informe partió de la plantilla del ciclo 4 y la trazabilidad solo sumó la evidencia del ciclo.
+
+**Ayudas** (aparte de las horas de la tarea): Yeison a Juan 1 h (1604), Juan a Sergio 1 h (1606, revisión en pareja), Yimis a Fernando 1 h (1602, medición en Colab).
+
+**Por persona** (real como responsable + ayudas): Yimis 5,5 h, Juan 11,5 h, Sergio 5,5 h, Yeison 13 h, Fernando 12 h; equipo 47,5 h. Promedio de 3,0 h por día con tarea asignada.
 
 ## 3. Fechas
 
@@ -46,7 +54,7 @@ Resultados del modelo preentrenado `prostate_mri_anatomy` en los 5 casos de prue
 | 1604 | 17/11–20/11 | 19/11 | 1 día antes |
 | 1605 | 21/11–24/11 | 19/11 (informe) y 21/11 (comparación) | 3 días antes |
 | 1606 | 18/11–23/11 | 21/11 | 2 días antes |
-| Cierre (H007) | 25/11 | pendiente (1607) | — |
+| 1607 y cierre (H007) | 23/11–25/11 | 23/11 (`v0.5-ciclo5`) | 2 días antes |
 
 ## 4. Defectos del ciclo
 
@@ -59,7 +67,7 @@ Los dos son de función e inyectados en implementación. Ninguno lo encontró la
 
 ## 5. Valor ganado
 
-Con las tareas terminadas al 23/11 (1601 a 1606 y este postmortem): 36 h plan de 41 (87,8 %). Falta la 1607 (5 h, 12,2 %), que se gana con el cierre del 25/11.
+Todas las tareas terminadas al 23/11: 41 h plan de 41 (100,0 %). Acumulado del proyecto: 306 h plan ganadas.
 
 ## 6. Decisiones del ciclo
 
@@ -90,8 +98,6 @@ Con las tareas terminadas al 23/11 (1601 a 1606 y este postmortem): 36 h plan de
 | Pendiente | Responsable | Cuándo |
 |---|---|---|
 | Repetir la medición en Colab con el script corregido para tener la memoria pico de la GPU | Fernando | Antes del ciclo 6 |
-| Registrar las horas reales del ciclo 5 en el LOGT | Cada integrante | Antes del cierre (25/11) |
-| Trazabilidad T5, revisión de PR, `desarrollo → main` y etiqueta `v0.5-ciclo5` | Yimis | 25/11 |
 | Corregir D-006 en la interfaz | Sergio / Yeison | Ciclo 6 |
 
 ## 10. Lecciones
@@ -110,4 +116,4 @@ Con las tareas terminadas al 23/11 (1601 a 1606 y este postmortem): 36 h plan de
 | Interfaz | Corregir D-006 («Procesar» en lugar de «Ejecutar») y mostrar el aviso de uso no diagnóstico en todas las pantallas de resultados |
 | Proceso | Escalonar los PR a lo largo del ciclo y registrar las horas al terminar cada tarea |
 
-*Las horas plan son las del lanzamiento (`ciclo5_lanzamiento.md`) y del LOGT; las reales las registra cada integrante.*
+*Las horas plan son las del lanzamiento (`ciclo5_lanzamiento.md`); las reales, las del LOGT (`LOGT_registro_tiempos.md`, versión L9).*
