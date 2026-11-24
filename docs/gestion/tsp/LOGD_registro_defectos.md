@@ -2,7 +2,7 @@
 
 **Versión:** D5.1 · **Fecha:** 13/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
 
-Se agrega D-008 (ciclo 4). El 13/11/2026 (PR #50) se corrigió D-006 en el diseño; queda abierto hasta implementarlo en la interfaz del ciclo 6.
+Se agrega D-008 (ciclo 4). El 23/11/2026 se agregan al resumen los defectos del ciclo 5 (D-009 y D-010). El 13/11/2026 (PR #50) se corrigió D-006 en el diseño; queda abierto hasta implementarlo en la interfaz del ciclo 6.
 
 ## Leyenda
 
@@ -48,6 +48,7 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | D-007 | 05/11 | C3 | 1407 | 80 | IMP | PU | 2,5 h | Sin `.eval()` el dropout (0,15) y la normalización por lotes seguían en modo entrenamiento: prostate_13 Dice 0,2065 (61 289 vóxeles) y prostate_28 0,1726; con `.eval()` 0,9012 (22 172 vóxeles) y 0,8320. Prueba de regresión `assert not modelo.training`. | Fernando (depuración en pareja) | Yeison | PR #29 |
 | D-008 | 10/11 | C4 | 1503 | 50 | IMP | PU | 0,5 h | Al agregar la etapa ROI, `PipelineInput` exige `output_dir` y `entrenamiento/evaluar.py` dejó de funcionar; ahora escribe las salidas en una carpeta temporal. | Yeison (al correr la evaluación) | Yeison | PR #41 |
 | D-009 | 19/11 | C5 | 1604 | 80 | IMP | PU | 0,2 h | `hd95()` y `distancia_media_superficie()` devuelven `nan` en vez de `inf` cuando solo una máscara está vacía (`np.percentile`/`np.mean` de `[inf]`); la prueba `test_metricas_superficie_mascaras_vacias` falla. Origen: tarea 1604. No afecta los 5 casos reales (ninguna máscara vacía). | Juan (prueba `test_metricas_superficie_mascaras_vacias`) | Juan | `fix(evaluacion): HD95 y distancia media devuelven inf con una máscara vacía (1604)` |
+| D-010 | 13/11 | C5 | 1602 | 80 | IMP | EJE | — (dentro de las horas de 1602) | `scripts/medir_rendimiento.py` (tarea 1408) escribía siempre «## GPU: No disponible en este equipo», aunque se midiera con `--dispositivo cuda`, y no medía la memoria de la GPU. Se vio al medir en Colab (Tesla T4). Ahora la sección depende del dispositivo, pone el nombre de la GPU y su memoria pico, y el informe se llama `rendimiento_1408_gpu_<fecha>.md`. Prueba: `tests/test_medir_rendimiento.py`. | Yimis (medición en Colab) | Fernando | `feat(rendimiento): informe y memoria de la GPU en la medición, y resultados en Colab (1602)` |
 
 ## Resumen por ciclo
 
@@ -58,7 +59,8 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | C2 | 3 | IMP 2, DIS 1 | PU 2, REV 1 | 60: 1, 80: 1, 50: 1 | 1,7 h | 1 de 3 (33 %) |
 | C3 | 1 | IMP 1 | PU 1 | 80: 1 | 2,5 h | 0 de 1 (0 %) |
 | C4 | 1 | IMP 1 | PU 1 | 50: 1 | 0,5 h | 0 de 1 (0 %) |
-| **Acumulado** | 8 | | | | 5,5 h | 4 de 8 (50 %) |
+| C5 | 2 | IMP 2 | PU 1, EJE 1 | 80: 2 | 0,2 h (D-010 dentro de 1602) | 0 de 2 (0 %) |
+| **Acumulado** | 10 | | | | 5,7 h | 4 de 10 (40 %) |
 
 **Defectos por fase (acumulado):**
 
@@ -66,9 +68,10 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 |---|---:|---:|
 | REQ | 1 | 0 |
 | DIS | 2 | 0 |
-| IMP | 5 | 0 |
+| IMP | 7 | 0 |
 | REV | 0 | 4 |
-| PU | 0 | 4 |
+| EJE | 0 | 1 |
+| PU | 0 | 5 |
 
 **Defectos por tipo (acumulado):**
 
@@ -77,7 +80,7 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | 10 Documentación | 2 |
 | 50 Interfaz | 2 |
 | 60 Chequeo | 1 |
-| 80 Función | 3 |
+| 80 Función | 5 |
 
 Rendimiento de revisión = defectos encontrados en revisión (REV) / defectos totales del ciclo. En D-006 la revisión lo encontró pero todavía no está corregido, así que cuenta como encontrado en REV y sigue abierto.
 

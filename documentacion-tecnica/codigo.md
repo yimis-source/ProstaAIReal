@@ -31,7 +31,7 @@
 | `preprocesar.py` | Preparación independiente (RAS, 0,5 mm, escala, normalización) de un volumen: `ENTRADA SALIDA [--espaciado] [--sin-normalizar]`. |
 | `descargar_modelo.py` | Descarga el bundle `prostate_mri_anatomy` de Hugging Face (revisión fijada) y genera `preparacion.json` desde `configs/inference.json` con `construir_preparacion(inference, version)`. |
 | `generar_roi.py` | Ejecuta el pipeline sobre `--caso` o `--imagen [--referencia]` y guarda imagen, máscara y PNG con aviso. |
-| `medir_rendimiento.py` | Tiempo por paso y pico de RSS con `medir(caso, datos, modelos, repeticiones, dispositivo)`. |
+| `medir_rendimiento.py` | Tiempo por paso y pico de RSS con `medir(caso, datos, modelos, repeticiones, dispositivo)`; en GPU también el nombre de la GPU y su memoria pico (`torch.cuda.max_memory_allocated`). |
 | `verificar_roi.py` | Comprueba forma/afín, binariedad, cabeceras limpias y Dice recalculado desde la máscara guardada. |
 | `analizar_errores.py` | VP/FP/FN, componentes conexas y cobertura de cortes por caso (`--casos` o `--peores CSV --n N`). |
 
