@@ -2,11 +2,11 @@
 
 > Corrección del 21/11/2026: se ajustaron las horas reales de Yeison (tareas 1204, 1301, 1305, 1404, 1406, 1412, 1503 y 1504, y sus ayudas) y de Sergio (1502) en los ciclos 1 a 4, con estimaciones retrospectivas. Los postmortems de esos ciclos conservan las cifras registradas al cierre; las vigentes son las de este registro.
 
-**Versión:** L9 · **Fecha:** 23/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L10 · **Fecha:** 24/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Ciclo 5 con horas reales. Todos los ciclos hasta el 5 están cerrados (el 5, el 23/11/2026).
+Ciclo 5 con horas reales. Todos los ciclos hasta el 5 están cerrados (el 5, el 23/11/2026). Ciclo 6 en curso: plan del lanzamiento del 24/11/2026, replanificado porque el docente adelantó la entrega final al 28/11/2026.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -262,6 +262,33 @@ Plan del lanzamiento (`ciclo5_lanzamiento.md`, 16/11/2026). Cerrado el 23/11 con
 | Yeison | 10 | 12 | 1 | 13 |
 | Fernando | 10 | 12 | 0 | 12 |
 | **Equipo** | 41 | 44,5 | 3 | 47,5 |
+
+### Ciclo 6 · Desarrollo web e integración (REPLANIFICADO 24/11–27/11; plan original 26/11–02/12)
+
+Plan del lanzamiento (`ciclo6_lanzamiento.md`, 24/11/2026). Las horas reales las registra cada integrante en sus filas al terminar su tarea; el valor ganado se calcula en el postmortem.
+
+| ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
+|---|---|---|---:|---:|---:|---:|---:|
+| 1700 | Lanzamiento, replanificación y contrato de la API | Fernando | 4 | — | — | 4,9 % | — |
+| 1701 | Impacto del recorte e informe al docente | Juan | 3 | — | — | 3,7 % | — |
+| 1702 | Entorno Python 3.12, PostgreSQL, esquema y migración inicial | Yimis | 6 | — | — | 7,4 % | — |
+| 1703 | Esqueleto FastAPI y /api/salud | Yeison | 4 | — | — | 4,9 % | — |
+| 1704 | Esqueleto React con Vite, rutas y aviso fijo | Sergio | 5 | — | — | 6,2 % | — |
+| 1705 | CU02 carga de NIfTI y validación (API) | Yeison | 6 | — | — | 7,4 % | — |
+| 1706 | CU01 acceso y CU02 pantalla de carga | Sergio | 6 | — | — | 7,4 % | — |
+| 1707 | Persistencia de estudios y archivos (RB-01, RB-02) | Yimis | 5 | — | — | 6,2 % | — |
+| 1708 | Pruebas de integración de la carga | Fernando | 4 | — | — | 4,9 % | — |
+| 1709 | CU03 procesamiento en segundo plano, estado y errores (API) | Yeison | 7 | — | — | 8,6 % | — |
+| 1710 | CU03 pantalla de estado | Sergio | 5 | — | — | 6,2 % | — |
+| 1711 | Integración API, base de datos y pipeline | Yimis | 5 | — | — | 6,2 % | — |
+| 1712 | CU05 historial (si hay tiempo) | Juan | 4 | — | — | 4,9 % | — |
+| 1713 | CU04 ROI con y sin máscara, panel y aviso | Yeison / Sergio | 8 | — | — | 9,9 % | — |
+| 1714 | D-006 «Procesar» en la interfaz | Sergio | 1 | — | — | 1,2 % | — |
+| 1715 | RR-01 con 5 casos por la API | Fernando | 3 | — | — | 3,7 % | — |
+| 1716 | Trazabilidad T6 y cierre v0.6-ciclo6 | Yimis | 3 | — | — | 3,7 % | — |
+| 1717 | Postmortem del ciclo 6 | Fernando | 2 | — | — | 2,5 % | — |
+
+**Suma del plan:** 81 h. Por persona (la 1713 se reparte 4 h para Yeison y 4 h para Sergio): Yeison 21 h, Sergio 21 h, Yimis 19 h, Fernando 13 h, Juan 7 h.
 
 ### Horas por día por persona
 
