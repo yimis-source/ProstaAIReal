@@ -2,11 +2,11 @@
 
 > Corrección del 21/11/2026: se ajustaron las horas reales de Yeison (tareas 1204, 1301, 1305, 1404, 1406, 1412, 1503 y 1504, y sus ayudas) y de Sergio (1502) en los ciclos 1 a 4, con estimaciones retrospectivas. Los postmortems de esos ciclos conservan las cifras registradas al cierre; las vigentes son las de este registro.
 
-**Versión:** L8 · **Fecha:** 12/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L9 · **Fecha:** 23/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados. Ciclo 5 en curso: plan del lanzamiento del 16/11/2026.
+Ciclo 5 con horas reales. Todos los ciclos hasta el 5 están cerrados (el 5, el 23/11/2026).
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -229,35 +229,54 @@ Ciclo 4 con horas reales. Todos los ciclos hasta el 4 están cerrados. Ciclo 5 e
 
 ### Ciclo 5 · Evaluación técnica del modelo (16/11–25/11, con el colchón del ciclo 4; plan original 21/11–25/11)
 
-Plan del lanzamiento (`ciclo5_lanzamiento.md`, 16/11/2026). Las horas reales las registra cada integrante en sus filas al terminar su tarea; el valor ganado se calcula en el postmortem.
+Plan del lanzamiento (`ciclo5_lanzamiento.md`, 16/11/2026). Cerrado el 23/11 con `v0.5-ciclo5`, dos días antes del hito H007.
 
 | ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
 |---|---|---|---:|---:|---:|---:|---:|
-| 1601 | Lanzamiento del ciclo 5 | Fernando | 3 | — | — | 7,3 % | — |
-| 1602 | Rendimiento en GPU (cierra lo pendiente de la tarea 1408) | Fernando | 5 | — | — | 12,2 % | — |
-| 1603 | Ajuste fino del modelo en Google Colab | Yeison | 10 | — | — | 24,4 % | — |
-| 1604 | Métricas adicionales (HD95 y distancia media de superficie) | Juan | 5 | — | — | 12,2 % | — |
-| 1605 | Informe de métricas y límites (RF-23, RF-24) | Juan | 6 | — | — | 14,6 % | — |
-| 1606 | Revisión visual en 3D Slicer y textos de resultados | Sergio | 5 | — | — | 12,2 % | — |
-| 1607 | Trazabilidad, revisión de PR y cierre (v0.5-ciclo5) | Yimis | 5 | — | — | 12,2 % | — |
-| 1608 | Postmortem del ciclo 5 | Fernando | 2 | — | — | 4,9 % | — |
+| 1601 | Lanzamiento del ciclo 5 | Fernando | 3 | 3,5 | +17 % | 7,3 % | 7,3 % |
+| 1602 | Rendimiento en GPU (cierra lo pendiente de la tarea 1408) | Fernando | 5 | 6,5 | +30 % | 12,2 % | 12,2 % |
+| 1603 | Ajuste fino del modelo en Google Colab | Yeison | 10 | 12 | +20 % | 24,4 % | 24,4 % |
+| 1604 | Métricas adicionales (HD95 y distancia media de superficie) | Juan | 5 | 5,5 | +10 % | 12,2 % | 12,2 % |
+| 1605 | Informe de métricas y límites (RF-23, RF-24) | Juan | 6 | 5 | -17 % | 14,6 % | 14,6 % |
+| 1606 | Revisión visual en 3D Slicer y textos de resultados | Sergio | 5 | 5,5 | +10 % | 12,2 % | 12,2 % |
+| 1607 | Trazabilidad, revisión de PR y cierre (v0.5-ciclo5) | Yimis | 5 | 4,5 | -10 % | 12,2 % | 12,2 % |
+| 1608 | Postmortem del ciclo 5 | Fernando | 2 | 2 | 0 % | 4,9 % | 4,9 % |
 
-**Suma del plan:** 41 h. Por persona: Fernando 10 h, Yeison 10 h, Juan 11 h, Sergio 5 h, Yimis 5 h.
+**Suma del ciclo:** plan 41 h de tareas terminadas, real 44,5 h, desviación +9 %. Valor ganado: 41 h plan de 41 (100,0 %).
+
+**Ayuda entre integrantes** (horas registradas aparte; no cuentan como horas de la tarea):
+
+| Quién ayudó | A quién | Horas | Tarea | Nota |
+|---|---|---:|---|---|
+| Yeison | Juan | 1 | 1604 Métricas adicionales (HD95 y distancia media de superficie) | — |
+| Juan | Sergio | 1 | 1606 Revisión visual en 3D Slicer y textos de resultados | revisión en pareja |
+| Yimis | Fernando | 1 | 1602 Rendimiento en GPU | medición en Colab |
+
+**Totales por persona:**
+
+| Persona | Plan h (como responsable) | Real h (como responsable) | Ayuda dada h | Total trabajado h |
+|---|---:|---:|---:|---:|
+| Yimis | 5 | 4,5 | 1 | 5,5 |
+| Juan | 11 | 10,5 | 1 | 11,5 |
+| Sergio | 5 | 5,5 | 0 | 5,5 |
+| Yeison | 10 | 12 | 1 | 13 |
+| Fernando | 10 | 12 | 0 | 12 |
+| **Equipo** | 41 | 44,5 | 3 | 47,5 |
 
 ### Horas por día por persona
 
 Método: (horas propias + ayudas dadas) / días calendario en que la persona tuvo una tarea asignada en el ciclo. Es una aproximación a partir de la bitácora (las ayudas suman horas pero no días).
 
-| Persona | C1 h/día | C2 h/día | C3 h/día | C4 h/día |
-|---|---:|---:|---:|---:|
-| Yimis | 2,2 | 1,2 | 2,8 | 2,0 |
-| Juan | 3,9 | 1,4 | 3,4 | 9,0 |
-| Sergio | 3,2 | 1,7 | 2,4 | 3,1 |
-| Yeison | 2,9 | 2,8 | 5,0 | 4,3 |
-| Fernando | 2,8 | 3,3 | 3,5 | 3,2 |
-| **Promedio del equipo** | 3,0 | 2,1 | 3,4 | 4,3 |
+| Persona | C1 h/día | C2 h/día | C3 h/día | C4 h/día | C5 h/día |
+|---|---:|---:|---:|---:|---:|
+| Yimis | 2,2 | 1,2 | 2,8 | 2,0 | 5,5 |
+| Juan | 3,9 | 1,4 | 3,4 | 9,0 | 2,9 |
+| Sergio | 3,2 | 1,7 | 2,4 | 3,1 | 1,4 |
+| Yeison | 2,9 | 2,8 | 5,0 | 4,3 | 2,2 |
+| Fernando | 2,8 | 3,3 | 3,5 | 3,2 | 3,0 |
+| **Promedio del equipo** | 3,0 | 2,1 | 3,4 | 4,3 | 3,0 |
 
-Promedio de las personas con tarea: ciclos 1–2 ≈ 2,6 h/día; ciclos 3–4 ≈ 3,9 h/día. El valor de Juan en el ciclo 4 (9 h en un solo día, 11/11) es un pico por 1507 + 1508 el mismo día; sin él el promedio de los ciclos 3–4 baja a 3,3 h/día.
+Promedio de las personas con tarea: ciclos 1–2 ≈ 2,6 h/día; ciclos 3–4 ≈ 3,9 h/día. El valor de Juan en el ciclo 4 (9 h en un solo día, 11/11) es un pico por 1507 + 1508 el mismo día; sin él el promedio de los ciclos 3–4 baja a 3,3 h/día. En el ciclo 5 el promedio baja a 3,0 h/día porque el ciclo duró 10 días; el valor de Yimis (5,5 h en un día) corresponde a la 1607, hecha completa el 23/11.
 
 ### Valor ganado acumulado
 
@@ -269,3 +288,4 @@ Promedio de las personas con tarea: ciclos 1–2 ≈ 2,6 h/día; ciclos 3–4 �
 | C2 | 56 | 56 | 100,0 % | 147 |
 | C3 | 76 | 76 | 100,0 % | 223 |
 | C4 | 42 | 42 | 100,0 % | 265 |
+| C5 | 41 | 41 | 100,0 % | 306 |
