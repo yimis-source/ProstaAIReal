@@ -12,7 +12,7 @@ Si alguien necesita cambiar una ruta, un código o un campo, primero lo cambia e
 |---|---|
 | Prefijo | Todas las rutas empiezan por `/api` |
 | Formato | JSON en UTF-8, salvo la carga de archivos (`multipart/form-data`) y los cortes (`image/png`) |
-| Nombres de campos | En español, minúsculas y con guion bajo (`id_estudio`, `fecha_carga`) |
+| Nombres de campos | En español, minúsculas y con guion bajo (`fecha_carga`, `estado_admision`). En las respuestas el identificador propio se llama `id`; en las rutas y en las referencias a otro recurso se usa el nombre completo (`id_estudio`, `id_trabajo`) |
 | Fechas | ISO 8601 con zona horaria (`2026-11-25T10:30:00-05:00`) |
 | Números | Dice e IoU entre 0 y 1, `null` si no hay máscara de referencia; tiempos en segundos |
 | Autenticación | Todas las rutas, menos `/api/salud` y las de `/api/acceso`, piden la cabecera `Authorization: Bearer <token>`. Sin token o con token vencido: `401` |
@@ -135,7 +135,7 @@ Carga un estudio. `multipart/form-data` con:
 
 | Campo | Obligatorio | Contenido |
 |---|---|---|
-| `archivos` | Sí | La imagen: un archivo `.nii` o `.nii.gz` |
+| `archivos` | Sí | La imagen: un solo archivo `.nii` o `.nii.gz` |
 | `referencia` | No | Máscara de referencia `.nii` o `.nii.gz`, para calcular Dice e IoU (se usa en RR-01 con los casos de prueba) |
 
 Validación antes de guardar nada (RF-03, RF-04):
@@ -143,6 +143,7 @@ Validación antes de guardar nada (RF-03, RF-04):
 - Formato: solo NIfTI (`.nii`, `.nii.gz`), comprobando la extensión y la cabecera del archivo, no solo el nombre. DICOM en `.zip` queda para «si hay tiempo»; mientras no exista, un `.zip` o `.dcm` se rechaza con un mensaje que diga que en esta versión solo se admite NIfTI.
 - Tamaño: máximo 50 MB por archivo y 150 MB por estudio (nota de RF-03). La configuración de la 1702 (variables `PROSTA_*`) debe usar estos límites.
 - Archivo corrupto o vacío: se rechaza con mensaje claro.
+- Metadatos (RF-05): al admitir, la API vacía los campos de texto de la cabecera NIfTI (`descrip`, `aux_file`, `intent_name`, `db_name`) antes de guardar el archivo. Tarea 1705.
 
 Al admitir, la API asigna un código anónimo (`EST-0001`), guarda los archivos en disco bajo ese código con su SHA-256 y registra el estudio en PostgreSQL (RB-01, RB-02). El nombre original del archivo **no** se guarda, porque puede traer datos de una persona.
 
@@ -159,10 +160,11 @@ Errores:
 | 422 | «Seleccione al menos un archivo de imagen.» |
 | 422 | «Formato no admitido. En esta versión solo se aceptan archivos NIfTI (.nii o .nii.gz).» |
 | 422 | «El archivo supera el máximo de 50 MB.» |
+| 422 | «El estudio supera el máximo de 150 MB.» (imagen más referencia) |
 | 422 | «El archivo está dañado o no es un NIfTI válido.» |
 | 500 | «No se pudo guardar el estudio. Intente de nuevo.» (se borra lo guardado a medias) |
 
-Si la admisión rechaza el archivo, se registra el estudio con `estado_admision = "no compatible"` y sin archivos, para que quede en el historial; no se guarda el archivo rechazado.
+Si la validación rechaza el archivo, la API responde `422` y **no registra nada**: ni el estudio ni el archivo. Así se cumple «validación antes de guardar nada» y no hace falta un formato para lo rechazado. El estado `no compatible` queda para un estudio ya admitido que el control de calidad del pipeline rechaza al procesarlo.
 
 ### 4.5 `GET /api/estudios/{id_estudio}` (CU02, CU03)
 

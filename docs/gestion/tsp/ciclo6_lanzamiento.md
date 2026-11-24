@@ -56,13 +56,14 @@ Números verificados contra el SRS (`docs/ejecucion/fuentes/1.3.1.1_SRS_requisit
 | Se hace | PostgreSQL y archivos en disco, sin datos personales | RB-01, RB-02 (y el registro de RF-18) | 1702, 1707, 1711 |
 | Se hace | Tiempo de procesamiento con 5 casos por la API | RR-01 | 1715 |
 | Si hay tiempo | CU05 historial (consulta de los estudios del usuario) | RF-19 | 1712 |
-| Si hay tiempo | DICOM en un .zip | RF-02, RF-03 (formato DICOM) | sin tarea; se abre solo si 1705 termina antes |
+| Si hay tiempo | DICOM en un .zip | RF-02, RF-03 (formato DICOM) | sin tarea; ver el punto de decisión abajo |
 | Fuera | CU06 asistente con agentes de IA | RF-20, RF-21, RF-22 | — |
 | Fuera | Visor 3D | — | — |
 
 Notas sobre la verificación de números:
 
-- CU02 incluye también RF-05 (quitar metadatos identificables o rechazar). Con NIfTI de conjuntos públicos lo cubre el `MetadataValidator` del pipeline en la etapa de control de calidad; no hace falta tarea aparte.
+- CU02 incluye también RF-05 (quitar metadatos identificables o rechazar). El pipeline **no** lo cubre: `validators.py` solo revisa cortes, tamaño, espaciado y la forma de la referencia (RF-10). Se hace en la 1705: al admitir un NIfTI, la API vacía los campos de texto de la cabecera (`descrip`, `aux_file`, `intent_name`, `db_name`) antes de guardarlo, con su prueba.
+- **Punto de decisión de lo condicionado (26/11, 12:00):** se abre CU05 (1712) si la carga (1705, 1707) pasó las pruebas de integración (1708) y el procesamiento (1709) ya corre un caso por la API. DICOM se abre solo si además queda tiempo el 27/11 después de CU04 (1713) y RR-01 (1715); si no, queda fuera y se informa en el acta.
 - CU05 son RF-18 y RF-19. El registro de cada estudio procesado (RF-18) sale de la persistencia (1707 y 1711); lo que queda en «si hay tiempo» es la consulta (RF-19).
 - Los límites de tamaño de RF-03 son 50 MB por archivo y 150 MB por estudio.
 
@@ -147,7 +148,7 @@ Orden por fecha:
 | 6. Retrasos por baja disponibilidad de integrantes (cargas académicas o laborales) (Yimis, nivel 12) | El ciclo tiene 4 días y no hay colchón. Se prioriza el producto mínimo (sección 4); si alguien no puede, se reasigna una tarea puntual y se registra la ayuda |
 | 1. Capacidad de cómputo de los equipos personales para ejecutar el modelo 3D (Yeison, nivel 16) | La inferencia corre en segundo plano para no bloquear la API. RR-01 se mide en el equipo donde corre la aplicación y se dice cuál es; no se compara con las cifras de GPU del ciclo 5 |
 | 2. Curva de aprendizaje de las tecnologías más lenta de lo previsto (Yimis, nivel 12) | FastAPI, SQLAlchemy con migraciones y React con Vite son nuevos para varios. Los esqueletos (1703, 1704) van el 24/11 y el contrato evita discutir formatos sobre la marcha |
-| 5. Que una salida experimental se tome como diagnóstico médico (Sergio, nivel 10) | Aviso fijo en toda pantalla de resultados (RF-15) desde el esqueleto de la interfaz (1704); textos sin lenguaje clínico (RF-16); la API devuelve el mismo aviso de `constantes.py` |
+| 5. Que una salida experimental se tome como resultado de uso médico (Sergio, nivel 10) | Aviso fijo en toda pantalla de resultados (RF-15) desde el esqueleto de la interfaz (1704); textos sin lenguaje clínico (RF-16); la API devuelve el mismo aviso de `constantes.py` |
 | 8. Que los agentes de IA produzcan resultados no verificables o amplíen el alcance (Juan, nivel 9) | Se evita: CU06 queda fuera del ciclo |
 
 ## 9. Entregable del ciclo

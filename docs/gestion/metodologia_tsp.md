@@ -24,7 +24,7 @@ Hitos del Acta (sección 4.2) que enmarcan los ciclos:
 |---|---|---|
 | H001 | 05/10 | Aprobación del Acta, registro de interesados y requisitos iniciales |
 | H002 | 12/10 | Plan de dirección y especificación de requisitos (Entregable 1) |
-| H003 a H009 | 25/10, 30/10, 13/11, 20/11, 25/11, 02/12, 09/12 | Cierre de los ciclos 1 a 7 |
+| H003 a H009 | 25/10, 30/10, 13/11, 20/11, 25/11, 02/12, 09/12 | Cierre de los ciclos 1 a 7 (replanificados el 24/11/2026: H008 → 27/11 y H009 → 28/11) |
 
 Las fechas del Acta son tentativas. Si un ciclo se replanifica, se sigue la sección 9. Los ciclos 6 y 7 se replanificaron el 24/11/2026 porque el docente adelantó la entrega final al 28/11/2026; el detalle está en `tsp/ciclo6_lanzamiento.md` (sección 2).
 
