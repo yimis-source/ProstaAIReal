@@ -2,10 +2,11 @@
 
 Arranque (desde backend/): uvicorn prosta_ai.api.app:create_app --factory
 """
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from prosta_ai import __version__
 from prosta_ai.api import salud
@@ -31,8 +32,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_headers=["*"],
     )
 
-    @app.exception_handler(HTTPException)
-    async def _http(_: Request, exc: HTTPException):
+    # Base de Starlette: el 404/405 del enrutador no pasa por fastapi.HTTPException
+    @app.exception_handler(StarletteHTTPException)
+    async def _http(_: Request, exc: StarletteHTTPException):
         detalle = exc.detail
         if exc.status_code == 404 and detalle == "Not Found":
             detalle = "Recurso no encontrado."
