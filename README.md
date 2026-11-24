@@ -14,8 +14,9 @@ Ingeniería de Sistemas, Universidad Santiago de Cali, periodo 2026-2.
 - Modelo de segmentación 3D (U-Net / nnU-Net con PyTorch y MONAI), evaluado con Dice e IoU.
 - Aplicación web: React, FastAPI, PostgreSQL y almacenamiento de archivos.
 - Gestión con PMBOK 6 (plantillas Open PM / PM²); desarrollo con **TSP en 7 ciclos**; requisitos según
-  ISO/IEC/IEEE 29148. Detalle en el [Acta de Constitución](docs/gestion/Acta_de_Constitucion-Prosta-AI-1.pdf)
-  y en la [metodología TSP](docs/gestion/metodologia_tsp.md).
+  ISO/IEC/IEEE 29148. Detalle en el [Acta de Constitución](<docs/docsf/1.1 Inicio/1.1.1 Acta de inicio - Prosta-AI (corregida).docx>)
+  (v1.1 corregida; la [v1.0 en PDF](<docs/docsf/1.1 Inicio/1.1.1 Acta de inicio - Prosta-AI.pdf>)) y en la
+  [metodología TSP](docs/gestion/metodologia_tsp.md).
 
 ## Equipo
 
