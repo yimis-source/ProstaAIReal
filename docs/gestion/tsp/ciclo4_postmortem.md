@@ -127,6 +127,3 @@ Total de ayuda: 3,5 h.
 | Preparar el cuaderno de Colab para medir GPU y, si se decide, ajustar | Yeison |
 | Informe de métricas por caso y protocolo ya definido | Juan |
 | Mantener el margen de 15 % y repartir las tareas para no repetir el pico del 11/11 | Fernando |
-
-
-*Las horas son las del registro de tiempos (`LOGT_registro_tiempos.md`), reconstruidas a partir de la bitácora del equipo (simuladas para este registro).*

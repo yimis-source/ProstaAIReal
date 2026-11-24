@@ -73,5 +73,3 @@ Este lanzamiento se hace el 08/11, **con el ciclo 3 todavía en cierre** (queda 
 ## 8. Entregable del ciclo
 
 Entregable 5 (generación del mapa/ROI): ROI alineada, imagen con superposición y aviso, y texto explicativo. La visualización dentro de la aplicación web es del ciclo 6.
-
-*Las horas son las del registro de tiempos (`LOGT_registro_tiempos.md`), reconstruidas a partir de la bitácora del equipo (simuladas para este registro).*

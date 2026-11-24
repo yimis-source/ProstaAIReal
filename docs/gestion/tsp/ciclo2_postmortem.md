@@ -98,6 +98,3 @@ Total de ayuda: 2,5 h (Juan ayudó a Fernando con la comparación de vóxeles; Y
 | Verificar la división (1411) antes de evaluar | Fernando |
 | Dejar D-006 registrado como abierto hasta el ciclo 6 | Juan |
 | Vigilar horas por día por la replanificación | Fernando |
-
-
-*Las horas son las del registro de tiempos (`LOGT_registro_tiempos.md`), reconstruidas a partir de la bitácora del equipo (simuladas para este registro).*

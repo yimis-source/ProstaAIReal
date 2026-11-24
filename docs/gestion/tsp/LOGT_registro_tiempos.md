@@ -252,7 +252,3 @@ Promedio de las personas con tarea: ciclos 1–2 ≈ 2,6 h/día; ciclos 3–4 �
 | C2 | 56 | 56 | 100,0 % | 147 |
 | C3 | 76 | 76 | 100,0 % | 223 |
 | C4 | 42 | 42 | 100,0 % | 265 |
-
----
-
-*Nota: las horas de este registro se reconstruyeron a partir de la bitácora del equipo (simuladas para este registro); sirven para practicar el cálculo de desviación y valor ganado, no son mediciones con cronómetro.*

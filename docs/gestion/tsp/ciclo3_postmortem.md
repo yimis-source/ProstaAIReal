@@ -128,6 +128,3 @@ Total de ayuda: 11,5 h, el máximo hasta ahora (ciclo 1: 6,5 h; ciclo 2: 2,5 h).
 | Repartir mejor la carga: Sergio y Juan toman más tareas del ciclo | Yimis |
 | Escribir este postmortem y no dejar el del ciclo 4 para el último momento | Fernando |
 | Dejar la medición en GPU (1408) para el ciclo 5 | Fernando |
-
-
-*Las horas son las del registro de tiempos (`LOGT_registro_tiempos.md`), reconstruidas a partir de la bitácora del equipo (simuladas para este registro).*
