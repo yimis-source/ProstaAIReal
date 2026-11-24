@@ -87,7 +87,7 @@ def upgrade() -> None:
         sa.Column("id_etapa", sa.Integer, sa.Identity(), primary_key=True),
         _fk("id_trabajo", "trabajo.id_trabajo", ondelete="CASCADE"),
         sa.Column("nombre", sa.String(25), nullable=False),
-        sa.Column("estado", sa.String(12)),
+        sa.Column("estado", sa.String(12), nullable=False),
         _fecha("fecha_inicio"),
         _fecha("fecha_fin"),
         sa.Column("duracion_s", sa.Numeric(7, 2)),

@@ -39,11 +39,21 @@ def _esquema(motor) -> dict:
     return esquema
 
 
+def _identidad_sqlite(diff) -> bool:
+    """SQLite no refleja IDENTITY: Alembic lo ve como default distinto en cada PK."""
+    if not isinstance(diff, list) or diff[0][0] != "modify_default":
+        return False
+    _, _, tabla, columna, *_ = diff[0]
+    return Base.metadata.tables[tabla].c[columna].identity is not None
+
+
 def _diferencias(url: str) -> list:
     motor = crear_motor(url)
     with motor.connect() as conexion:
         diffs = compare_metadata(MigrationContext.configure(conexion), Base.metadata)
     motor.dispose()
+    if url.startswith("sqlite"):
+        diffs = [d for d in diffs if not _identidad_sqlite(d)]
     return diffs
 
 
