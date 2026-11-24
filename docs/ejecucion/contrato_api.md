@@ -25,7 +25,7 @@ Si alguien necesita cambiar una ruta, un código o un campo, primero lo cambia e
 Todos los errores devuelven el mismo cuerpo, con un mensaje en español que la interfaz muestra tal cual:
 
 ```json
-{"detail": "El archivo no es un NIfTI válido."}
+{"detalle": "El archivo no es un NIfTI válido."}
 ```
 
 | Código | Cuándo |
@@ -36,7 +36,7 @@ Todos los errores devuelven el mismo cuerpo, con un mensaje en español que la i
 | 422 | Datos no válidos: formato, tamaño, archivo corrupto, campos del cuerpo, corte fuera de rango |
 | 500 | Error inesperado del servidor. El mensaje es genérico; el detalle va al registro del servidor, nunca a la respuesta |
 
-Los errores de validación de FastAPI (pydantic) se transforman al mismo formato: `{"detail": "Datos no válidos en «alias»."}`.
+Los errores de validación de FastAPI (pydantic) usan el mismo campo y agregan la lista de campos que fallaron: `{"detalle": "Datos no válidos.", "campos": ["alias"]}`. El campo es `detalle` y no `detail` (el nombre por defecto de FastAPI): la API lo cambia en sus manejadores de error y la interfaz lo lee así.
 
 ## 3. Estados y etapas
 
@@ -154,7 +154,7 @@ Respuesta `201`:
 
 Errores:
 
-| Código | Ejemplo de `detail` |
+| Código | Ejemplo de `detalle` |
 |---|---|
 | 422 | «Seleccione al menos un archivo de imagen.» |
 | 422 | «Formato no admitido. En esta versión solo se aceptan archivos NIfTI (.nii o .nii.gz).» |
