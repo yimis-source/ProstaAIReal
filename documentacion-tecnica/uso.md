@@ -67,3 +67,18 @@ python scripts/analizar_errores.py --peores reports/evaluacion/<informe>_32casos
   que la imagen, es binaria, la cabecera no tiene texto libre y el Dice recalculado coincide con el del informe.
 - `reports/evaluacion/analisis_errores_2026-11-11.md`: análisis de prostate_07, prostate_10, prostate_28 y
   prostate_46 (ver [Limitaciones](limitaciones.md)).
+
+## API web
+
+Desde `backend/`, con las dependencias de `pyproject.toml` instaladas:
+
+```bash
+cd backend
+uvicorn prosta_ai.api.app:create_app --factory --reload --port 8000
+curl http://localhost:8000/api/salud          # {"estado":"ok","version":"0.6.0"}
+```
+
+Todas las rutas van bajo `/api`; los errores responden `{"detalle": "..."}` (el 422 añade `campos`). Los
+orígenes permitidos por CORS se leen de `PROSTA_CORS_ORIGINS` (separados por comas; por defecto
+`http://localhost:5173`). La documentación interactiva queda en `http://localhost:8000/docs`. Uso académico,
+no diagnóstico.
