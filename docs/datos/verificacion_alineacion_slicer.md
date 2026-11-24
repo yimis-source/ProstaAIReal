@@ -2,10 +2,10 @@
 
 | Campo | Valor |
 |---|---|
-| Tarea | 1507 |
+| Tarea | 1507, repetida en 1606 |
 | Responsable | Juan David Riascos Erazo (Analista) con Sergio Gabriel Meneses Silva (Diseñador) |
-| Fecha | 11/11/2026 |
-| Versión | 1.0 |
+| Fecha | 20/11/2026 |
+| Versión | 1.1 |
 
 > **Esto es una revisión visual, sin métricas nuevas.** Complementa las comprobaciones automáticas de `reports/roi/verificacion_roi_2026-11-11.md`. Uso académico y experimental; no es una evaluación clínica ni diagnóstica.
 
@@ -33,15 +33,17 @@ Que `imagen.nii.gz` y `mascara.nii.gz`, generadas con `scripts/generar_roi.py` p
 | prostate_34 | 320×320×15 | sí | sí | 44 562 | 64,2 | 0,9105 |
 | prostate_44 | 320×320×20 | sí | sí | 30 938 | 43,5 | 0,9090 |
 
-Resultado del informe: todas las comprobaciones se cumplen en los 5 casos, y las cabeceras no contienen texto.
+Resultado del informe: todas las comprobaciones se cumplen en los 5 casos, y las cabeceras no contienen texto. En la revisión del ciclo 5 se volvieron a generar las máscaras y el Dice de cada caso coincidió con esta tabla.
 
-## 4. Observaciones visuales
+## 4. Observaciones visuales (ciclo 5)
 
-- En los 5 casos la ROI cae sobre la próstata en los tres planos, y el cursor cruzado señala la misma estructura en axial, sagital y coronal. No se vieron desplazamientos, giros ni espejos.
-- Los contornos siguen la glándula con los escalones propios de los cortes gruesos al verlos en sagital y coronal; no es un error de alineación.
-- En prostate_28 (11 cortes, el caso con menor Dice, 0,8320) la alineación es correcta; la diferencia con la referencia es de forma, no de posición, y ya la recoge el informe de evaluación.
-- La ROI no sale del volumen en ningún caso.
+- En los 5 casos, la máscara del modelo y la referencia ocupan la misma zona; en los cortes revisados no se vio desplazamiento ni giro entre ellas.
+- Los bordes tienen escalones en sagital y coronal por el grosor de los cortes; no se interpretó como error de alineación.
+- En prostate_28 (11 cortes, el caso con menor Dice, 0,8320) las dos máscaras ocupan la misma zona; las diferencias que se vieron son de tamaño en algunos cortes (ver `revision_slicer_predicciones.md`).
 
 ## 5. Límites
 
-Revisión visual de 5 casos, por dos personas que no son profesionales de la salud. No añade métricas: la prueba objetiva de la alineación son las comprobaciones automáticas de la sección 3.
+- Revisión visual de 5 casos y algunos cortes por caso, hecha por personas que no son profesionales de la salud.
+- Solo se compararon la máscara del modelo y la referencia entre sí.
+- No se verificó qué canal (T2 o ADC) se cargó.
+- No añade métricas: la prueba objetiva de la alineación son las comprobaciones automáticas de la sección 3.

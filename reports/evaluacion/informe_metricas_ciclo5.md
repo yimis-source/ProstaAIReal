@@ -3,7 +3,7 @@
 
 ## 1. Condiciones de la evaluación
 
-- Modelo: `prostate_mri_anatomy` del MONAI Model Zoo, versión 0.3.6, sin ajuste fino. SHA-256 de los pesos: `3c18e4c658bb088f551b1d63219ef8340fe6256d016c75fc140d3da49dda696d`.
+- Modelo: `prostate_mri_anatomy` del MONAI Model Zoo, versión 0.3.6 (el modelo adoptado; el ajuste fino de la tarea 1603 se compara en la sección 3). SHA-256 de los pesos: `3c18e4c658bb088f551b1d63219ef8340fe6256d016c75fc140d3da49dda696d`.
 - Conjunto de prueba: los 5 casos de MSD Task05 de `entrenamiento/division_task05.json`, con división por paciente (semilla 2026, huella `728fae869f02e7c7…`): `prostate_13`, `prostate_17`, `prostate_28`, `prostate_34` y `prostate_44`.
 - Equipo: CPU, sin GPU; hardware: AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD; 8 hilos de torch; Windows 11. Software: Python 3.12.16, torch 2.5.1+cpu, MONAI 1.4.0.
 - Fecha de la evaluación: 19/11/2026. Ruta de ejecución: `build_pipeline`, la misma de la aplicación. Imagen: canal 0 (T2) del NIfTI 4D; referencia: unión de las etiquetas > 0. Métricas calculadas en la rejilla original y desviación típica muestral (n−1).
@@ -21,7 +21,27 @@
 
 ## 3. Preentrenado frente a ajustado
 
-La comparación queda pendiente: a la fecha de este informe no hay resultados del modelo ajustado (tarea 1603). Todas las cifras corresponden al modelo preentrenado.
+Resultados de la tarea 1603 (ajuste fino en Google Colab, Tesla T4): los dos modelos se evaluaron el 21/11/2026 con la misma ruta (`entrenamiento.evaluar`) y los mismos 5 casos de prueba. El modelo ajustado (`prostate_task05_ft`, época 85, mejor Dice de validación 0.8487) partió de `prostate_mri_anatomy` y se entrenó solo con los 22 casos de entrenamiento de Task05.
+
+| Caso | Dice preentrenado | Dice ajustado | HD95 preentrenado (mm) | HD95 ajustado (mm) |
+|---|---:|---:|---:|---:|
+| prostate_13 | 0.9012 | 0.8451 | 3.60 | 4.00 |
+| prostate_17 | 0.9097 | 0.8846 | 3.54 | 5.00 |
+| prostate_28 | 0.8320 | 0.8455 | 5.69 | 4.43 |
+| prostate_34 | 0.9105 | 0.9215 | 4.00 | 4.00 |
+| prostate_44 | 0.9090 | 0.8706 | 3.60 | 3.60 |
+
+| Métrica (media ± desv.) | Preentrenado | Ajustado |
+|---|---:|---:|
+| Dice | 0.8925 ± 0.0340 | 0.8735 ± 0.0317 |
+| IoU | 0.8071 ± 0.0534 | 0.7765 ± 0.0508 |
+| HD95 (mm) | 4.09 ± 0.92 | 4.21 ± 0.53 |
+| Distancia media de superficie (mm) | 1.17 ± 0.49 | 1.34 ± 0.35 |
+
+- **Decisión:** se conserva el modelo preentrenado. La regla de adopción pedía que el ajustado superara un Dice medio de 0,8925, y obtuvo 0,8735.
+- El ajustado mejora en `prostate_28` (Dice 0.8455 frente a 0.8320; HD95 4.43 frente a 5.69 mm) y en `prostate_34`, pero empeora en los otros tres casos, sobre todo en `prostate_13` (0.8451 frente a 0.9012).
+- Su HD95 tiene menos dispersión (± 0.53 mm), pero la media es algo mayor. Con 5 casos estas diferencias no permiten concluir que un modelo sea mejor que el otro en general.
+- Todas las demás secciones de este informe usan el modelo preentrenado.
 
 ## 4. Análisis de errores
 
@@ -52,4 +72,5 @@ Dice medio en prueba: 0,8925 ± 0,0340 frente a la meta de 0,80: cumple.
 - A: `reports/evaluacion/evaluacion_prostate_mri_anatomy_2026-11-19_32casos.md` y su `.csv` (condiciones, tabla de 5 casos y dato adicional de 32).
 - B: `reports/evaluacion/analisis_errores_2026-11-11.md` (análisis por caso, base y ápex).
 - C: `docs/datos/protocolo_evaluacion.md` (reglas de evaluación y meta Dice ≥ 0,80).
-- D: `docs-tecnicos/modelo-y-licencias.md` (modelo empleado y ausencia de ajuste fino).
+- D: `docs-tecnicos/modelo-y-licencias.md` (modelo empleado y decisión del ajuste fino).
+- E: `reports/evaluacion/evaluacion_prostate_mri_anatomy_2026-11-21.md` y `reports/evaluacion/evaluacion_prostate_task05_ft_2026-11-21.md` (comparación de los dos modelos, tarea 1603).

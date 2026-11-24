@@ -16,9 +16,10 @@
   asistente; el uso es solo por línea de comandos.
 - **DICOM pendiente.** `load_volume(..., "DICOM")` falla con un mensaje controlado; tampoco hay carga de `.zip`
   ni validación de tamaño (50/150 MB).
-- **Ajuste fino no ejecutado.** `entrenamiento/entrenar.py` está preparado (incluye `--prueba-rapida`), pero no se
-  ha ejecutado y no hay modelo propio; `NnUNetStrategy` es un marcador sin implementación.
-- **Rendimiento medido solo en CPU** (un estudio, un equipo); la medición en GPU está pendiente.
+- **Ajuste fino no adoptado.** En el ciclo 5 (tarea 1603) se ajustó el modelo en Colab con los 22 casos de
+  entrenamiento; obtuvo un Dice medio de 0,8735 frente a 0,8925 del preentrenado en los mismos 5 casos de prueba,
+  así que se conserva el preentrenado. `NnUNetStrategy` es un marcador sin implementación.
+- **Rendimiento medido con un solo estudio** en CPU (Ryzen 5 5600G) y en GPU (Tesla T4 de Colab); falta la memoria pico de la GPU, que mide el script corregido en la tarea 1602.
 - **Uso no clínico.** Sin validación clínica ni externa; los resultados no son diagnósticos.
 
 ## Mejoras previstas (plan TSP)

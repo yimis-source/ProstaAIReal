@@ -14,8 +14,9 @@ Ingeniería de Sistemas, Universidad Santiago de Cali, periodo 2026-2.
 - Modelo de segmentación 3D (U-Net / nnU-Net con PyTorch y MONAI), evaluado con Dice e IoU.
 - Aplicación web: React, FastAPI, PostgreSQL y almacenamiento de archivos.
 - Gestión con PMBOK 6 (plantillas Open PM / PM²); desarrollo con **TSP en 7 ciclos**; requisitos según
-  ISO/IEC/IEEE 29148. Detalle en el [Acta de Constitución](docs/gestion/Acta_de_Constitucion-Prosta-AI-1.pdf)
-  y en la [metodología TSP](docs/gestion/metodologia_tsp.md).
+  ISO/IEC/IEEE 29148. Detalle en el [Acta de Constitución](<docs/docsf/1.1 Inicio/1.1.1 Acta de inicio - Prosta-AI (corregida).docx>)
+  (v1.1 corregida; la [v1.0 en PDF](<docs/docsf/1.1 Inicio/1.1.1 Acta de inicio - Prosta-AI.pdf>)) y en la
+  [metodología TSP](docs/gestion/metodologia_tsp.md).
 
 ## Equipo
 
@@ -101,7 +102,7 @@ Prostate158 y PROMISE12 se descargan a mano (ver `docs/datos/procedimiento_desca
 - Evaluación en los 5 casos de prueba de MSD Task05: **Dice 0,8925 ± 0,0340**, IoU 0,8071 ± 0,0534
   (meta RF-24: ≥ 0,80). Es una evaluación técnica preliminar; la formal es del ciclo 5.
 - Rendimiento (CPU AMD Ryzen 5 5600G, sin GPU): 13–16 s por estudio, memoria pico ≈ 2 GB (RR-01: ≤ 120 s).
-  La medición en GPU queda pendiente (Colab, ciclo 5).
+  En GPU (Colab, Tesla T4): unos 5 s por estudio, inferencia 2,3 s (tarea 1602); no son cifras comparables con las de CPU.
 - ROI: la máscara vuelve a la rejilla de la imagen original (vecino más cercano); en los 5 casos de prueba la
   forma y la afín coinciden con la imagen y el Dice recalculado desde la máscara guardada es el mismo
   (`reports/roi/`). La imagen exportada lleva impreso el aviso de uso académico y no diagnóstico.

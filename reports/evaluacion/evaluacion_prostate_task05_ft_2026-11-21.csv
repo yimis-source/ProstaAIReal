@@ -1,0 +1,6 @@
+caso,conjunto,dice,iou,hd95_mm,distancia_media_superficie_mm,tiempo_s
+prostate_13,prueba,0.845147,0.731822,4.001953,1.546683,7.7
+prostate_17,prueba,0.884571,0.793032,5.000000,1.184123,6.4
+prostate_28,prueba,0.845504,0.732358,4.432850,1.842304,5.5
+prostate_34,prueba,0.921450,0.854342,4.000000,0.976467,4.9
+prostate_44,prueba,0.870646,0.770923,3.600000,1.172094,6.7

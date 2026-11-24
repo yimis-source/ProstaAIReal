@@ -97,6 +97,3 @@ Total de ayuda: 6,5 h. La más grande fue Yeison a Juan en el análisis de geome
 | Dejar la verificación de pacientes repetidos y de fuga entre conjuntos como tarea propia del Tester (1304) | Fernando |
 | Empezar los diseños desde el 22/10 en paralelo, porque el ciclo 2 dura solo 5 días | Yimis |
 | Incluir en las pruebas de control de calidad archivos dañados | Yeison |
-
-
-*Las horas son las del registro de tiempos (`LOGT_registro_tiempos.md`), reconstruidas a partir de la bitácora del equipo (simuladas para este registro).*

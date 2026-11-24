@@ -54,13 +54,15 @@ Meta RF-24 (Dice medio ≥ 0,80) cumplida. Dato adicional en los 32 casos: Dice 
 ## Rendimiento, verificación de la ROI y errores
 
 ```bash
-python scripts/medir_rendimiento.py --caso prostate_13 --repeticiones 3 [--dispositivo cpu]
+python scripts/medir_rendimiento.py --caso prostate_13 --repeticiones 3 [--dispositivo cpu|cuda]
 python scripts/verificar_roi.py [--evaluacion reports/evaluacion/<informe>.csv]
 python scripts/analizar_errores.py --peores reports/evaluacion/<informe>_32casos.csv --n 4
 ```
 
 - `reports/rendimiento/rendimiento_1408_2026-11-07.md`: 13,1–16,0 s por estudio (media 14,1 s con el modelo
   cargado), pico de memoria 2048 MB; RR-01 (≤ 120 s) cumplido.
+- `reports/rendimiento/rendimiento_1408_gpu_2026-11-13.md`: en GPU (Tesla T4, Colab) 4,9–6,9 s por estudio
+  (media 5,0 s, inferencia 2,3 s). Con `--dispositivo cuda` el script escribe `rendimiento_1408_gpu_<fecha>.md`.
 - `reports/roi/verificacion_roi_2026-11-11.md`: en los 5 casos de prueba la máscara tiene la misma forma y afín
   que la imagen, es binaria, la cabecera no tiene texto libre y el Dice recalculado coincide con el del informe.
 - `reports/evaluacion/analisis_errores_2026-11-11.md`: análisis de prostate_07, prostate_10, prostate_28 y

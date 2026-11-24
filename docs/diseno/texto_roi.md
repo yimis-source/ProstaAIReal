@@ -2,10 +2,10 @@
 
 | Campo | Valor |
 |---|---|
-| Tarea | 1505 |
+| Tarea | 1505, 1606 |
 | Responsable | Sergio Gabriel Meneses Silva (Diseñador) |
-| Fecha | 10/11/2026 |
-| Versión | 1.0 |
+| Fecha | 21/11/2026 |
+| Versión | 1.1 |
 
 Cubre RF-17 (panel que explica la ROI, las métricas y sus límites), RF-15 y RF-16 (aviso y lenguaje no clínico). Las cifras vienen de `reports/evaluacion/`.
 
@@ -22,14 +22,22 @@ Son dos números entre 0 y 1 que comparan la ROI del modelo con una referencia d
 - Dice: el doble del solapamiento dividido entre la suma de las dos áreas.
 - IoU: el solapamiento dividido entre el área de la unión de ambas.
 Solo se calculan cuando hay una referencia; con una imagen propia sin referencia no se muestran.
-En los 5 casos de prueba el Dice medio fue 0,8925 ± 0,0340 y el IoU medio 0,8071 ± 0,0534 (informe del 06/11/2026). Son cifras del conjunto público de prueba, no de tus datos.
+En los 5 casos de prueba el Dice medio fue 0,8925 ± 0,0340 y el IoU medio 0,8071 ± 0,0534 (informe del 19/11/2026). Son cifras del conjunto público de prueba, no de tus datos.
+
+**Qué significan HD95 y la distancia media de superficie.**
+Miden, en milímetros, qué tan lejos queda el borde de la ROI del modelo respecto al borde de la referencia dibujada a mano. Un valor menor indica bordes más parecidos; 0 mm significa que coinciden.
+- HD95: para cada punto del borde de una forma se mide la distancia al borde de la otra, y se toma el valor que deja por debajo al 95 % de esas distancias. Así no se cuenta el 5 % de puntos más alejados.
+- Distancia media de superficie: el promedio de esas distancias.
+Dice e IoU miden cuánto se solapan las dos regiones; estas dos miden dónde queda el borde. Por eso puede haber un Dice alto y, aun así, zonas del contorno separadas de la referencia.
+En los 5 casos de prueba el HD95 medio fue 4,09 ± 0,92 mm y la distancia media de superficie 1,17 ± 0,49 mm (informe del 19/11/2026). El valor más alto fue prostate_28, con HD95 de 5,69 mm y distancia media de 2,01 mm. Como referencia, los cortes de la imagen son gruesos (3–4 mm). Son cifras del conjunto público de prueba, no de tus datos.
+
 
 **Límites que debes conocer.**
 - Solo se evaluó con 5 casos de prueba; con tan pocos casos la media es poco estable (el más bajo fue prostate_28, Dice 0,8320).
 - Cambio de dominio: el modelo se entrenó con otros datos (Prostate158) y los casos de prueba (MSD Task05) tienen otra resolución y protocolo, con cortes gruesos de 4 mm.
 - Los cortes gruesos hacen que los bordes de la base y el ápex sean menos precisos.
 - Posible sesgo del modelo preentrenado: la documentación no menciona los datos de Task05, pero no se puede garantizar que no se hayan usado en su entrenamiento; si así fuera, las cifras estarían sobreestimadas.
-- Al ampliar a los 32 casos, el Dice medio baja a 0,8736 ± 0,1222 porque prostate_07 tiene Dice 0,2255: el modelo marcó una región falsa cerca del borde del campo de visión (24 225 vóxeles). Ese caso muestra que la ROI puede fallar.
+- Al ampliar a los 32 casos, el Dice medio baja a 0,8736 ± 0,1222 porque prostate_07 tiene Dice 0,2255: el modelo marcó una región falsa cerca del borde del campo de visión (24 225 vóxeles). El HD95 medio sube a 7,51 ± 18,99 mm; en prostate_07 llega a 111,46 mm. Ese caso muestra que la ROI puede fallar.
 - Uso académico: no hay validación clínica ni externa.
 
 ## 2. Revisión de lenguaje no clínico (RF-15, RF-16)
