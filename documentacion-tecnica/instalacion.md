@@ -95,7 +95,8 @@ scripts/postgres_local.sh detener
 |---|---|---|
 | `PROSTA_DATABASE_URL` | `postgresql+psycopg://prosta@localhost:5433/prosta_ai` | Conexión a la base |
 | `PROSTA_STORAGE_DIR` | `../almacenamiento` | Archivos subidos y resultados |
-| `PROSTA_MAX_UPLOAD_MB` | `500` | Tamaño máximo de carga |
+| `PROSTA_MAX_UPLOAD_MB` | `50` | Tamaño máximo por archivo (RF-03) |
+| `PROSTA_MAX_ESTUDIO_MB` | `150` | Tamaño máximo por estudio (RF-03) |
 | `PROSTA_MODELO_NOMBRE` | `prostate_mri_anatomy` | Modelo de segmentación |
 | `PROSTA_MODELO_DIR` | `../modelos` | Carpeta de pesos |
 | `PROSTA_CORS_ORIGINS` | `http://localhost:5173` | Orígenes del frontend, separados por coma |

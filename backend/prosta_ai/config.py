@@ -10,7 +10,9 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://prosta@localhost:5433/prosta_ai"
     storage_dir: Path = Path("../almacenamiento")
-    max_upload_mb: int = 500
+    # RF-03: máximo 50 MB por archivo y 150 MB por estudio
+    max_upload_mb: int = 50
+    max_estudio_mb: int = 150
     modelo_nombre: str = "prostate_mri_anatomy"
     modelo_dir: Path = Path("../modelos")
     cors_origins: str = "http://localhost:5173"
@@ -18,6 +20,10 @@ class Settings(BaseSettings):
     @property
     def max_upload_bytes(self) -> int:
         return self.max_upload_mb * 1024 * 1024
+
+    @property
+    def max_estudio_bytes(self) -> int:
+        return self.max_estudio_mb * 1024 * 1024
 
     @property
     def cors_lista(self) -> list[str]:
