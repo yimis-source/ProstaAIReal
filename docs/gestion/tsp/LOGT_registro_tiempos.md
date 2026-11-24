@@ -265,15 +265,15 @@ Plan del lanzamiento (`ciclo5_lanzamiento.md`, 16/11/2026). Cerrado el 23/11 con
 
 ### Ciclo 6 · Desarrollo web e integración (REPLANIFICADO 24/11–27/11; plan original 26/11–02/12)
 
-Plan del lanzamiento (`ciclo6_lanzamiento.md`, 24/11/2026). Las horas reales las registra cada integrante en sus filas al terminar su tarea; el valor ganado se calcula en el postmortem.
+Plan del lanzamiento (`ciclo6_lanzamiento.md`, 24/11/2026). Las horas reales las anota cada integrante al terminar su tarea y Fernando las consolida aquí cada noche; el valor ganado final se calcula en el postmortem.
 
 | ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
 |---|---|---|---:|---:|---:|---:|---:|
-| 1700 | Lanzamiento, replanificación y contrato de la API | Fernando | 4 | — | — | 4,9 % | — |
-| 1701 | Impacto del recorte e informe al docente | Juan | 3 | — | — | 3,7 % | — |
-| 1702 | Entorno Python 3.12, PostgreSQL, esquema y migración inicial | Yimis | 6 | — | — | 7,4 % | — |
-| 1703 | Esqueleto FastAPI y /api/salud | Yeison | 4 | — | — | 4,9 % | — |
-| 1704 | Esqueleto React con Vite, rutas y aviso fijo | Sergio | 5 | — | — | 6,2 % | — |
+| 1700 | Lanzamiento, replanificación y contrato de la API | Fernando | 4 | 4,5 | +12 % | 4,9 % | 4,9 % |
+| 1701 | Impacto del recorte e informe al docente | Juan | 3 | 4 | +33 % | 3,7 % | 3,7 % |
+| 1702 | Entorno Python 3.12, PostgreSQL, esquema y migración inicial | Yimis | 6 | 7,5 | +25 % | 7,4 % | 7,4 % |
+| 1703 | Esqueleto FastAPI y /api/salud | Yeison | 4 | 4,5 | +12 % | 4,9 % | 4,9 % |
+| 1704 | Esqueleto React con Vite, rutas y aviso fijo | Sergio | 5 | 5,5 | +10 % | 6,2 % | 6,2 % |
 | 1705 | CU02 carga de NIfTI y validación (API) | Yeison | 6 | — | — | 7,4 % | — |
 | 1706 | CU01 acceso y CU02 pantalla de carga | Sergio | 6 | — | — | 7,4 % | — |
 | 1707 | Persistencia de estudios y archivos (RB-01, RB-02) | Yimis | 5 | — | — | 6,2 % | — |
@@ -289,6 +289,8 @@ Plan del lanzamiento (`ciclo6_lanzamiento.md`, 24/11/2026). Las horas reales las
 | 1717 | Postmortem del ciclo 6 | Fernando | 2 | — | — | 2,5 % | — |
 
 **Suma del plan:** 81 h. Por persona (la 1713 se reparte 4 h para Yeison y 4 h para Sergio): Yeison 21 h, Sergio 21 h, Yimis 19 h, Fernando 13 h, Juan 7 h.
+
+**Avance al 24/11:** terminadas 1700 a 1704: plan 22 h, real 26 h, desviación +18 %. Lo que más se pasó fue la 1702 (+25 %: el clúster de PostgreSQL no arrancaba por la longitud de la ruta del socket, D-012, y la corrección de la migración, D-011) y la 1701 (+33 %: dos correcciones del análisis de impacto, D-015 y D-019). Valor ganado: 22 h plan de 81 (27,2 %). Plan para el 25/11: 1705 a 1708 (21 h).
 
 ### Horas por día por persona
 
