@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import Aviso from './Aviso.jsx';
-import EstadoApi from './EstadoAPI.jsx';
+import EstadoApi from './EstadoApi.jsx';
 
 const ENLACES = [
   ['/', 'Inicio'],
