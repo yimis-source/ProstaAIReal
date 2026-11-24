@@ -72,5 +72,3 @@ Primera parte del Entregable 2 (adquisición de conjuntos de datos): fichas, inv
 
 - Una rama por rol (`analista`, `desarrollador`, `tester`, `disenador`, `lider`) que entra a `desarrollo` por PR revisado por otra persona; `main` solo recibe el PR de cierre.
 - Las horas reales se anotan cada día en el LOGT; los defectos que se encuentren en revisión o prueba, en el LOGD.
-
-*Las horas son las del registro de tiempos (`LOGT_registro_tiempos.md`), reconstruidas a partir de la bitácora del equipo (simuladas para este registro).*

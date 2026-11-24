@@ -92,5 +92,3 @@ El ciclo 2 cerró a tiempo el 30/10 (`v0.2-ciclo2`). El ciclo 3 es el de mayor r
 ## 8. Entregable del ciclo
 
 Entregable 4 (modelo de segmentación 3D con inferencia operativa, configuración, métricas del conjunto de prueba y limitaciones).
-
-*Las horas son las del registro de tiempos (`LOGT_registro_tiempos.md`), reconstruidas a partir de la bitácora del equipo (simuladas para este registro).*

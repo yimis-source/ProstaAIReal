@@ -65,5 +65,3 @@ El ciclo 1 cerró a tiempo el 25/10 (`v0.1-ciclo1`). Fechas planificadas del cic
 ## 7. Entregable del ciclo
 
 Segunda parte del Entregable 2 (datos preparados y divididos por paciente) y el Entregable 3 (diseño de la solución).
-
-*Las horas son las del registro de tiempos (`LOGT_registro_tiempos.md`), reconstruidas a partir de la bitácora del equipo (simuladas para este registro).*
