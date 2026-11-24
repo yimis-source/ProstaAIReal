@@ -1,6 +1,6 @@
 # Análisis de impacto del recorte de los ciclos 6 y 7
 
-**Autor:** Juan David Riascos Erazo (Analista, Monitoreo y control; Gerente de calidad y proceso) · **Fecha:** 24/11/2026 · **Versión:** 1.0 · **Tarea:** 1701 · **Aprueba:** Yimis Buenaventura (Director de Proyecto) · Proyecto Prosta-AI, Universidad Santiago de Cali 2026-2
+**Autor:** Juan David Riascos Erazo (Analista, Monitoreo y control; Gerente de calidad y proceso) · **Fecha:** 24/11/2026 · **Versión:** 1.1 · **Tarea:** 1701 · **Aprueba:** Yimis Buenaventura (Director de Proyecto) · Proyecto Prosta-AI, Universidad Santiago de Cali 2026-2
 
 Este análisis es el paso 2 de la replanificación (metodología TSP, sección 9) y del control de cambios del Acta (sección 5.2.1). La replanificación se registra en el lanzamiento del ciclo 6 (`docs/gestion/tsp/ciclo6_lanzamiento.md`, a cargo de Fernando), que enlaza este documento. El informe al Propietario del Proyecto está en `informe_docente_ciclo6.md`, en esta misma carpeta.
 
@@ -84,7 +84,13 @@ Fuera de los requisitos: el **visor 3D** sale. No es un requisito de la SRS, que
 | Could | 3 | 0 | 0 | 3 (RF-20 a RF-22) |
 | **Total** | **39** | **34** | **2** | **3** |
 
-Por caso de uso: CU01, CU02 (sin DICOM), CU03 y CU04 completos; CU05 condicionado (el registro sí se hace); CU06 fuera. La pantalla CU00 (inicio) se reduce a la navegación hacia CU02 y CU04, sin las tarjetas de «Mis estudios» si CU05 no entra.
+Por caso de uso: CU01, CU02 (sin DICOM), CU03 y CU04 completos; CU05 condicionado (el registro sí se hace); CU06 fuera.
+
+Efecto en las pantallas diseñadas (`docs/ejecucion/assets/pantallas/`):
+
+- **CU00 (inicio):** se mantienen sus tres tarjetas: «Cargar estudios» (CU02), «Procesar un estudio» (CU03) y «Visualizar ROI» (CU04). Salen el enlace «Abrir asistente» (CU06) y, si CU05 no entra, la tabla «Últimos estudios» con su botón «Ver todos los estudios». Si DICOM no entra, la tarjeta de carga dice solo «NIfTI» y no «DICOM · NIfTI».
+- **Menú lateral (todas las pantallas):** sale «Asistente IA» y, si CU05 no entra, también «Mis estudios».
+- **CU02:** si DICOM no entra, el texto de formatos admitidos dice solo NIfTI (`.nii`, `.nii.gz`).
 
 ### 2.3 Punto de decisión de lo condicionado
 
@@ -170,7 +176,7 @@ Mismo formato del Acta (sección 3.8): probabilidad (P) e impacto (I) de 1 a 5, 
 | 5 | Que una salida experimental se interprete como uso médico | Abierto | 2 → 3 | 5 → 5 | 10 → 15 | Sergio Meneses | Evitar | Hay pantallas nuevas hechas con prisa. Un solo componente de aviso en el diseño de las pantallas de resultados, una prueba que busca el texto de `AVISO_EXPERIMENTAL` en las respuestas, e inspección de textos el 27/11 |
 | 6 | Retrasos por baja disponibilidad de integrantes | Abierto | 4 → 4 | 3 → 4 | 12 → 16 | Yimis Buenaventura | Reducir | Ya no hay colchón: un día perdido es el 25 % del ciclo. Se reasignan tareas el mismo día y lo condicionado es lo primero que sale |
 | 7 | Problemas de integración entre frontend, backend y modelo | Abierto | 3 → 4 | 4 → 4 | 12 → 16 | Yeison Bolaños | Reducir | El riesgo más alto del recorte. Flujo de punta a punta mínimo el 25/11 (carga de un NIfTI, procesamiento y respuesta) y crecer desde ahí; contratos de la API fijados el 24/11 |
-| 8 | Agentes de IA con resultados no verificables o que amplíen el alcance | Cerrado | 3 → 1 | 3 → 3 | 9 → 3 | Juan David Riascos | Evitar | CU06 sale del alcance (RF-20 a RF-22). Se cierra si el Propietario aprueba el recorte |
+| 8 | Agentes de IA con resultados no verificables o que amplíen el alcance | Abierto (se cierra si el Propietario aprueba el recorte) | 3 → 1 | 3 → 3 | 9 → 3 | Juan David Riascos | Reducir → Evitar | CU06 sale del alcance (RF-20 a RF-22): al quitar los agentes se elimina la causa del riesgo, por eso la estrategia pasa de reducir a evitar |
 
 Los riesgos 3 (datos insuficientes o con licencias restringidas) y 4 (fuga entre entrenamiento y prueba) no cambian: se trataron en los ciclos 1, 2 y 5 y el recorte no toca los datos ni el modelo.
 
@@ -227,5 +233,7 @@ Los riesgos 3 (datos insuficientes o con licencias restringidas) y 4 (fuga entre
    - Se actualizan el LOGT (plan del ciclo 6 en 4 días y plan del ciclo 7), el calendario de la metodología y la trazabilidad T6.
    - La tabla de hitos del Acta sube de versión mayor, porque el cambio lo aprueba el Propietario (Acta 5.2.2).
 6. El congelamiento del 27/11 se respeta aunque quede algo condicionado sin terminar: lo que no esté integrado y probado esa noche no entra.
+
+*Versión 1.1 (24/11/2026): al revisar el documento contra las pantallas CU00 a CU06 y el Acta se corrigió el efecto en la pantalla de inicio (CU00) y en el menú lateral, y el estado y la estrategia del riesgo 8. Los números de requisitos, prioridades y orígenes no cambiaron.*
 
 *Para este análisis no hay horas reales del ciclo 6: las 81 h son las del plan del lanzamiento. Los números de requisitos, prioridades y orígenes son los de la SRS v1.0 y la matriz v1.0.*

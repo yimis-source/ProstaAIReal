@@ -13,7 +13,7 @@ Por el adelanto de la entrega final al 28/11/2026, replanificamos los ciclos 6 y
 | 6 · Desarrollo web e integración completa (Entregables 6 y 7) | 26/11–02/12 | 24/11–27/11; código congelado la noche del 27/11 | H008: 02/12 → 27/11 |
 | 7 · Cierre académico (Entregable 8) | 03/12–09/12 | 25/11–28/11, en paralelo con el ciclo 6 | H009: 09/12 → 28/11 |
 
-Pasamos de 16 días de trabajo a 5. El plan del ciclo 6 (81 h) se mantiene, pero ahora en 4 días.
+Pasamos de 16 días calendario (24/11–09/12) a 5 (24/11–28/11). El plan del ciclo 6 (81 h) se mantiene, pero ahora en 4 días.
 
 ## 2. Por qué recortamos el alcance
 
