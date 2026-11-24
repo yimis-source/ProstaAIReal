@@ -1,0 +1,57 @@
+/* Colores tomados de los diseños (docs/ejecucion/assets/pantallas) */
+:root {
+  --primario: #1e3a8a;
+  --texto: #17243b;
+  --suave: #53647b;
+  --tenue: #64748b;
+  --borde: #dfe6ee;
+  --fondo: #f8fafc;
+  --azul-claro: #eef2ff;
+  --teal: #0f766e;
+  --teal-punto: #0d9488;
+  --teal-claro: #eaf8f5;
+  --rojo: #b42318;
+  --rojo-claro: #fdeceb;
+  --radio: 12px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: var(--texto); background: var(--fondo); line-height: 1.5; font-size: 14px; }
+h1, p { margin: 0; }
+h1 { font-size: 28px; font-weight: 400; line-height: 1.2; margin-bottom: 10px; }
+a { color: var(--primario); }
+:focus-visible { outline: 3px solid #f2a900; outline-offset: 2px; }
+.punto { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin-right: 6px; vertical-align: middle; }
+.subtitulo { color: var(--suave); font-size: 15px; margin-bottom: 16px; }
+section p + p { margin-top: 12px; }
+
+/* Marco */
+.marco { min-height: 100vh; display: flex; flex-direction: column; padding-bottom: 72px; }
+.cabecera { background: #fff; border-bottom: 1px solid var(--borde); display: flex; align-items: center; gap: 24px; padding: 0 32px; min-height: 64px; flex-wrap: wrap; }
+.logo { font-size: 22px; font-weight: 700; color: var(--primario); text-decoration: none; }
+.menu { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
+.menu a { display: block; color: var(--suave); padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 15px; }
+.menu a:hover { background: var(--fondo); }
+.menu a.active { background: var(--azul-claro); color: var(--primario); }
+main { flex: 1; padding: 32px; max-width: 1280px; width: 100%; }
+
+/* Indicador de la API */
+.estado-api { margin-left: auto; display: inline-flex; align-items: center; border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 500; background: var(--fondo); color: var(--tenue); }
+.estado-api-ok { background: var(--teal-claro); color: var(--teal); }
+.estado-api-ok .punto { color: var(--teal-punto); }
+.estado-api-error { background: var(--rojo-claro); color: var(--rojo); }
+
+/* Aviso fijo, visible en todas las pantallas */
+.pie { position: fixed; left: 0; right: 0; bottom: 0; padding: 0 32px 12px; z-index: 10; }
+.aviso { display: flex; gap: 10px; align-items: center; background: var(--azul-claro); border: 1px solid #c7d5ff; color: var(--primario); border-radius: var(--radio); padding: 12px 16px; font-size: 13px; max-width: 1216px; }
+.aviso-icono { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid currentColor; display: grid; place-items: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
+/* Botones */
+.acciones { display: flex; gap: 12px; margin-top: 24px; }
+.btn { display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 8px; border: 1px solid var(--borde); background: #fff; color: var(--texto); font-weight: 600; text-decoration: none; }
+.btn-primario { background: var(--primario); border-color: var(--primario); color: #fff; }
+
+@media (max-width: 640px) {
+  .cabecera, main { padding-left: 16px; padding-right: 16px; }
+  .pie { padding: 0 16px 8px; }
+  .marco { padding-bottom: 110px; }
+}
