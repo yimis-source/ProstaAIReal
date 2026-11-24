@@ -1,8 +1,10 @@
 # Registro de defectos (LOGD) · Prosta-AI
 
-**Versión:** D5.1 · **Fecha:** 13/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** D6.0 · **Fecha:** 24/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
 
 Se agrega D-008 (ciclo 4). El 23/11/2026 se agregan al resumen los defectos del ciclo 5 (D-009 y D-010). El 13/11/2026 (PR #50) se corrigió D-006 en el diseño; queda abierto hasta implementarlo en la interfaz del ciclo 6.
+
+El 24/11/2026 se agregan los defectos del ciclo 6 (D-011 a D-019) y la fase COMP (compilación del frontend).
 
 ## Leyenda
 
@@ -32,6 +34,7 @@ Se agrega D-008 (ciclo 4). El 23/11/2026 se agregan al resumen los defectos del 
 | EJE | Ejecución / uso |
 | PU | Prueba unitaria |
 | INT | Integración |
+| COMP | Compilación / construcción (`npm run build`) |
 
 El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar el de encontrarlo. «—» significa que sigue abierto.
 
@@ -49,6 +52,15 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | D-008 | 10/11 | C4 | 1503 | 50 | IMP | PU | 0,5 h | Al agregar la etapa ROI, `PipelineInput` exige `output_dir` y `entrenamiento/evaluar.py` dejó de funcionar; ahora escribe las salidas en una carpeta temporal. | Yeison (al correr la evaluación) | Yeison | PR #41 |
 | D-009 | 19/11 | C5 | 1604 | 80 | IMP | PU | 0,2 h | `hd95()` y `distancia_media_superficie()` devuelven `nan` en vez de `inf` cuando solo una máscara está vacía (`np.percentile`/`np.mean` de `[inf]`); la prueba `test_metricas_superficie_mascaras_vacias` falla. Origen: tarea 1604. No afecta los 5 casos reales (ninguna máscara vacía). | Juan (prueba `test_metricas_superficie_mascaras_vacias`) | Juan | `fix(evaluacion): HD95 y distancia media devuelven inf con una máscara vacía (1604)` |
 | D-010 | 13/11 | C5 | 1602 | 80 | IMP | EJE | — (dentro de las horas de 1602) | `scripts/medir_rendimiento.py` (tarea 1408) escribía siempre «## GPU: No disponible en este equipo», aunque se midiera con `--dispositivo cuda`, y no medía la memoria de la GPU. Se vio al medir en Colab (Tesla T4). Ahora la sección depende del dispositivo, pone el nombre de la GPU y su memoria pico, y el informe se llama `rendimiento_1408_gpu_<fecha>.md`. Prueba: `tests/test_medir_rendimiento.py`. | Yimis (medición en Colab) | Fernando | `feat(rendimiento): informe y memoria de la GPU en la medición, y resultados en Colab (1602)` |
+| D-011 | 24/11 | C6 | 1702 | 70 | IMP | PU | 0,6 h | En la migración `0001_esquema_inicial.py`, escrita a mano, `etapa_trabajo.estado` quedó sin `nullable=False`; en `models.py` es NOT NULL. Lo detectó `test_migracion_igual_a_modelos_sqlite` (y la misma prueba en PostgreSQL con `compare_metadata`). Al corregirlo se ajustó la prueba para ignorar en SQLite un `modify_default` falso de las claves IDENTITY, que SQLite no refleja. | Yimis (prueba `test_db_migracion.py`) | Yimis | `fce2b06` |
+| D-012 | 24/11 | C6 | 1702 | 100 | IMP | EJE | 0,3 h | `scripts/postgres_local.sh` no arrancaba el servidor: la ruta del socket Unix dentro de `.pgdata/` medía 111 bytes y el límite es 107. Ahora el clúster escucha solo por TCP en localhost (`unix_socket_directories=''`). | Yimis (al iniciar el clúster) | Yimis | `8b81ca8` |
+| D-013 | 24/11 | C6 | 1703 | 50 | IMP | PU | 0,5 h | El manejador del formato común de error se registró para `fastapi.HTTPException`; el 404 de una ruta inexistente lo lanza Starlette con su propia clase, así que salía `{"detail": "Not Found"}`. Prueba: `test_ruta_inexistente_devuelve_404_con_detalle`. Ahora se registra para `starlette.exceptions.HTTPException`. | Yeison (prueba `test_salud.py`) | Yeison | `e44d5ec` |
+| D-014 | 24/11 | C6 | 1704 | 20 | IMP | COMP | 0,1 h | `Layout.jsx` importaba `./EstadoAPI.jsx` y el archivo es `EstadoApi.jsx`; en Linux no lo encuentra y `npm run build` fallaba («Could not resolve "./EstadoAPI.jsx"»). Se hicieron tres commits sin compilar. | Sergio (`npm run build`) | Sergio | `c1104d9` |
+| D-015 | 24/11 | C6 | 1701 | 10 | REQ | REV | 0,4 h | El análisis de impacto describía mal la pantalla de inicio (CU00) y no mencionaba el menú lateral; el riesgo 8 figuraba «Cerrado» con estrategia distinta a la del Acta, y el informe al docente decía «16 días de trabajo» (son días calendario). | Juan (revisión contra pantallas y Acta) | Juan | `2a8d817` |
+| D-016 | 24/11 | C6 | 1702 | 40 | IMP | REV | 0,1 h | `config.py` tenía `max_upload_mb = 500`; RF-03 pide 50 MB por archivo y 150 MB por estudio. Se agregó `max_estudio_mb`. | Fernando (al escribir el contrato) | Yimis | `9ea8a5d` |
+| D-017 | 24/11 | C6 | 1700 | 50 | DIS | REV | 0,2 h | El contrato de la API definía el error como `{"detail": ...}`, pero la API (1703) y el cliente de la interfaz (1704) usan `{"detalle": ...}`, con `campos` en el 422. Se igualó el contrato. | Yimis (revisión de integración) | Fernando | `940846c` |
+| D-018 | 24/11 | C6 | 1700 | 10 | DIS | REV | 0,3 h | El lanzamiento y el contrato daban RF-05 por cubierto con el `MetadataValidator`, que no revisa metadatos; el contrato pedía validar antes de guardar y a la vez registrar el estudio rechazado; y el criterio para abrir lo condicionado no coincidía con el del análisis de impacto. RF-05 pasa a la 1705. | Yimis (revisión de integración) | Fernando | `76a4507` |
+| D-019 | 24/11 | C6 | 1701 | 10 | REQ | REV | 0,3 h | El análisis de impacto hablaba de cuatro etapas (son cinco, con evaluación) y de un estado «Error» (es `fallido`), ponía el punto de decisión el 26/11 a las 18:00 con CU04 incluido (CU04 va el 27/11) y fechas distintas del lanzamiento para el postmortem del ciclo 6 y RR-01. | Yimis (revisión de integración) | Juan | `76b4ea5` |
 
 ## Resumen por ciclo
 
@@ -60,27 +72,33 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | C3 | 1 | IMP 1 | PU 1 | 80: 1 | 2,5 h | 0 de 1 (0 %) |
 | C4 | 1 | IMP 1 | PU 1 | 50: 1 | 0,5 h | 0 de 1 (0 %) |
 | C5 | 2 | IMP 2 | PU 1, EJE 1 | 80: 2 | 0,2 h (D-010 dentro de 1602) | 0 de 2 (0 %) |
-| **Acumulado** | 10 | | | | 5,7 h | 4 de 10 (40 %) |
+| C6 (24/11) | 9 | IMP 5, DIS 2, REQ 2 | REV 5, PU 2, EJE 1, COMP 1 | 10: 3, 50: 2, 20: 1, 40: 1, 70: 1, 100: 1 | 2,8 h | 5 de 9 (56 %) |
+| **Acumulado** | 19 | | | | 8,5 h | 9 de 19 (47 %) |
 
 **Defectos por fase (acumulado):**
 
 | Fase | Inyectados | Removidos |
 |---|---:|---:|
-| REQ | 1 | 0 |
-| DIS | 2 | 0 |
-| IMP | 7 | 0 |
-| REV | 0 | 4 |
-| EJE | 0 | 1 |
-| PU | 0 | 5 |
+| REQ | 3 | 0 |
+| DIS | 4 | 0 |
+| IMP | 12 | 0 |
+| REV | 0 | 9 |
+| EJE | 0 | 2 |
+| PU | 0 | 7 |
+| COMP | 0 | 1 |
 
 **Defectos por tipo (acumulado):**
 
 | Tipo | Cantidad |
 |---|---:|
-| 10 Documentación | 2 |
-| 50 Interfaz | 2 |
+| 10 Documentación | 5 |
+| 20 Sintaxis | 1 |
+| 40 Asignación | 1 |
+| 50 Interfaz | 4 |
 | 60 Chequeo | 1 |
+| 70 Datos | 1 |
 | 80 Función | 5 |
+| 100 Entorno | 1 |
 
 Rendimiento de revisión = defectos encontrados en revisión (REV) / defectos totales del ciclo. En D-006 la revisión lo encontró pero todavía no está corregido, así que cuenta como encontrado en REV y sigue abierto.
 
