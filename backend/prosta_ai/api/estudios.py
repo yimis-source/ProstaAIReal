@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 
 from prosta_ai.api.admision import (
-    MSG_SIN_ARCHIVO, ArchivoRechazado, NiftiAdmitido, comprobar_nifti, leer_limitado,
+    MSG_SIN_ARCHIVO, ArchivoRechazado, NiftiAdmitido, a_bytes, comprobar_nifti, leer_limitado,
     limpiar_cabecera,
 )
 from prosta_ai.api.deps import ajustes, almacenamiento, sesion, usuario_actual
@@ -106,9 +106,11 @@ async def cargar(
         estudio = estudios.crear(usuario.id_usuario, formato="NIfTI")
         codigo = estudio.codigo_anonimo
         for rol, admitido in admitidos.items():
+            # RF-05: se guarda el NIfTI ya limpio, no los bytes que llegaron
             limpiar_cabecera(admitido.imagen)
+            limpio = a_bytes(admitido.imagen, admitido.comprimido)
             # Solo la extensión: el nombre original no se guarda (RB-02)
-            guardado = almacen.guardar(codigo, rol, admitido.contenido, f"x{admitido.extension}")
+            guardado = almacen.guardar(codigo, rol, limpio, f"x{admitido.extension}")
             registro.registrar(estudio.id_estudio, guardado)
         db.commit()
     except Exception:

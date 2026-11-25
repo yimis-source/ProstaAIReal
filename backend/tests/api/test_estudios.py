@@ -1,11 +1,11 @@
 """CU02: carga de NIfTI, validación, RF-05, detalle y errores 500."""
 import gzip
 import hashlib
-import io
 import logging
 import re
 
 import nibabel as nib
+import numpy as np
 import pytest
 
 from prosta_ai.api.admision import CAMPOS_TEXTO, MSG_DANADO, MSG_FORMATO, MSG_SIN_ARCHIVO
@@ -16,11 +16,15 @@ from apoyo_api import nifti
 TEXTO = b"texto libre de prueba"
 
 
-def _cabecera(ruta):
+def _leer(ruta):
     datos = ruta.read_bytes()
     if ruta.name.endswith(".gz"):
         datos = gzip.decompress(datos)
-    return nib.Nifti1Image.from_bytes(datos).header
+    return nib.Nifti1Image.from_bytes(datos)
+
+
+def _leer_bytes(contenido: bytes, comprimido: bool):
+    return nib.Nifti1Image.from_bytes(gzip.decompress(contenido) if comprimido else contenido)
 
 
 # --- Carga válida ---------------------------------------------------------------------------
@@ -62,9 +66,13 @@ def test_rf05_cabecera_guardada_sin_texto_libre(entorno, comprimido):
     r = entorno.cargar(cab, contenido=nifti(texto=TEXTO, comprimido=comprimido), nombre=nombre)
     assert r.status_code == 201
     (archivo,) = entorno.archivos()
-    cabecera = _cabecera(entorno.almacen.absoluta(archivo.ruta))
+    guardado = _leer(entorno.almacen.absoluta(archivo.ruta))
     for campo in CAMPOS_TEXTO:
-        assert cabecera[campo].tobytes().strip(b"\x00") == b"", campo
+        assert guardado.header[campo].tobytes().strip(b"\x00") == b"", campo
+    # La limpieza no toca los vóxeles ni la geometría
+    original = _leer_bytes(nifti(texto=TEXTO, comprimido=comprimido), comprimido)
+    assert np.array_equal(guardado.get_fdata(), original.get_fdata())
+    assert np.allclose(guardado.affine, original.affine)
 
 
 def test_carga_nifti2_admitido(entorno):
