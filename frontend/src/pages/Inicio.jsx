@@ -9,7 +9,10 @@ export default function Inicio() {
         Herramienta académica que segmenta la próstata en imágenes de resonancia magnética T2 y
         muestra la región de interés (ROI) calculada por el modelo.
       </p>
-      <p>Aquí irán los accesos rápidos: cargar un estudio y revisar los estudios procesados.</p>
+      <p>
+        Para empezar, ingresa con tu alias y carga un estudio NIfTI de prueba. Después podrás procesarlo y ver
+        la ROI calculada.
+      </p>
       <p className="acciones">
         <Link className="btn btn-primario" to="/cargar">Cargar estudio</Link>
         <Link className="btn" to="/acceso">Acceso</Link>
