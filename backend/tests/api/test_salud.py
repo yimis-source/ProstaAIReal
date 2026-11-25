@@ -10,8 +10,13 @@ ORIGEN_OK = "http://localhost:5173"
 
 
 @pytest.fixture
-def cliente():
-    settings = Settings(_env_file=None, cors_origins=f"{ORIGEN_OK}, http://127.0.0.1:5173")
+def cliente(tmp_path):
+    settings = Settings(
+        _env_file=None,
+        cors_origins=f"{ORIGEN_OK}, http://127.0.0.1:5173",
+        database_url=f"sqlite:///{tmp_path / 'salud.db'}",
+        storage_dir=tmp_path / "almacen",
+    )
     app = create_app(settings)
 
     # Ruta solo de prueba para comprobar el formato del 422
@@ -61,6 +66,12 @@ def test_cors_preflight_origen_configurado(cliente):
     )
     assert r.status_code == 200
     assert r.headers.get("access-control-allow-origin") == ORIGEN_OK
+
+
+def test_cors_sin_credenciales(cliente):
+    # El token va en Authorization (Bearer), no en cookies
+    r = cliente.get("/api/salud", headers={"Origin": ORIGEN_OK})
+    assert "access-control-allow-credentials" not in r.headers
 
 
 def test_cors_rechaza_otro_origen(cliente):
