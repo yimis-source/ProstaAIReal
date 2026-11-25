@@ -64,3 +64,19 @@ main { flex: 1; padding: 32px; max-width: 1280px; width: 100%; }
 .mensaje-ok { background: var(--teal-claro); color: var(--teal); border: 1px solid #b7e6dd; }
 .mensaje-info { background: var(--azul-claro); color: var(--primario); border: 1px solid #c7d5ff; }
 .mensaje ul { margin: 6px 0 0; padding-left: 18px; }
+
+/* Formularios y tarjetas */
+.tarjeta { background: #fff; border: 1px solid var(--borde); border-radius: var(--radio); padding: 24px; }
+.acceso { display: flex; justify-content: center; }
+.acceso-form { width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 12px; }
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo label { font-weight: 600; font-size: 14px; }
+.campo-caja { display: flex; align-items: center; border: 1px solid var(--borde); border-radius: 8px; background: #fff; }
+.campo-caja input { flex: 1; border: 0; background: transparent; height: 44px; padding: 0 14px; font: inherit; color: var(--texto); }
+.campo-caja input[readonly] { color: var(--suave); background: var(--fondo); border-radius: 8px; }
+.campo-ojo { border: 0; background: none; color: var(--primario); padding: 0 14px; cursor: pointer; font: inherit; font-size: 13px; }
+.nota { color: var(--suave); font-size: 13px; }
+.btn { cursor: pointer; font: inherit; font-weight: 600; justify-content: center; }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn-ancho { width: 100%; }
+.enlace { align-self: flex-start; }
