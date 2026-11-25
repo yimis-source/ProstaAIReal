@@ -30,3 +30,14 @@ venv/
 .DS_Store
 *.swp
 .env
+.env.*
+!.env.example
+
+# --- Aplicación web (ciclo 6) ---
+# Archivos subidos y resultados de la aplicación; base de datos local
+/almacenamiento/
+/.pgdata/
+# Frontend
+node_modules/
+dist/
+.vite/
