@@ -86,7 +86,7 @@ export const acceder = (alias, contrasena, confirmacion) =>
 // 4.4 POST /api/estudios (multipart): imagen obligatoria y máscara de referencia opcional
 export function cargarEstudio(imagen, referencia) {
   const datos = new FormData();
-  datos.append('archivo', imagen);
+  datos.append('archivos', imagen); // nombre del campo según el contrato 4.4
   if (referencia) datos.append('referencia', referencia);
   return pedir('/estudios', { metodo: 'POST', formData: datos });
 }
