@@ -1,5 +1,6 @@
 """CU02: carga de un estudio NIfTI y su detalle."""
 import logging
+from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy.orm import Session
@@ -10,7 +11,7 @@ from prosta_ai.api.admision import (
 )
 from prosta_ai.api.deps import ajustes, almacenamiento, sesion, usuario_actual
 from prosta_ai.config import Settings
-from prosta_ai.models import Estudio, Usuario
+from prosta_ai.models import Estudio, Trabajo, Usuario
 from prosta_ai.repositories import RepositorioArchivos, RepositorioEstudios
 from prosta_ai.storage import AlmacenamientoPrivado
 
@@ -27,6 +28,38 @@ def estado_visible(estudio: Estudio) -> str:
     if estudio.trabajos:
         return estudio.trabajos[-1].estado
     return "listo para procesar"
+
+
+def _fecha(valor: datetime | None) -> str | None:
+    if valor is None:
+        return None
+    # SQLite devuelve la fecha sin zona; se guardó en UTC
+    if valor.tzinfo is None:
+        valor = valor.replace(tzinfo=timezone.utc)
+    return valor.isoformat()
+
+
+def _num(valor) -> float | None:
+    return None if valor is None else float(valor)
+
+
+def detalle_trabajo(trabajo: Trabajo, codigo: str) -> dict:
+    """Mismo cuerpo que GET /api/trabajos/{id_trabajo} (contrato 4.7)."""
+    return {
+        "id": trabajo.id_trabajo,
+        "id_estudio": trabajo.id_estudio,
+        "codigo": codigo,
+        "estado": trabajo.estado,
+        "etapa_fallida": trabajo.etapa_fallida,
+        "mensaje_error": trabajo.mensaje_error,
+        "fecha_creacion": _fecha(trabajo.fecha_creacion),
+        "fecha_inicio": _fecha(trabajo.fecha_inicio),
+        "fecha_fin": _fecha(trabajo.fecha_fin),
+        "etapas": [
+            {"nombre": e.nombre, "estado": e.estado, "duracion_s": _num(e.duracion_s)}
+            for e in trabajo.etapas
+        ],
+    }
 
 
 def _con_nombre(archivos: list[UploadFile]) -> list[UploadFile]:
@@ -89,4 +122,28 @@ async def cargar(
         "codigo": codigo,
         "formato": estudio.formato,
         "estado": estado_visible(estudio),
+    }
+
+
+@router.get("/{id_estudio}")
+def detalle(
+    id_estudio: int, db: Session = Depends(sesion), usuario: Usuario = Depends(usuario_actual)
+) -> dict:
+    estudio = RepositorioEstudios(db).obtener_de_usuario(id_estudio, usuario.id_usuario)
+    if estudio is None:
+        # Ajeno o inexistente: misma respuesta
+        raise HTTPException(404, "Estudio no encontrado.")
+    ultimo = estudio.trabajos[-1] if estudio.trabajos else None
+    resultado = ultimo.resultado if ultimo else None
+    return {
+        "id": estudio.id_estudio,
+        "codigo": estudio.codigo_anonimo,
+        "formato": estudio.formato,
+        "fecha_carga": _fecha(estudio.fecha_carga),
+        "estado": estado_visible(estudio),
+        "estado_admision": estudio.estado_admision,
+        "id_ultimo_trabajo": ultimo.id_trabajo if ultimo else None,
+        "dice": _num(resultado.dice) if resultado else None,
+        "iou": _num(resultado.iou) if resultado else None,
+        "trabajos": [detalle_trabajo(t, estudio.codigo_anonimo) for t in estudio.trabajos],
     }
