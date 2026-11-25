@@ -11,7 +11,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from prosta_ai import __version__
 from sqlalchemy import Engine
 
-from prosta_ai.api import acceso, salud
+from prosta_ai.api import acceso, estudios, salud
 from prosta_ai.config import Settings, get_settings
 from prosta_ai.db import crear_fabrica_sesiones, crear_motor
 from prosta_ai.storage import AlmacenamientoPrivado
@@ -64,6 +64,6 @@ def create_app(
             content={"detalle": "Datos no válidos.", "campos": [c for c in campos if c]},
         )
 
-    for router in (salud.router, acceso.router):
+    for router in (salud.router, acceso.router, estudios.router):
         app.include_router(router, prefix="/api")
     return app
