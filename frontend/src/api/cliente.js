@@ -1,32 +1,95 @@
-// Cliente HTTP mínimo para la API de Prosta-AI (proxy de Vite: /api -> http://localhost:8000)
+// Cliente HTTP de la API de Prosta-AI (docs/ejecucion/contrato_api.md, secciones 1, 2 y 4)
+// En desarrollo, Vite envía /api a http://localhost:8000 (vite.config.js)
 const BASE = '/api';
+const CLAVE_TOKEN = 'prosta_token';
+const CLAVE_ALIAS = 'prosta_alias';
+
+// Token y alias en la memoria de la sesión del navegador (contrato 4.3)
+export const sesion = {
+  token: () => sessionStorage.getItem(CLAVE_TOKEN),
+  alias: () => sessionStorage.getItem(CLAVE_ALIAS),
+  guardar(token, alias) {
+    sessionStorage.setItem(CLAVE_TOKEN, token);
+    sessionStorage.setItem(CLAVE_ALIAS, alias);
+  },
+  borrar() {
+    sessionStorage.removeItem(CLAVE_TOKEN);
+    sessionStorage.removeItem(CLAVE_ALIAS);
+  },
+};
+
+// Lo que se hace ante un 401 con sesión abierta (lo registra AuthContext)
+let alExpirar = () => {};
+export const registrarAlExpirar = (fn) => {
+  alExpirar = fn;
+};
 
 export class ErrorApi extends Error {
-  constructor(mensaje, estado) {
+  constructor(mensaje, estado, campos = []) {
     super(mensaje);
     this.estado = estado;
+    this.campos = campos;
   }
 }
 
-// La API devuelve los errores como {"detalle": ...} (texto o lista)
-function mensajeDe(datos, estado) {
-  const d = datos && datos.detalle;
-  if (typeof d === 'string') return d;
-  if (Array.isArray(d) && d.length) return d.map((x) => (x && x.msg) || String(x)).join('. ');
-  return `No se pudo completar la solicitud (código ${estado}).`;
+// El contrato fija {"detalle": "texto"}; un 422 de validación agrega "campos": [...]
+function errorDe(datos, estado) {
+  const detalle = datos && typeof datos.detalle === 'string' ? datos.detalle : '';
+  const campos = datos && Array.isArray(datos.campos) ? datos.campos : [];
+  const mensaje = detalle || `No se pudo completar la solicitud (código ${estado}).`;
+  return new ErrorApi(mensaje, estado, campos);
 }
 
-export async function pedir(ruta, opciones = {}) {
+async function pedir(ruta, { metodo = 'GET', json, formData, conToken = true } = {}) {
+  const cabeceras = {};
+  const token = sesion.token();
+  if (conToken && token) cabeceras.Authorization = `Bearer ${token}`;
+  let cuerpo;
+  if (json !== undefined) {
+    cabeceras['Content-Type'] = 'application/json';
+    cuerpo = JSON.stringify(json);
+  } else if (formData) {
+    cuerpo = formData; // el navegador pone el Content-Type con el límite del multipart
+  }
+
   let respuesta;
   try {
-    respuesta = await fetch(BASE + ruta, opciones);
+    respuesta = await fetch(BASE + ruta, { method: metodo, headers: cabeceras, body: cuerpo });
   } catch {
-    throw new ErrorApi('No hay conexión con la API.', 0);
+    throw new ErrorApi('No hay conexión con la API. Revisa que esté en ejecución.', 0);
   }
+
   const datos = await respuesta.json().catch(() => null);
-  if (!respuesta.ok) throw new ErrorApi(mensajeDe(datos, respuesta.status), respuesta.status);
+  if (!respuesta.ok) {
+    // Con sesión abierta, un 401 es token vencido o no válido; en /acceso es contraseña incorrecta
+    if (respuesta.status === 401 && conToken && token) alExpirar();
+    throw errorDe(datos, respuesta.status);
+  }
   return datos;
 }
 
-// GET /api/salud -> {"estado": "ok", "version": "0.6.0"}
-export const consultarSalud = () => pedir('/salud');
+// 4.1 GET /api/salud -> {"estado": "ok", "version": "0.6.0"}
+export const consultarSalud = () => pedir('/salud', { conToken: false });
+
+// 4.2 POST /api/acceso/verificar -> {"existe": bool}
+export const verificarAlias = (alias) =>
+  pedir('/acceso/verificar', { metodo: 'POST', json: { alias }, conToken: false });
+
+// 4.3 POST /api/acceso -> {"token", "alias", "primer_acceso"}; confirmacion solo en el primer acceso
+export const acceder = (alias, contrasena, confirmacion) =>
+  pedir('/acceso', {
+    metodo: 'POST',
+    json: confirmacion === undefined ? { alias, contrasena } : { alias, contrasena, confirmacion },
+    conToken: false,
+  });
+
+// 4.4 POST /api/estudios (multipart): imagen obligatoria y máscara de referencia opcional
+export function cargarEstudio(imagen, referencia) {
+  const datos = new FormData();
+  datos.append('archivo', imagen);
+  if (referencia) datos.append('referencia', referencia);
+  return pedir('/estudios', { metodo: 'POST', formData: datos });
+}
+
+// 4.5 GET /api/estudios/{id_estudio}
+export const obtenerEstudio = (id) => pedir(`/estudios/${encodeURIComponent(id)}`);

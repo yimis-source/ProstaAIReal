@@ -55,3 +55,12 @@ main { flex: 1; padding: 32px; max-width: 1280px; width: 100%; }
   .pie { padding: 0 16px 8px; }
   .marco { padding-bottom: 110px; }
 }
+
+/* Sesión y mensajes */
+.sesion { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--suave); }
+.enlace { background: none; border: 0; padding: 0; color: var(--primario); font: inherit; text-decoration: underline; cursor: pointer; }
+.mensaje { border-radius: 8px; padding: 10px 14px; margin: 12px 0; font-size: 14px; }
+.mensaje-error { background: var(--rojo-claro); color: var(--rojo); border: 1px solid #f5c2bd; }
+.mensaje-ok { background: var(--teal-claro); color: var(--teal); border: 1px solid #b7e6dd; }
+.mensaje-info { background: var(--azul-claro); color: var(--primario); border: 1px solid #c7d5ff; }
+.mensaje ul { margin: 6px 0 0; padding-left: 18px; }
