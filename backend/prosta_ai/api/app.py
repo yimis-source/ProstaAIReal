@@ -9,8 +9,12 @@ from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from prosta_ai import __version__
-from prosta_ai.api import salud
+from sqlalchemy import Engine
+
+from prosta_ai.api import acceso, salud
 from prosta_ai.config import Settings, get_settings
+from prosta_ai.db import crear_fabrica_sesiones, crear_motor
+from prosta_ai.storage import AlmacenamientoPrivado
 
 
 def _error(status_code: int, detalle, headers=None) -> JSONResponse:
@@ -18,11 +22,21 @@ def _error(status_code: int, detalle, headers=None) -> JSONResponse:
     return JSONResponse(status_code=status_code, content={"detalle": detalle}, headers=headers)
 
 
-def create_app(settings: Settings | None = None) -> FastAPI:
+def create_app(
+    settings: Settings | None = None,
+    *,
+    motor: Engine | None = None,
+    almacenamiento: AlmacenamientoPrivado | None = None,
+) -> FastAPI:
+    """El motor y el almacenamiento salen de settings; las pruebas pueden pasar los suyos."""
     settings = settings or get_settings()
+    motor = motor or crear_motor(settings.database_url)
 
     app = FastAPI(title="Prosta-AI", version=__version__)
     app.state.settings = settings
+    app.state.motor = motor
+    app.state.fabrica_sesiones = crear_fabrica_sesiones(motor)
+    app.state.almacenamiento = almacenamiento or AlmacenamientoPrivado(settings.storage_dir)
 
     app.add_middleware(
         CORSMiddleware,
@@ -50,5 +64,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             content={"detalle": "Datos no válidos.", "campos": [c for c in campos if c]},
         )
 
-    app.include_router(salud.router, prefix="/api")
+    for router in (salud.router, acceso.router):
+        app.include_router(router, prefix="/api")
     return app
