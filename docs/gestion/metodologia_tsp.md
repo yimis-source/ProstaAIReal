@@ -15,8 +15,8 @@ Trabajamos de forma incremental: cada ciclo deja algo que funciona o está docum
 | 3 | 31/10–13/11 | Segmentación 3D, modelo e inferencia (Entregable 4) | H005 · 13/11 | `v0.3-ciclo3` |
 | 4 | 14/11–20/11 | Generación del mapa/ROI (Entregable 5) | H006 · 20/11 | `v0.4-ciclo4` |
 | 5 | 21/11–25/11 | Evaluación técnica del modelo: métricas, errores y limitaciones | H007 · 25/11 | `v0.5-ciclo5` |
-| 6 | 26/11–02/12 | Desarrollo web e integración completa (Entregables 6 y 7) | H008 · 02/12 | `v0.6-ciclo6` |
-| 7 | 03/12–09/12 | Cierre académico: documentación final, lecciones aprendidas y acta de aceptación (Entregable 8) | H009 · 09/12 | `v0.7-ciclo7` |
+| 6 | 26/11–02/12 · **replanificado: 24/11–27/11** (código congelado el 27/11 en la noche) | Desarrollo web e integración completa (Entregables 6 y 7) | H008 · 02/12 → **27/11** | `v0.6-ciclo6` |
+| 7 | 03/12–09/12 · **replanificado: 25/11–28/11** (en paralelo con el ciclo 6) | Cierre académico: documentación final, lecciones aprendidas y acta de aceptación (Entregable 8) | H009 · 09/12 → **28/11** | `v0.7-ciclo7` |
 
 Hitos del Acta (sección 4.2) que enmarcan los ciclos:
 
@@ -24,9 +24,9 @@ Hitos del Acta (sección 4.2) que enmarcan los ciclos:
 |---|---|---|
 | H001 | 05/10 | Aprobación del Acta, registro de interesados y requisitos iniciales |
 | H002 | 12/10 | Plan de dirección y especificación de requisitos (Entregable 1) |
-| H003 a H009 | 25/10, 30/10, 13/11, 20/11, 25/11, 02/12, 09/12 | Cierre de los ciclos 1 a 7 |
+| H003 a H009 | 25/10, 30/10, 13/11, 20/11, 25/11, 02/12, 09/12 | Cierre de los ciclos 1 a 7 (replanificados el 24/11/2026: H008 → 27/11 y H009 → 28/11) |
 
-Las fechas del Acta son tentativas. Si un ciclo se replanifica, se sigue la sección 9.
+Las fechas del Acta son tentativas. Si un ciclo se replanifica, se sigue la sección 9. Los ciclos 6 y 7 se replanificaron el 24/11/2026 porque el docente adelantó la entrega final al 28/11/2026; el detalle está en `tsp/ciclo6_lanzamiento.md` (sección 2).
 
 ## 2. Fases de cada ciclo
 
