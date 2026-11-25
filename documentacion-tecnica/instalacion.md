@@ -130,3 +130,17 @@ createdb -h localhost -p 5433 -U prosta prosta_ai_pruebas
 PROSTA_TEST_DATABASE_URL=postgresql+psycopg://prosta@localhost:5433/prosta_ai_pruebas \
   backend/.venv/bin/python -m pytest -q backend/tests/db
 ```
+
+### Pruebas de integración
+
+`backend/tests/integracion/` recorre la API real (crear cuenta, ingresar, cargar un NIfTI sintético con y sin
+referencia, detalle, rechazos y estudio ajeno) contra PostgreSQL con el esquema de la migración de Alembic y
+una carpeta temporal de almacenamiento. Usan la misma variable y la misma base aparte; sin ella se omiten:
+
+```bash
+PROSTA_TEST_DATABASE_URL=postgresql+psycopg://prosta@localhost:5433/prosta_ai_pruebas \
+  backend/.venv/bin/python -m pytest -q backend/tests/integracion
+```
+
+Cada prueba deja la base vacía (`alembic downgrade base`) y se niega a correr si el nombre de la base no
+contiene «prueba». Detalle en `backend/tests/integracion/README.md`.
