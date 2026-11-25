@@ -80,3 +80,39 @@ main { flex: 1; padding: 32px; max-width: 1280px; width: 100%; }
 .btn:disabled { opacity: .6; cursor: not-allowed; }
 .btn-ancho { width: 100%; }
 .enlace { align-self: flex-start; }
+
+/* Pasos del flujo */
+.pasos { list-style: none; display: flex; gap: 12px; margin: 8px 0 24px; padding: 16px 20px; background: #fff; border: 1px solid var(--borde); border-radius: var(--radio); }
+.paso { flex: 1; display: flex; align-items: center; gap: 10px; color: var(--tenue); }
+.paso-num { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; background: var(--fondo); border: 1px solid var(--borde); }
+.paso-actual { color: var(--texto); }
+.paso-actual .paso-num { background: var(--primario); border-color: var(--primario); color: #fff; }
+.paso-hecho .paso-num { background: var(--teal-claro); color: var(--teal); border-color: #b7e6dd; }
+
+/* CU02 carga */
+.carga { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+.carga-principal { display: flex; flex-direction: column; gap: 16px; }
+.carga-lado { display: flex; flex-direction: column; gap: 16px; }
+.carga-pie { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: flex-end; }
+.carga-pie .mensaje { align-self: stretch; }
+.zona { border: 1.5px dashed #a9b8d6; background: #f4f7ff; border-radius: var(--radio); padding: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.zona-encima { background: var(--azul-claro); border-color: var(--primario); }
+.zona-titulo { font-weight: 600; color: var(--primario); font-size: 16px; }
+.etiqueta { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 6px; background: var(--fondo); border: 1px solid var(--borde); font-size: 12px; font-weight: 500; color: var(--suave); }
+.archivo { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid var(--borde); border-radius: 8px; background: #fff; margin-top: 8px; }
+.archivo-nombre { font-weight: 500; word-break: break-all; }
+.archivo-error { border-color: #f5c2bd; background: var(--rojo-claro); }
+.tarjeta-titulo { font-weight: 600; margin-bottom: 12px; }
+.tarjeta-teal { background: var(--teal-claro); border-color: #b7e6dd; color: var(--teal); }
+.resumen { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin: 0; }
+.resumen dt { color: var(--suave); }
+.resumen dd { margin: 0; font-weight: 600; text-align: right; }
+
+/* Detalle del estudio */
+.detalle { max-width: 520px; }
+.codigo { font-size: 28px; font-weight: 700; color: var(--primario); margin-bottom: 16px; }
+.acciones { align-items: center; }
+
+@media (max-width: 860px) {
+  .carga { grid-template-columns: 1fr; }
+}
