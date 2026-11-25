@@ -83,7 +83,8 @@ class AlmacenamientoPrivado:
             # No dejar un archivo a medias
             destino.unlink(missing_ok=True)
             raise
-        return ArchivoGuardado(str(destino), tamano, sha.hexdigest())
+        ruta = destino.relative_to(self.raiz).as_posix()
+        return ArchivoGuardado(ruta, tamano, sha.hexdigest())
 
     def sha256(self, ruta_relativa: str) -> str:
         """Recalcula la huella de un archivo guardado."""
