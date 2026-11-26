@@ -14,7 +14,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from prosta_ai import __version__
 from sqlalchemy import Engine
 
-from prosta_ai.api import acceso, estudios, salud, trabajos
+from prosta_ai.api import acceso, estudios, historial, salud, trabajos
 from prosta_ai.api.segundo_plano import TareaProcesamiento
 from prosta_ai.config import Settings, get_settings
 from prosta_ai.db import crear_fabrica_sesiones, crear_motor
@@ -104,6 +104,7 @@ def create_app(
         log.error("Error no controlado en %s %s", request.method, request.url.path, exc_info=exc)
         return _error(500, MSG_ERROR_INTERNO)
 
-    for router in (salud.router, acceso.router, estudios.router, trabajos.router):
+    routers = (salud.router, acceso.router, estudios.router, historial.router, trabajos.router)
+    for router in routers:
         app.include_router(router, prefix="/api")
     return app
