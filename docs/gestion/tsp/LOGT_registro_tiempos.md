@@ -2,11 +2,11 @@
 
 > Corrección del 21/11/2026: se ajustaron las horas reales de Yeison (tareas 1204, 1301, 1305, 1404, 1406, 1412, 1503 y 1504, y sus ayudas) y de Sergio (1502) en los ciclos 1 a 4, con estimaciones retrospectivas. Los postmortems de esos ciclos conservan las cifras registradas al cierre; las vigentes son las de este registro.
 
-**Versión:** L10 · **Fecha:** 24/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L11 · **Fecha:** 25/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
-Ciclo 5 con horas reales. Todos los ciclos hasta el 5 están cerrados (el 5, el 23/11/2026). Ciclo 6 en curso: plan del lanzamiento del 24/11/2026, replanificado porque el docente adelantó la entrega final al 28/11/2026.
+Ciclo 5 con horas reales. Todos los ciclos hasta el 5 están cerrados (el 5, el 23/11/2026). Ciclo 6 en curso: plan del lanzamiento del 24/11/2026, replanificado porque el docente adelantó la entrega final al 28/11/2026. Ciclo 7 en curso desde el 25/11/2026, en paralelo con el ciclo 6: plan del lanzamiento del 25/11/2026.
 
 ### Inicio (28/09–05/10, hito H001)
 
@@ -274,10 +274,10 @@ Plan del lanzamiento (`ciclo6_lanzamiento.md`, 24/11/2026). Las horas reales las
 | 1702 | Entorno Python 3.12, PostgreSQL, esquema y migración inicial | Yimis | 6 | 7,5 | +25 % | 7,4 % | 7,4 % |
 | 1703 | Esqueleto FastAPI y /api/salud | Yeison | 4 | 4,5 | +12 % | 4,9 % | 4,9 % |
 | 1704 | Esqueleto React con Vite, rutas y aviso fijo | Sergio | 5 | 5,5 | +10 % | 6,2 % | 6,2 % |
-| 1705 | CU02 carga de NIfTI y validación (API) | Yeison | 6 | — | — | 7,4 % | — |
-| 1706 | CU01 acceso y CU02 pantalla de carga | Sergio | 6 | — | — | 7,4 % | — |
-| 1707 | Persistencia de estudios y archivos (RB-01, RB-02) | Yimis | 5 | — | — | 6,2 % | — |
-| 1708 | Pruebas de integración de la carga | Fernando | 4 | — | — | 4,9 % | — |
+| 1705 | CU02 carga de NIfTI y validación (API) | Yeison | 6 | 7 | +17 % | 7,4 % | 7,4 % |
+| 1706 | CU01 acceso y CU02 pantalla de carga | Sergio | 6 | 6,5 | +8 % | 7,4 % | 7,4 % |
+| 1707 | Persistencia de estudios y archivos (RB-01, RB-02) | Yimis | 5 | 4,5 | -10 % | 6,2 % | 6,2 % |
+| 1708 | Pruebas de integración de la carga | Fernando | 4 | 3,5 | -12 % | 4,9 % | 4,9 % |
 | 1709 | CU03 procesamiento en segundo plano, estado y errores (API) | Yeison | 7 | — | — | 8,6 % | — |
 | 1710 | CU03 pantalla de estado | Sergio | 5 | — | — | 6,2 % | — |
 | 1711 | Integración API, base de datos y pipeline | Yimis | 5 | — | — | 6,2 % | — |
@@ -291,6 +291,32 @@ Plan del lanzamiento (`ciclo6_lanzamiento.md`, 24/11/2026). Las horas reales las
 **Suma del plan:** 81 h. Por persona (la 1713 se reparte 4 h para Yeison y 4 h para Sergio): Yeison 21 h, Sergio 21 h, Yimis 19 h, Fernando 13 h, Juan 7 h.
 
 **Avance al 24/11:** terminadas 1700 a 1704: plan 22 h, real 26 h, desviación +18 %. Lo que más se pasó fue la 1702 (+25 %: el clúster de PostgreSQL no arrancaba por la longitud de la ruta del socket, D-012, y la corrección de la migración, D-011) y la 1701 (+33 %: dos correcciones del análisis de impacto, D-015 y D-019). Valor ganado: 22 h plan de 81 (27,2 %). Plan para el 25/11: 1705 a 1708 (21 h).
+
+**Avance al 25/11:** terminadas 1705 a 1708: plan 21 h, real 21,5 h, desviación +2 %. La 1705 se pasó (+17 %) porque incluyó la API de acceso de CU01, que el lanzamiento dejó dentro de esa tarea, y la corrección de RF-05 (D-022). La 1707 y la 1708 quedaron por debajo: los repositorios siguieron los modelos del 24/11 sin cambiar el esquema y las pruebas de integración no encontraron fallas. Acumulado del ciclo 6: plan 43 h, real 47,5 h, desviación +10 %. Valor ganado: 43 h plan de 81 (53,1 %). Plan para el 26/11: 1709 a 1712 (21 h; la 1712 depende del punto de decisión de las 12:00).
+
+### Ciclo 7 · Cierre académico (REPLANIFICADO 25/11–28/11, en paralelo con el ciclo 6; plan original 03/12–09/12)
+
+Plan del lanzamiento (`ciclo7_lanzamiento.md`, 25/11/2026). Las horas reales las anota cada integrante al terminar su tarea, separadas de las del ciclo 6, y Fernando las consolida aquí cada noche; el valor ganado final se calcula en el postmortem.
+
+| ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
+|---|---|---|---:|---:|---:|---:|---:|
+| 1800 | Lanzamiento del ciclo 7 | Fernando | 2 | 1,5 | -25 % | 7,4 % | 7,4 % |
+| 1801 | Riesgos residuales y registro de decisiones | Juan | 3 | — | — | 11,1 % | — |
+| 1802 | Documentación técnica de la aplicación (instalación, uso y API) | Yeison / Sergio | 4 | — | — | 14,8 % | — |
+| 1803 | Acta de aceptación | Sergio | 2 | — | — | 7,4 % | — |
+| 1804 | Informe de Fin de Proyecto (OpenPM²) | Sergio / Yimis | 5 | — | — | 18,5 % | — |
+| 1805 | Lecciones aprendidas de los ciclos 6 y 7 en el registro del curso | Juan (con todos) | 3 | — | — | 11,1 % | — |
+| 1806 | GitBook y README final | Yimis | 2 | — | — | 7,4 % | — |
+| 1807 | Prueba de reproducibilidad desde cero (RA-01) y prueba corta de usabilidad (RU-01) | Fernando / Juan | 3 | — | — | 11,1 % | — |
+| 1808 | Postmortem del ciclo 7, LOGT final y cierre v0.7-ciclo7 | Fernando / Yimis | 3 | — | — | 11,1 % | — |
+
+**Suma del plan:** 27 h (la suma del valor planificado da 99,9 % por el redondeo). Por persona (las tareas compartidas se reparten a partes iguales: 1802 2 h y 2 h, 1804 2,5 h y 2,5 h, 1807 1,5 h y 1,5 h, 1808 1,5 h y 1,5 h): Juan 7,5 h, Sergio 6,5 h, Yimis 6 h, Fernando 5 h, Yeison 2 h. Las horas de los demás integrantes en la 1805 se registran como ayuda.
+
+**Fechas:** 1800 el 25/11, 1801 el 26/11, 1802 el 27/11 y el 28/11 (1 h por persona cada fecha), el resto el 28/11. Plan del ciclo 7 por fecha: 25/11 2 h, 26/11 3 h, 27/11 2 h, 28/11 20 h.
+
+**Carga sumada de los ciclos 6 y 7 (plan):** 25/11 23 h, 26/11 24 h, 27/11 19 h, 28/11 20 h; total 86 h (59 h del ciclo 6 desde el 25/11 más 27 h del ciclo 7). Por persona del 25/11 al 28/11: Sergio 22,5 h, Yimis 19 h, Yeison 19 h, Fernando 14 h, Juan 11,5 h (incluye las 4 h de la 1712, condicionada). El detalle por fecha está en el lanzamiento, sección 5.
+
+**Avance al 25/11:** terminada la 1800: plan 2 h, real 1,5 h (-25 %). Valor ganado: 2 h plan de 27 (7,4 %).
 
 ### Horas por día por persona
 
