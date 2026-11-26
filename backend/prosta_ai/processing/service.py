@@ -130,19 +130,37 @@ class ServicioProcesamiento:
         return len(pares)
 
     def procesar_siguiente(self) -> bool:
-        """Procesa el pendiente más antiguo; False si no había ninguno."""
+        """Procesa el pendiente más antiguo; False si no había ninguno.
+
+        Se marca «en proceso» y se confirma en la misma transacción que tomó el bloqueo
+        (FOR UPDATE SKIP LOCKED): otro proceso no puede tomar el mismo trabajo.
+        """
         with self._fabrica() as s:
-            trabajo = RepositorioTrabajos(s).siguiente_pendiente()
-            id_trabajo = trabajo.id_trabajo if trabajo is not None else None
-        if id_trabajo is None:
-            return False
-        self.procesar(id_trabajo)
+            repo = RepositorioTrabajos(s)
+            trabajo = repo.siguiente_pendiente()
+            if trabajo is None:
+                return False
+            repo.iniciar(trabajo)
+            id_trabajo = trabajo.id_trabajo
+            s.commit()
+        self._ejecutar(id_trabajo)
         return True
 
     # --- ejecución ---
     def procesar(self, id_trabajo: int) -> None:
-        """Corre el pipeline del trabajo; siempre termina en completado o fallido."""
-        codigo, entrada = self._iniciar(id_trabajo)
+        """Marca en proceso y corre el pipeline; siempre termina en completado o fallido."""
+        with self._fabrica() as s:
+            repo = RepositorioTrabajos(s)
+            trabajo = repo.obtener(id_trabajo)
+            if trabajo is None:
+                raise LookupError("Trabajo no encontrado")
+            repo.iniciar(trabajo)
+            s.commit()
+        self._ejecutar(id_trabajo)
+
+    def _ejecutar(self, id_trabajo: int) -> None:
+        """Corre el pipeline de un trabajo ya marcado en proceso."""
+        codigo, entrada = self._entrada(id_trabajo)
         inicio = time.perf_counter()
         try:
             with self._almacen.carpeta_temporal() as tmp:
@@ -168,20 +186,14 @@ class ServicioProcesamiento:
             self._almacen.borrar_salidas(codigo, id_trabajo)
             self._fallar(id_trabajo, None, MENSAJE_ERROR_GENERICO)
 
-    def _iniciar(self, id_trabajo: int) -> tuple[str, PipelineInput]:
-        """Marca en proceso y arma la entrada con las rutas del almacenamiento."""
+    def _entrada(self, id_trabajo: int) -> tuple[str, PipelineInput]:
+        """Arma la entrada del pipeline con las rutas del almacenamiento."""
         with self._fabrica() as s:
-            repo = RepositorioTrabajos(s)
-            trabajo = repo.obtener(id_trabajo)
-            if trabajo is None:
-                raise LookupError("Trabajo no encontrado")
-            repo.iniciar(trabajo)
-            estudio = trabajo.estudio
+            estudio = RepositorioTrabajos(s).obtener(id_trabajo).estudio
             imagen, referencia = [], []
             for archivo in RepositorioArchivos(s).del_estudio(estudio.id_estudio):
                 destino = imagen if rol_de_ruta(archivo.ruta) == "imagen" else referencia
                 destino.append(self._almacen.absoluta(archivo.ruta))
-            s.commit()
             entrada = PipelineInput(
                 files=imagen, fmt=estudio.formato, reference_files=referencia,
                 output_dir=Path(),
