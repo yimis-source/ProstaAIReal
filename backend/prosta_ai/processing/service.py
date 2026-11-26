@@ -16,7 +16,7 @@ from typing import Any, Protocol
 from sqlalchemy.orm import Session, sessionmaker
 
 from prosta_ai.constantes import (
-    COMPLETADO, EN_PROCESO, MENSAJE_ERROR_GENERICO, MENSAJE_INTERRUMPIDO, MENSAJE_MODELO,
+    COMPLETADO, EN_PROCESO, FALLIDO, MENSAJE_ERROR_GENERICO, MENSAJE_INTERRUMPIDO, MENSAJE_MODELO,
 )
 from prosta_ai.db import ahora
 from prosta_ai.pipeline.base import PipelineInput
@@ -93,7 +93,7 @@ class ObservadorEtapas:
         with self._fabrica() as s:
             etapa = RepositorioTrabajos(s).etapa(self._id, stage)
             if etapa is not None:
-                etapa.fecha_fin = ahora()
+                etapa.estado, etapa.fecha_fin = FALLIDO, ahora()
                 s.commit()
 
 
@@ -210,5 +210,11 @@ class ServicioProcesamiento:
     def _fallar(self, id_trabajo: int, etapa: str | None, mensaje: str) -> None:
         with self._fabrica() as s:
             repo = RepositorioTrabajos(s)
-            repo.fallar(repo.obtener(id_trabajo), etapa, mensaje)
+            trabajo = repo.obtener(id_trabajo)
+            # Si nadie avisó del fallo, se cierra la etapa que quedó en proceso
+            for e in trabajo.etapas:
+                if e.estado == EN_PROCESO:
+                    e.estado, e.fecha_fin = FALLIDO, ahora()
+                    etapa = etapa or e.nombre
+            repo.fallar(trabajo, etapa, mensaje)
             s.commit()
