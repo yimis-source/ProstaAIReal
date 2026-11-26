@@ -3,6 +3,8 @@
 Los NIfTI se generan en cada prueba con nibabel; nunca se usan datos reales.
 """
 import gzip
+import sys
+from pathlib import Path
 
 import nibabel as nib
 import numpy as np
@@ -13,6 +15,10 @@ from prosta_ai.api.app import create_app
 from prosta_ai.config import Settings
 from prosta_ai.db import Base
 from prosta_ai.models import Archivo, Estudio
+
+# El pipeline falso de las pruebas del servicio (tests/processing)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "processing"))
+from apoyo_procesamiento import ProveedorFalso  # noqa: E402
 
 CONTRASENA = "clave-segura-1"
 
@@ -33,7 +39,9 @@ def nifti(forma=(16, 16, 8), texto: bytes = b"", comprimido=True, nifti2=False) 
 
 
 class Entorno:
-    def __init__(self, tmp_path, **ajustes):
+    def __init__(self, tmp_path, proveedor=None, **ajustes):
+        # Sin hilo: las pruebas llaman al servicio a mano
+        ajustes.setdefault("worker_activo", False)
         self.settings = Settings(
             _env_file=None,
             database_url=f"sqlite:///{tmp_path / 'prueba.db'}",
@@ -41,10 +49,12 @@ class Entorno:
             secret_key="clave-de-pruebas",
             **ajustes,
         )
-        self.app = create_app(self.settings)
+        self.proveedor = proveedor or ProveedorFalso()
+        self.app = create_app(self.settings, proveedor_pipeline=self.proveedor)
         Base.metadata.create_all(self.app.state.motor)
         self.client = TestClient(self.app, raise_server_exceptions=False)
         self.almacen = self.app.state.almacenamiento
+        self.servicio = self.app.state.servicio
 
     def acceder(self, alias="ana", contrasena=CONTRASENA, confirmacion=CONTRASENA):
         cuerpo = {"alias": alias, "contrasena": contrasena}

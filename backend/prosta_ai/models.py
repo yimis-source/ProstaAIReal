@@ -155,6 +155,9 @@ class Resultado(Base):
         ForeignKey("trabajo.id_trabajo", ondelete="CASCADE"), unique=True
     )
     ruta_mascara: Mapped[str] = mapped_column(String(255))
+    # Volumen 3D usado (para los cortes) y PNG de la ROI con el aviso (0002)
+    ruta_imagen: Mapped[str | None] = mapped_column(String(255))
+    ruta_roi: Mapped[str | None] = mapped_column(String(255))
     dice: Mapped[Decimal | None] = mapped_column(Numeric(4, 3))
     iou: Mapped[Decimal | None] = mapped_column(Numeric(4, 3))
     tiempo_total_s: Mapped[Decimal | None] = mapped_column(Numeric(7, 2))

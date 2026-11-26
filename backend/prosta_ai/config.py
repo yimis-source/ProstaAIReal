@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     modelo_nombre: str = "prostate_mri_anatomy"
     modelo_dir: Path = Path("../modelos")
     cors_origins: str = "http://localhost:5173"
+    # Tarea en segundo plano (1709): se apaga en las pruebas
+    worker_activo: bool = True
+    worker_intervalo_s: float = 2.0
 
     @field_validator("storage_dir", "modelo_dir")
     @classmethod

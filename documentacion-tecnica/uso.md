@@ -82,3 +82,43 @@ Todas las rutas van bajo `/api`; los errores responden `{"detalle": "..."}` (el 
 orígenes permitidos por CORS se leen de `PROSTA_CORS_ORIGINS` (separados por comas; por defecto
 `http://localhost:5173`). La documentación interactiva queda en `http://localhost:8000/docs`. Uso académico,
 no diagnóstico.
+
+### Procesar un estudio por la API (CU03)
+
+Con PostgreSQL activo (`scripts/postgres_local.sh iniciar` y `alembic upgrade head` desde `backend/`) y
+`PROSTA_MODELO_DIR` apuntando a la carpeta de pesos. Al arrancar, la API marca como `fallido` los trabajos que
+quedaron `en proceso` en un cierre anterior y levanta la tarea en segundo plano, que toma los trabajos
+`pendiente` de uno en uno (cada `PROSTA_WORKER_INTERVALO_S` segundos si no hay ninguno; se apaga con
+`PROSTA_WORKER_ACTIVO=false`).
+
+```bash
+# 1. Cuenta y token (el primer acceso crea la cuenta)
+TOKEN=$(curl -s -X POST localhost:8000/api/acceso -H 'Content-Type: application/json' \
+  -d '{"alias":"estudiante01","contrasena":"clave-segura-1","confirmacion":"clave-segura-1"}' \
+  | python -c 'import sys,json; print(json.load(sys.stdin)["token"])')
+
+# 2. Cargar el estudio (la referencia es opcional; sin ella Dice e IoU quedan en null)
+curl -s -X POST localhost:8000/api/estudios -H "Authorization: Bearer $TOKEN" \
+  -F archivos=@estudio.nii.gz -F referencia=@mascara.nii.gz      # {"id": 1, ..., "estado": "listo para procesar"}
+
+# 3. Procesar: responde 201 de inmediato con el trabajo pendiente y sus 5 etapas
+curl -s -X POST localhost:8000/api/estudios/1/procesar -H "Authorization: Bearer $TOKEN"
+
+# 4. Consultar el trabajo hasta que quede completado o fallido (la interfaz lo hace cada 2 s)
+curl -s localhost:8000/api/trabajos/1 -H "Authorization: Bearer $TOKEN"
+
+# 5. Detalle del estudio: estado visible, Dice/IoU del último trabajo y la lista de trabajos
+curl -s localhost:8000/api/estudios/1 -H "Authorization: Bearer $TOKEN"
+```
+
+| Respuesta | Cuándo |
+|---|---|
+| `201` | Trabajo creado en `pendiente` |
+| `404` «Estudio no encontrado.» / «Trabajo no encontrado.» | No existe o es de otro usuario |
+| `409` «El estudio no es compatible y no se puede procesar.» | El estudio quedó `no compatible` |
+| `409` «El estudio ya tiene un procesamiento pendiente o en curso.» | Ya hay un trabajo `pendiente` o `en proceso`; tras un `fallido` o un `completado` se puede volver a procesar |
+
+Si una etapa falla, el trabajo trae `etapa_fallida` y `mensaje_error`, y las etapas siguientes quedan en
+`pendiente`. Prueba del 26/11/2026 con `prostate_13` (caso público de MSD) y su máscara, en CPU: el trabajo pasó
+por `pendiente` → `en proceso` → `completado` en 21,5 s desde «Procesar» (segmentación 17,5 s) y el resultado
+quedó con Dice 0,901 e IoU 0,820, igual que en la evaluación del modelo.
