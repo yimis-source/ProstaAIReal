@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { obtenerEstudio, obtenerTrabajo, procesarEstudio } from '../api/cliente.js';
 import { consultarTrabajo } from '../api/consultaPeriodica.js';
-import { ESTADOS_FINALES } from '../constantes.js';
+import { ESTADOS_FINALES, capitalizar } from '../constantes.js';
 import ErrorApi from '../components/ErrorApi.jsx';
 import Etapas from '../components/Etapas.jsx';
 import EtiquetaEstado from '../components/EtiquetaEstado.jsx';
@@ -60,7 +60,17 @@ export default function Estado() {
     try {
       setTrabajo(await procesarEstudio(id));
     } catch (e) {
+      // 409: se muestra el mensaje de la API tal cual y se vuelve a leer el estudio por si ya
+      // tiene un trabajo en curso (por ejemplo, abierto en otra pestaña) para seguir su progreso
       setError(e);
+      if (e.estado === 409) {
+        obtenerEstudio(id)
+          .then((d) => {
+            setEstudio(d);
+            setTrabajo(ultimoTrabajo(d));
+          })
+          .catch(() => {});
+      }
     } finally {
       setEnviando(false);
     }
@@ -85,11 +95,36 @@ export default function Estado() {
             <dt>Formato</dt><dd>{estudio.formato}</dd>
             <dt>Estado</dt><dd><EtiquetaEstado estado={estado} /></dd>
           </dl>
+          {estudio.estado === 'no compatible' && (
+            <Mensaje tipo="info">El estudio no es compatible y no se puede procesar.</Mensaje>
+          )}
+          {!trabajo && estudio.estado === 'listo para procesar' && (
+            <Mensaje tipo="ok">El estudio se cargó y está listo para procesar.</Mensaje>
+          )}
+          {trabajo && !ESTADOS_FINALES.includes(trabajo.estado) && (
+            <p className="nota" role="status">
+              {trabajo.estado === 'pendiente' ? 'En cola: el procesamiento empieza en breve.' : 'Procesando…'} La
+              pantalla se actualiza cada 2 segundos.
+            </p>
+          )}
+          {trabajo?.estado === 'fallido' && (
+            <Mensaje>
+              {trabajo.etapa_fallida && <strong>Falló la etapa «{capitalizar(trabajo.etapa_fallida)}». </strong>}
+              {trabajo.mensaje_error || 'El procesamiento no se pudo completar.'} Puedes revisar el archivo y
+              procesar de nuevo.
+            </Mensaje>
+          )}
+          {trabajo?.estado === 'completado' && (
+            <Mensaje tipo="ok">El procesamiento terminó. La región de interés está lista para revisar.</Mensaje>
+          )}
           {trabajo && <Etapas etapas={trabajo.etapas} />}
           <div className="acciones">
             <button type="button" className="btn btn-primario" onClick={procesar} disabled={!puedeProcesar || enviando}>
               {trabajo?.estado === 'fallido' ? 'Procesar de nuevo' : 'Procesar'}
             </button>
+            {trabajo?.estado === 'completado' && (
+              <Link className="btn" to={`/estudios/${id}/roi`}>Ver resultado</Link>
+            )}
           </div>
         </div>
       )}
