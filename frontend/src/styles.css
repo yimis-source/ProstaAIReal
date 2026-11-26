@@ -12,6 +12,8 @@
   --teal-claro: #eaf8f5;
   --rojo: #b42318;
   --rojo-claro: #fdeceb;
+  --ambar: #92400e;
+  --ambar-claro: #fef3c7;
   --radio: 12px;
 }
 * { box-sizing: border-box; }
@@ -112,6 +114,29 @@ main { flex: 1; padding: 32px; max-width: 1280px; width: 100%; }
 .detalle { max-width: 520px; }
 .codigo { font-size: 28px; font-weight: 700; color: var(--primario); margin-bottom: 16px; }
 .acciones { align-items: center; }
+
+/* Etiquetas de estado */
+.etiqueta-ok { background: var(--teal-claro); color: var(--teal); border-color: #b7e6dd; }
+.etiqueta-ok .punto { color: var(--teal-punto); }
+.etiqueta-info { background: var(--azul-claro); color: var(--primario); border-color: #c7d5ff; }
+.etiqueta-espera { background: var(--ambar-claro); color: var(--ambar); border-color: #fde68a; }
+.etiqueta-error { background: var(--rojo-claro); color: var(--rojo); border-color: #f5c2bd; }
+
+/* Etapas del procesamiento (CU03) */
+.etapas { list-style: none; padding: 0; margin: 16px 0 0; }
+.etapa { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-top: 1px solid var(--borde); }
+.etapa-icono { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--fondo); color: var(--tenue); font-weight: 700; flex-shrink: 0; }
+.etapa-completado .etapa-icono { background: var(--teal-claro); color: var(--teal); }
+.etapa-en-proceso .etapa-icono { background: var(--azul-claro); color: var(--primario); }
+.etapa-fallido .etapa-icono { background: var(--rojo-claro); color: var(--rojo); }
+.etapa-info { flex: 1; display: flex; flex-direction: column; }
+.etapa-nombre { font-weight: 600; font-size: 15px; }
+.etapa-desc { font-size: 13px; color: var(--suave); }
+.etapa-lado { display: flex; flex-direction: column; align-items: flex-end; }
+.etapa-tiempo { font-weight: 600; }
+.etapa-estado { font-size: 12px; color: var(--suave); }
+.etapa-completado .etapa-estado { color: var(--teal); }
+.etapa-fallido .etapa-estado { color: var(--rojo); }
 
 @media (max-width: 860px) {
   .carga { grid-template-columns: 1fr; }
