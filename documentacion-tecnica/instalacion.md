@@ -89,12 +89,15 @@ scripts/postgres_local.sh detener
 ### Variables PROSTA_*
 
 `backend/prosta_ai/config.py` lee las variables con prefijo `PROSTA_` del entorno o de `backend/.env`
-(copiar `backend/.env.example`; `.env` no se sube):
+(copiar `backend/.env.example`; `.env` no se sube). Las rutas relativas se resuelven desde la carpeta
+`backend/`, sin importar desde dónde se arranque la aplicación:
 
 | Variable | Valor por defecto | Uso |
 |---|---|---|
 | `PROSTA_DATABASE_URL` | `postgresql+psycopg://prosta@localhost:5433/prosta_ai` | Conexión a la base |
-| `PROSTA_STORAGE_DIR` | `../almacenamiento` | Archivos subidos y resultados |
+| `PROSTA_STORAGE_DIR` | `../almacenamiento` | Archivos subidos y resultados (privado, fuera de la base) |
+| `PROSTA_SECRET_KEY` | `cambiar-esta-clave-en-desarrollo` | Clave para firmar el token de acceso; cambiarla fuera de desarrollo |
+| `PROSTA_TOKEN_HORAS` | `8` | Horas de vigencia del token de acceso |
 | `PROSTA_MAX_UPLOAD_MB` | `50` | Tamaño máximo por archivo (RF-03) |
 | `PROSTA_MAX_ESTUDIO_MB` | `150` | Tamaño máximo por estudio (RF-03) |
 | `PROSTA_MODELO_NOMBRE` | `prostate_mri_anatomy` | Modelo de segmentación |
