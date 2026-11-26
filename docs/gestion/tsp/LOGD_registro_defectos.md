@@ -1,10 +1,10 @@
 # Registro de defectos (LOGD) · Prosta-AI
 
-**Versión:** D6.0 · **Fecha:** 24/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** D6.1 · **Fecha:** 25/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
 
 Se agrega D-008 (ciclo 4). El 23/11/2026 se agregan al resumen los defectos del ciclo 5 (D-009 y D-010). El 13/11/2026 (PR #50) se corrigió D-006 en el diseño; queda abierto hasta implementarlo en la interfaz del ciclo 6.
 
-El 24/11/2026 se agregan los defectos del ciclo 6 (D-011 a D-019) y la fase COMP (compilación del frontend).
+El 24/11/2026 se agregan los defectos del ciclo 6 (D-011 a D-019) y la fase COMP (compilación del frontend). El 25/11/2026 se agregan D-020 a D-022.
 
 ## Leyenda
 
@@ -61,6 +61,9 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | D-017 | 24/11 | C6 | 1700 | 50 | DIS | REV | 0,2 h | El contrato de la API definía el error como `{"detail": ...}`, pero la API (1703) y el cliente de la interfaz (1704) usan `{"detalle": ...}`, con `campos` en el 422. Se igualó el contrato. | Yimis (revisión de integración) | Fernando | `940846c` |
 | D-018 | 24/11 | C6 | 1700 | 10 | DIS | REV | 0,3 h | El lanzamiento y el contrato daban RF-05 por cubierto con el `MetadataValidator`, que no revisa metadatos; el contrato pedía validar antes de guardar y a la vez registrar el estudio rechazado; y el criterio para abrir lo condicionado no coincidía con el del análisis de impacto. RF-05 pasa a la 1705. | Yimis (revisión de integración) | Fernando | `76a4507` |
 | D-019 | 24/11 | C6 | 1701 | 10 | REQ | REV | 0,3 h | El análisis de impacto hablaba de cuatro etapas (son cinco, con evaluación) y de un estado «Error» (es `fallido`), ponía el punto de decisión el 26/11 a las 18:00 con CU04 incluido (CU04 va el 27/11) y fechas distintas del lanzamiento para el postmortem del ciclo 6 y RR-01. | Yimis (revisión de integración) | Juan | `76b4ea5` |
+| D-020 | 25/11 | C6 | 1707 | 80 | IMP | PU | 0,2 h | `AlmacenamientoPrivado.guardar` devolvía la ruta absoluta en disco y no la ruta relativa a `storage_dir`, que es la que pide RB-02 para la base. Fallaron `test_guarda_con_ruta_relativa_y_sha256` y dos pruebas de repositorios (`RepositorioArchivos.registrar` rechaza rutas absolutas). | Yimis (pruebas de almacenamiento) | Yimis | `6344072` |
+| D-021 | 25/11 | C6 | 1706 | 50 | IMP | PU | 0,1 h | El cliente de la interfaz enviaba la imagen en el campo `archivo` del multipart y el contrato (4.4) pide `archivos`: toda carga habría dado 422 «Seleccione al menos un archivo de imagen.». `npm run build` no lo detecta; se vio con una prueba del cliente contra una API mínima del contrato. | Sergio (prueba del cliente en node) | Sergio | `dce7ba2` |
+| D-022 | 25/11 | C6 | 1705 | 80 | IMP | PU | 0,6 h | RF-05: la cabecera NIfTI se limpiaba en memoria, pero se guardaban los bytes originales, así que el archivo en disco conservaba `descrip`, `aux_file`, `intent_name` y `db_name`. Prueba: `test_rf05_cabecera_guardada_sin_texto_libre`. Ahora se guarda el NIfTI limpio y la prueba comprueba también que vóxeles y matriz no cambian. | Yeison (prueba `test_estudios.py`) | Yeison | `8b5feea` |
 
 ## Resumen por ciclo
 
@@ -72,8 +75,8 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | C3 | 1 | IMP 1 | PU 1 | 80: 1 | 2,5 h | 0 de 1 (0 %) |
 | C4 | 1 | IMP 1 | PU 1 | 50: 1 | 0,5 h | 0 de 1 (0 %) |
 | C5 | 2 | IMP 2 | PU 1, EJE 1 | 80: 2 | 0,2 h (D-010 dentro de 1602) | 0 de 2 (0 %) |
-| C6 (24/11) | 9 | IMP 5, DIS 2, REQ 2 | REV 5, PU 2, EJE 1, COMP 1 | 10: 3, 50: 2, 20: 1, 40: 1, 70: 1, 100: 1 | 2,8 h | 5 de 9 (56 %) |
-| **Acumulado** | 19 | | | | 8,5 h | 9 de 19 (47 %) |
+| C6 (al 25/11) | 12 | IMP 8, DIS 2, REQ 2 | REV 5, PU 5, EJE 1, COMP 1 | 10: 3, 50: 3, 80: 2, 20: 1, 40: 1, 70: 1, 100: 1 | 3,7 h | 5 de 12 (42 %) |
+| **Acumulado** | 22 | | | | 9,4 h | 9 de 22 (41 %) |
 
 **Defectos por fase (acumulado):**
 
@@ -81,10 +84,10 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 |---|---:|---:|
 | REQ | 3 | 0 |
 | DIS | 4 | 0 |
-| IMP | 12 | 0 |
+| IMP | 15 | 0 |
 | REV | 0 | 9 |
 | EJE | 0 | 2 |
-| PU | 0 | 7 |
+| PU | 0 | 10 |
 | COMP | 0 | 1 |
 
 **Defectos por tipo (acumulado):**
@@ -94,10 +97,10 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | 10 Documentación | 5 |
 | 20 Sintaxis | 1 |
 | 40 Asignación | 1 |
-| 50 Interfaz | 4 |
+| 50 Interfaz | 5 |
 | 60 Chequeo | 1 |
 | 70 Datos | 1 |
-| 80 Función | 5 |
+| 80 Función | 7 |
 | 100 Entorno | 1 |
 
 Rendimiento de revisión = defectos encontrados en revisión (REV) / defectos totales del ciclo. En D-006 la revisión lo encontró pero todavía no está corregido, así que cuenta como encontrado en REV y sigue abierto.
