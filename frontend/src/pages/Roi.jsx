@@ -9,8 +9,7 @@ export default function Roi() {
       <p className="subtitulo">Estudio {id}</p>
       <p>
         Aquí irán el visor del corte T2 con la ROI superpuesta (mostrar u ocultar, opacidad y cambio
-        de corte), las métricas Dice, IoU, HD95 y distancia media de superficie cuando haya
-        referencia, y el panel «¿Qué estoy viendo?» con el texto de docs/diseno/texto_roi.md.
+        de corte), las métricas Dice e IoU cuando se cargó una máscara de referencia, y el panel «¿Qué estoy viendo?» con el texto de docs/diseno/texto_roi.md.
       </p>
     </section>
   );

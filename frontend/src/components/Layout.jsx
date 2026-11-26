@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import Aviso from './Aviso.jsx';
 import EstadoApi from './EstadoApi.jsx';
+import { useAuth } from '../auth/AuthContext.jsx';
 
 const ENLACES = [
   ['/', 'Inicio'],
@@ -10,6 +11,7 @@ const ENLACES = [
 
 // Marco común: encabezado con navegación, contenido y aviso fijo
 export default function Layout() {
+  const { alias, cerrar } = useAuth();
   return (
     <div className="marco">
       <header className="cabecera">
@@ -24,6 +26,12 @@ export default function Layout() {
           </ul>
         </nav>
         <EstadoApi />
+        {alias && (
+          <span className="sesion">
+            Sesión: <strong>{alias}</strong>
+            <button type="button" className="enlace" onClick={() => cerrar()}>Cerrar sesión</button>
+          </span>
+        )}
       </header>
       <main id="principal">
         <Outlet />
