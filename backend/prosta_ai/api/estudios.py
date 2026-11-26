@@ -11,7 +11,6 @@ from prosta_ai.api.admision import (
 from prosta_ai.api.deps import ajustes, almacenamiento, servicio, sesion, usuario_actual
 from prosta_ai.api.vistas import NO_COMPATIBLE, detalle_estudio, detalle_trabajo, estado_visible
 from prosta_ai.config import Settings
-from prosta_ai.constantes import EN_PROCESO
 from prosta_ai.models import Usuario
 from prosta_ai.processing import ServicioProcesamiento
 from prosta_ai.repositories import RepositorioArchivos, RepositorioEstudios, RepositorioTrabajos
@@ -113,10 +112,11 @@ def procesar(
         raise HTTPException(404, MSG_NO_ENCONTRADO)
     if estudio.estado_admision == NO_COMPATIBLE:
         raise HTTPException(409, MSG_NO_COMPATIBLE)
-    ultimo = estudio.trabajos[-1] if estudio.trabajos else None
-    if ultimo is not None and ultimo.estado == EN_PROCESO:
+    trabajos = RepositorioTrabajos(db)
+    # Pendiente o en proceso: un trabajo pendiente todavía no lo tomó la tarea
+    if trabajos.activo_del_estudio(estudio.id_estudio) is not None:
         raise HTTPException(409, MSG_EN_CURSO)
-    trabajo = RepositorioTrabajos(db).crear_pendiente(
+    trabajo = trabajos.crear_pendiente(
         estudio.id_estudio, procesamiento.id_modelo_activo()
     )
     db.commit()
