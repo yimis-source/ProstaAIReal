@@ -3,6 +3,7 @@
 Arranque (desde backend/): uvicorn prosta_ai.api.app:create_app --factory
 """
 import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -14,6 +15,7 @@ from prosta_ai import __version__
 from sqlalchemy import Engine
 
 from prosta_ai.api import acceso, estudios, salud, trabajos
+from prosta_ai.api.segundo_plano import TareaProcesamiento
 from prosta_ai.config import Settings, get_settings
 from prosta_ai.db import crear_fabrica_sesiones, crear_motor
 from prosta_ai.processing import ProveedorPipeline, ServicioProcesamiento
@@ -40,7 +42,21 @@ def create_app(
     settings = settings or get_settings()
     motor = motor or crear_motor(settings.database_url)
 
-    app = FastAPI(title="Prosta-AI", version=__version__)
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        # Los «en proceso» de un cierre anterior no los va a terminar nadie
+        try:
+            n = app.state.servicio.recuperar_interrumpidos()
+            if n:
+                log.warning("%d trabajo(s) interrumpido(s) quedaron fallidos", n)
+        except Exception:
+            log.exception("No se pudieron recuperar los trabajos interrumpidos")
+        if settings.worker_activo:
+            app.state.tarea.iniciar()
+        yield
+        app.state.tarea.detener()
+
+    app = FastAPI(title="Prosta-AI", version=__version__, lifespan=lifespan)
     app.state.settings = settings
     app.state.motor = motor
     app.state.fabrica_sesiones = crear_fabrica_sesiones(motor)
@@ -50,6 +66,7 @@ def create_app(
         app.state.fabrica_sesiones, app.state.almacenamiento,
         proveedor_pipeline or ProveedorPipeline.desde_ajustes(settings),
     )
+    app.state.tarea = TareaProcesamiento(app.state.servicio, settings.worker_intervalo_s)
 
     # Sin allow_credentials: el token va en la cabecera Authorization, no en cookies
     app.add_middleware(

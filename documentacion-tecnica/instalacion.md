@@ -103,6 +103,8 @@ scripts/postgres_local.sh detener
 | `PROSTA_MODELO_NOMBRE` | `prostate_mri_anatomy` | Modelo de segmentación |
 | `PROSTA_MODELO_DIR` | `../modelos` | Carpeta de pesos |
 | `PROSTA_CORS_ORIGINS` | `http://localhost:5173` | Orígenes del frontend, separados por coma |
+| `PROSTA_WORKER_ACTIVO` | `true` | Arranca con la API la tarea en segundo plano que corre los trabajos pendientes (CU03) |
+| `PROSTA_WORKER_INTERVALO_S` | `2.0` | Segundos entre consultas de la tarea cuando no hay trabajos pendientes |
 
 ### Migraciones
 
