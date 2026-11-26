@@ -64,3 +64,25 @@ def test_borrar_estudio(almacen):
     almacen.guardar("EST-0004", "referencia", DATOS, "y.nii")
     almacen.borrar_estudio("EST-0004")
     assert not (almacen.raiz / "estudios" / "EST-0004").exists()
+
+
+def test_no_crea_la_carpeta_al_construirse(tmp_path):
+    almacen = AlmacenamientoPrivado(tmp_path / "nueva")
+    assert not (tmp_path / "nueva").exists()
+    almacen.guardar("EST-0005", "imagen", DATOS, "x.nii")
+    assert (tmp_path / "nueva" / "estudios" / "EST-0005" / "imagen.nii").is_file()
+
+
+def test_salidas_del_trabajo(almacen, tmp_path):
+    origen = tmp_path / "mascara.nii.gz"
+    origen.write_bytes(DATOS)
+    g = almacen.guardar_salida("EST-0006", 3, "mascara", origen)
+    assert g.ruta == "estudios/EST-0006/trabajo-3/mascara.nii.gz"
+    assert g.sha256 == hashlib.sha256(DATOS).hexdigest()
+    assert rol_de_ruta(g.ruta) == "mascara"
+    with pytest.raises(ValueError):
+        almacen.guardar_salida("EST-0006", 3, "imagen", origen)
+    with pytest.raises(ValueError):
+        almacen.guardar("EST-0006", "mascara", DATOS)
+    almacen.borrar_salidas("EST-0006", 3)
+    assert not (almacen.raiz / "estudios" / "EST-0006" / "trabajo-3").exists()
