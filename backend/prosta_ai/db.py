@@ -1,5 +1,4 @@
 """Base declarativa, motor y fábrica de sesiones."""
-from collections.abc import Iterator
 from datetime import datetime, timezone
 
 from sqlalchemy import Engine, create_engine, event
@@ -34,23 +33,5 @@ def crear_motor(url: str) -> Engine:
 
 
 def crear_fabrica_sesiones(motor: Engine) -> sessionmaker[Session]:
+    """La fábrica se arma en create_app y se inyecta (api/deps.sesion, servicio de procesamiento)."""
     return sessionmaker(bind=motor, expire_on_commit=False)
-
-
-_fabrica: sessionmaker[Session] | None = None
-
-
-def obtener_fabrica() -> sessionmaker[Session]:
-    """Fábrica de sesiones de la aplicación (URL de PROSTA_DATABASE_URL)."""
-    global _fabrica
-    if _fabrica is None:
-        from prosta_ai.config import get_settings
-
-        _fabrica = crear_fabrica_sesiones(crear_motor(get_settings().database_url))
-    return _fabrica
-
-
-def obtener_sesion() -> Iterator[Session]:
-    """Sesión por petición (para usar como dependencia de FastAPI)."""
-    with obtener_fabrica()() as sesion:
-        yield sesion

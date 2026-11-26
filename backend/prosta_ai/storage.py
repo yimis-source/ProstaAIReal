@@ -48,8 +48,8 @@ def rol_de_ruta(ruta: str) -> str:
 
 class AlmacenamientoPrivado:
     def __init__(self, raiz: Path):
+        # La carpeta raíz no se crea aquí: se crea al guardar el primer archivo
         self.raiz = Path(raiz).resolve()
-        self.raiz.mkdir(parents=True, exist_ok=True)
 
     def carpeta_estudio(self, codigo: str) -> Path:
         if not _CODIGO.match(codigo):
