@@ -54,17 +54,16 @@ La respuesta del Propietario al informe del 24/11 (`docs/gestion/replanificacion
 | RD-30 | 24/11 | El postmortem del ciclo 6 se escribe el 27/11, al congelar el código y antes del merge de cierre, en su propio PR | Escribirlo al iniciar el ciclo 7 (regla de la metodología) | El ciclo 7 empieza el 25/11, antes de que termine el 6 | `impacto_ciclo6.md`, sección 3.3; D-019 | Aprobó Yimis, con el análisis de Juan |
 | RD-31 | 25/11 | Las pruebas de integración corren contra PostgreSQL con el esquema creado por la migración de Alembic y en una base aparte, cuyo nombre debe contener «prueba» | Probar solo con SQLite (como las pruebas unitarias de la API) o crear el esquema con `create_all` | Probar el mismo esquema que se instala; no tocar la base de trabajo | `backend/tests/integracion/README.md` y commit `4ccddb7` (tarea 1708) | Fernando (tarea 1708) |
 | RD-32 | 25/11 | El ciclo 7 va en dos partes: hasta el 27/11 lo que no depende del código y el 28/11 lo que sí, sobre `v0.6-ciclo6` | Escribir toda la documentación en paralelo con el código | Riesgo 10: que la documentación no coincida con la versión congelada | `docs/gestion/tsp/ciclo7_lanzamiento.md`, sección 1 (commit `2e489eb`) | Fernando (tarea 1800), siguiendo el análisis del 24/11 |
-| RD-33 | 26/11, 12:00 | CU05 (consulta del historial, RF-19, tarea 1712): se abre o queda fuera de la versión entregada | Abrir CU05; dejarlo fuera y documentarlo igual que CU06 | Pendiente: se registra al decidir | Pendiente: se registra al decidir | Yimis (pendiente: se registra al decidir) |
+| RD-33 | 26/11, 12:00 | **Se abre CU05** (consulta del historial, RF-19, tarea 1712). DICOM sigue como estaba: entra el 27/11 solo si sobra tiempo después de CU04 (1713) y RR-01 (1715) | Abrir CU05; dejarlo fuera y documentarlo igual que CU06 | Se cumplió el criterio del punto de decisión (lanzamiento del ciclo 6, sección 4): la carga (1705, 1707) pasó las 9 pruebas de integración contra PostgreSQL de la 1708, y el procesamiento (1709) ya corrió un caso por la API | Pruebas de la 1708 fusionadas en `desarrollo` (PR #94). Rama `desarrollador/yeison-bolanos`, commit `767756f` (11:41): el caso público prostate_13 de Task05, con PostgreSQL local, pasó de `pendiente` a `en proceso` y a `completado` en 21,5 s, con Dice 0,901 en `resultado` | Yimis (Director), en el punto de decisión de las 12:00 |
 
 ## 3. Resumen
 
 | Grupo | Decisiones |
 |---|---:|
 | Requisitos, datos y modelo (ciclos 1 a 5) | 19 (RD-01 a RD-19) |
-| Replanificación y aplicación web (ciclos 6 y 7) | 13 (RD-20 a RD-32) |
-| Pendiente de hoy (CU05) | 1 (RD-33) |
+| Replanificación y aplicación web (ciclos 6 y 7) | 14 (RD-20 a RD-33) |
 | **Total** | **33** |
 
-La decisión sobre DICOM depende del 27/11 (RD-29) y se agrega a este registro cuando se tome, junto con el resultado de RD-33.
+La decisión sobre DICOM depende del 27/11 (RD-29) y se agrega a este registro cuando se tome.
 
 *Uso académico y experimental. Los resultados de Prosta-AI no son un diagnóstico, no sustituyen la valoración de un profesional de la salud y la aplicación no es un dispositivo médico.*
