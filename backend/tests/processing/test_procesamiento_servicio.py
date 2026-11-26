@@ -84,6 +84,48 @@ def test_fallo_en_una_etapa(fabrica, almacen, crear_trabajo):
     assert not _carpeta(almacen, trabajo).exists()
 
 
+def _admision(fabrica, id_trabajo) -> str:
+    with fabrica() as s:
+        return s.get(Trabajo, id_trabajo).estudio.estado_admision
+
+
+def test_fallo_en_control_de_calidad_deja_el_estudio_no_compatible(fabrica, almacen, crear_trabajo):
+    error = StageError(stages.CONTROL_CALIDAD, "El volumen no es tridimensional.")
+    servicio = ServicioProcesamiento(
+        fabrica, almacen, ProveedorFalso(PipelineFalso(stages.CONTROL_CALIDAD, error))
+    )
+    id_trabajo = crear_trabajo()
+    servicio.procesar(id_trabajo)
+
+    trabajo = _trabajo(fabrica, id_trabajo)
+    assert trabajo.estado == "fallido"
+    assert trabajo.etapa_fallida == stages.CONTROL_CALIDAD
+    assert trabajo.mensaje_error == "El volumen no es tridimensional."
+    assert _admision(fabrica, id_trabajo) == "no compatible", (
+        "el control de calidad falló y el estudio sigue admitido"
+    )
+
+
+@pytest.mark.parametrize("etapa", [stages.PREPARACION, stages.SEGMENTACION, stages.ROI,
+                                   stages.EVALUACION])
+def test_fallo_en_otra_etapa_no_cambia_la_admision(fabrica, almacen, crear_trabajo, etapa):
+    servicio = ServicioProcesamiento(fabrica, almacen, ProveedorFalso(PipelineFalso(etapa)))
+    id_trabajo = crear_trabajo()
+    servicio.procesar(id_trabajo)
+    assert _trabajo(fabrica, id_trabajo).estado == "fallido"
+    assert _admision(fabrica, id_trabajo) == "admitido"
+
+
+def test_modelo_que_no_carga_no_cambia_la_admision(fabrica, almacen, crear_trabajo):
+    servicio = ServicioProcesamiento(
+        fabrica, almacen, ProveedorFalso(error_al_construir=OSError("sin pesos"))
+    )
+    id_trabajo = crear_trabajo()
+    servicio.procesar(id_trabajo)
+    assert _trabajo(fabrica, id_trabajo).estado == "fallido"
+    assert _admision(fabrica, id_trabajo) == "admitido"
+
+
 def test_fallo_inesperado_no_muestra_datos_internos(fabrica, almacen, crear_trabajo):
     error = RuntimeError("CUDA out of memory en /home/servidor/modelos/model.pt")
     servicio = ServicioProcesamiento(

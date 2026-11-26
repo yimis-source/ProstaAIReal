@@ -17,12 +17,13 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from prosta_ai.constantes import (
     COMPLETADO, EN_PROCESO, FALLIDO, MENSAJE_ERROR_GENERICO, MENSAJE_INTERRUMPIDO, MENSAJE_MODELO,
+    NO_COMPATIBLE,
 )
 from prosta_ai.db import ahora
 from prosta_ai.pipeline.base import PipelineInput
 from prosta_ai.pipeline.errors import StageError
 from prosta_ai.pipeline.progress import PipelineProgress
-from prosta_ai.pipeline.stages import SEGMENTACION
+from prosta_ai.pipeline.stages import CONTROL_CALIDAD, SEGMENTACION
 from prosta_ai.repositories import (
     RepositorioArchivos, RepositorioModelos, RepositorioResultados, RepositorioTrabajos,
 )
@@ -158,7 +159,9 @@ class ServicioProcesamiento:
             self._completar(id_trabajo, salida, rutas, time.perf_counter() - inicio)
         except StageError as exc:
             self._almacen.borrar_salidas(codigo, id_trabajo)
-            self._fallar(id_trabajo, exc.stage, exc.message)
+            # El control de calidad rechaza el estudio: queda «no compatible» (contrato_api.md, 3)
+            self._fallar(id_trabajo, exc.stage, exc.message,
+                         no_compatible=exc.stage == CONTROL_CALIDAD)
         except Exception:
             # El detalle va al registro; al usuario solo un mensaje general (RF-08)
             log.exception("Error inesperado en el trabajo %s", id_trabajo)
@@ -207,7 +210,8 @@ class ServicioProcesamiento:
             repo.completar(repo.obtener(id_trabajo))
             s.commit()
 
-    def _fallar(self, id_trabajo: int, etapa: str | None, mensaje: str) -> None:
+    def _fallar(self, id_trabajo: int, etapa: str | None, mensaje: str,
+                no_compatible: bool = False) -> None:
         with self._fabrica() as s:
             repo = RepositorioTrabajos(s)
             trabajo = repo.obtener(id_trabajo)
@@ -217,4 +221,6 @@ class ServicioProcesamiento:
                     e.estado, e.fecha_fin = FALLIDO, ahora()
                     etapa = etapa or e.nombre
             repo.fallar(trabajo, etapa, mensaje)
+            if no_compatible:
+                trabajo.estudio.estado_admision = NO_COMPATIBLE
             s.commit()
