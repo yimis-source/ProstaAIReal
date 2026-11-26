@@ -7,6 +7,7 @@ const ENLACES = [
   ['/', 'Inicio'],
   ['/acceso', 'Acceso'],
   ['/cargar', 'Cargar estudio'],
+  ['/estudios', 'Mis estudios'],
 ];
 
 // Marco común: encabezado con navegación, contenido y aviso fijo
@@ -20,7 +21,7 @@ export default function Layout() {
           <ul className="menu">
             {ENLACES.map(([ruta, texto]) => (
               <li key={ruta}>
-                <NavLink to={ruta} end={ruta === '/'}>{texto}</NavLink>
+                <NavLink to={ruta} end={ruta === '/' || ruta === '/estudios'}>{texto}</NavLink>
               </li>
             ))}
           </ul>

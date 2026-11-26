@@ -1,0 +1,12 @@
+/* CU05: pantalla «Mis estudios» (docs/ejecucion/assets/pantallas/cu05_estudios.svg) */
+.historial-cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.historial-tabla { padding: 0; overflow-x: auto; }
+.historial-tabla table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.historial-tabla th { text-align: left; padding: 10px 16px; font-size: 12px; font-weight: 600; color: var(--suave); text-transform: uppercase; border-bottom: 1px solid var(--borde); }
+.historial-tabla td { padding: 12px 16px; border-bottom: 1px solid var(--borde); }
+.historial-tabla tbody tr:last-child td { border-bottom: none; }
+.historial-codigo { font-weight: 600; }
+.historial-estado { margin-left: 0; }
+.historial-vacio { text-align: center; padding: 40px 24px; }
+.historial-vacio .acciones { justify-content: center; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
