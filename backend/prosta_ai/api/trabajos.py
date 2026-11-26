@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from prosta_ai.api.deps import sesion, usuario_actual
-from prosta_ai.api.estudios import detalle_trabajo
+from prosta_ai.api.vistas import detalle_trabajo
 from prosta_ai.models import Usuario
 from prosta_ai.repositories import RepositorioTrabajos
 
