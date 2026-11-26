@@ -9,16 +9,21 @@ from prosta_ai.api.admision import (
     MSG_SIN_ARCHIVO, ArchivoRechazado, NiftiAdmitido, a_bytes, comprobar_nifti, leer_limitado,
     limpiar_cabecera,
 )
-from prosta_ai.api.deps import ajustes, almacenamiento, sesion, usuario_actual
+from prosta_ai.api.deps import ajustes, almacenamiento, servicio, sesion, usuario_actual
 from prosta_ai.config import Settings
+from prosta_ai.constantes import EN_PROCESO
 from prosta_ai.models import Estudio, Trabajo, Usuario
-from prosta_ai.repositories import RepositorioArchivos, RepositorioEstudios
+from prosta_ai.processing import ServicioProcesamiento
+from prosta_ai.repositories import RepositorioArchivos, RepositorioEstudios, RepositorioTrabajos
 from prosta_ai.storage import AlmacenamientoPrivado
 
 log = logging.getLogger(__name__)
 router = APIRouter(prefix="/estudios", tags=["estudios"])
 
 MSG_NO_GUARDADO = "No se pudo guardar el estudio. Intente de nuevo."
+MSG_NO_ENCONTRADO = "Estudio no encontrado."
+MSG_NO_COMPATIBLE = "El estudio no es compatible y no se puede procesar."
+MSG_EN_CURSO = "El estudio ya tiene un procesamiento pendiente o en curso."
 
 
 def estado_visible(estudio: Estudio) -> str:
@@ -134,7 +139,7 @@ def detalle(
     estudio = RepositorioEstudios(db).obtener_de_usuario(id_estudio, usuario.id_usuario)
     if estudio is None:
         # Ajeno o inexistente: misma respuesta
-        raise HTTPException(404, "Estudio no encontrado.")
+        raise HTTPException(404, MSG_NO_ENCONTRADO)
     ultimo = estudio.trabajos[-1] if estudio.trabajos else None
     resultado = ultimo.resultado if ultimo else None
     return {
@@ -149,3 +154,24 @@ def detalle(
         "iou": _num(resultado.iou) if resultado else None,
         "trabajos": [detalle_trabajo(t, estudio.codigo_anonimo) for t in estudio.trabajos],
     }
+
+
+@router.post("/{id_estudio}/procesar", status_code=201)
+def procesar(
+    id_estudio: int, db: Session = Depends(sesion), usuario: Usuario = Depends(usuario_actual),
+    procesamiento: ServicioProcesamiento = Depends(servicio),
+) -> dict:
+    """Crea un trabajo pendiente y responde de inmediato; lo corre la tarea en segundo plano."""
+    estudio = RepositorioEstudios(db).obtener_de_usuario(id_estudio, usuario.id_usuario)
+    if estudio is None:
+        raise HTTPException(404, MSG_NO_ENCONTRADO)
+    if estudio.estado_admision == "no compatible":
+        raise HTTPException(409, MSG_NO_COMPATIBLE)
+    ultimo = estudio.trabajos[-1] if estudio.trabajos else None
+    if ultimo is not None and ultimo.estado == EN_PROCESO:
+        raise HTTPException(409, MSG_EN_CURSO)
+    trabajo = RepositorioTrabajos(db).crear_pendiente(
+        estudio.id_estudio, procesamiento.id_modelo_activo()
+    )
+    db.commit()
+    return detalle_trabajo(trabajo, estudio.codigo_anonimo)

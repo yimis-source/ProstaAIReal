@@ -13,9 +13,10 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from prosta_ai import __version__
 from sqlalchemy import Engine
 
-from prosta_ai.api import acceso, estudios, salud
+from prosta_ai.api import acceso, estudios, salud, trabajos
 from prosta_ai.config import Settings, get_settings
 from prosta_ai.db import crear_fabrica_sesiones, crear_motor
+from prosta_ai.processing import ProveedorPipeline, ServicioProcesamiento
 from prosta_ai.storage import AlmacenamientoPrivado
 
 log = logging.getLogger(__name__)
@@ -33,8 +34,9 @@ def create_app(
     *,
     motor: Engine | None = None,
     almacenamiento: AlmacenamientoPrivado | None = None,
+    proveedor_pipeline=None,
 ) -> FastAPI:
-    """El motor y el almacenamiento salen de settings; las pruebas pueden pasar los suyos."""
+    """Motor, almacenamiento y pipeline salen de settings; las pruebas pueden pasar los suyos."""
     settings = settings or get_settings()
     motor = motor or crear_motor(settings.database_url)
 
@@ -43,6 +45,11 @@ def create_app(
     app.state.motor = motor
     app.state.fabrica_sesiones = crear_fabrica_sesiones(motor)
     app.state.almacenamiento = almacenamiento or AlmacenamientoPrivado(settings.storage_dir)
+    # El pipeline real se construye al primer trabajo, no al arrancar
+    app.state.servicio = ServicioProcesamiento(
+        app.state.fabrica_sesiones, app.state.almacenamiento,
+        proveedor_pipeline or ProveedorPipeline.desde_ajustes(settings),
+    )
 
     # Sin allow_credentials: el token va en la cabecera Authorization, no en cookies
     app.add_middleware(
@@ -80,6 +87,6 @@ def create_app(
         log.error("Error no controlado en %s %s", request.method, request.url.path, exc_info=exc)
         return _error(500, MSG_ERROR_INTERNO)
 
-    for router in (salud.router, acceso.router, estudios.router):
+    for router in (salud.router, acceso.router, estudios.router, trabajos.router):
         app.include_router(router, prefix="/api")
     return app
