@@ -12,10 +12,13 @@ export function consultarTrabajo(idTrabajo, { obtener, alCambiar, alError, inter
   async function consultar() {
     try {
       const trabajo = await obtener(idTrabajo);
-      if (activa) alCambiar(trabajo);
+      // Si se detuvo mientras la respuesta venía en camino, no se avisa ni se programa otra consulta
+      if (!activa) return;
+      alCambiar(trabajo);
       if (ESTADOS_FINALES.includes(trabajo.estado)) return;
     } catch (e) {
-      if (activa) alError(e);
+      if (!activa) return;
+      alError(e);
     }
     temporizador = setTimeout(consultar, intervalo);
   }
