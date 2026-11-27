@@ -93,3 +93,11 @@ export function cargarEstudio(imagen, referencia) {
 
 // 4.5 GET /api/estudios/{id_estudio}
 export const obtenerEstudio = (id) => pedir(`/estudios/${encodeURIComponent(id)}`);
+
+// 4.6 POST /api/estudios/{id_estudio}/procesar (botón «Procesar», D-006) -> 201 trabajo `pendiente`
+// con las 5 etapas en `pendiente`; 409 si el estudio no es compatible o ya tiene un trabajo activo
+export const procesarEstudio = (idEstudio) =>
+  pedir(`/estudios/${encodeURIComponent(idEstudio)}/procesar`, { metodo: 'POST' });
+
+// 4.7 GET /api/trabajos/{id_trabajo} -> estado del trabajo y de cada etapa (se consulta cada 2 s)
+export const obtenerTrabajo = (idTrabajo) => pedir(`/trabajos/${encodeURIComponent(idTrabajo)}`);
