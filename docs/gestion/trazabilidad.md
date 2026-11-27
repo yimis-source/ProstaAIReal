@@ -56,6 +56,32 @@ Prueba de punta a punta del 27/11 con el cliente de la interfaz contra la API re
 | **RA-01** Reproducibilidad: instrucciones, versiones, configuración, semillas y pesos | 5.4 | — | 1807 | `documentacion-tecnica/instalacion.md`, `documentacion-tecnica/uso.md`, `backend/pyproject.toml` (versiones fijas), `frontend/package-lock.json`, `docs-tecnicos/modelo-y-licencias.md`, `scripts/descargar_modelo.py` | Ejecución desde cero por un integrante distinto del autor (1807) | Del ciclo 7 |
 | **RA-02** Cada requisito vinculado a necesidad, entregable, prueba e interesado | 6.1, 6.4 | — | H003, 1310, 1414, 1510, 1607, 1716 | `docs/gestion/trazabilidad.md`, `docs/ejecucion/fuentes/1.3.1.2_matriz_trazabilidad.md` | Revisión en la 1716: rutas y nombres de prueba de esta tabla comprobados en `desarrollo` o en la rama citada | Implementado (T6); se revisa de nuevo en el cierre del ciclo 7 |
 
+## Resumen por prioridad
+
+Prioridades MoSCoW de la SRS (tablas 5 a 17 y tabla 20).
+
+| Prioridad | Total en la SRS | Implementado | Implementado parcialmente | Fuera de alcance (24/11) | Pendiente | Del ciclo 7 |
+|---|---:|---:|---:|---:|---:|---:|
+| Must | 29 | 27 | 2 (RF-02, RF-03: sin DICOM) | 0 | 0 | 0 |
+| Should | 7 | 5 (RF-01, RF-18, RF-19, RF-24, RR-01) | 0 | 0 | 1 (RU-01) | 1 (RA-01) |
+| Could | 3 | 0 | 0 | 3 (RF-20 a RF-22) | 0 | 0 |
+| **Total** | **39** | **32** | **2** | **3** | **1** | **1** |
+
+- De los 29 Must, los 29 tienen evidencia; 27 quedan completos y 2 sin la parte de DICOM.
+- De los 32 implementados, RF-13, RF-14, RF-17 y la parte del resultado de RF-15 dependen de las ramas de Yeison y Sergio sin PR al redactar T6 (ver las notas).
+- Frente al análisis de impacto (`impacto_ciclo6.md`, 2.2): lo condicionado de CU05 entró (RF-19, decisión RD-33) y DICOM no; RU-01, que estaba condicionado y reducido, no se hizo.
+- Por caso de uso: CU01, CU03, CU04 y CU05 completos; CU02 completo con NIfTI y sin DICOM; CU06 fuera.
+
+## Alcance excluido y pendiente
+
+| Qué | Requisitos | Decisión | Evidencia | Queda como |
+|---|---|---|---|---|
+| CU06, asistente con agentes de IA | RF-20, RF-21, RF-22 (Could) | Fuera por la replanificación del 24/11 | `ciclo6_lanzamiento.md` (sección 4), `impacto_ciclo6.md` (2.1), `contrato_api.md` (sección 5) | Trabajo futuro; riesgo RT-05 aceptado (`riesgos_residuales.md`) |
+| Visor 3D | Ninguno (la SRS pide un visor por cortes) | Fuera por la replanificación del 24/11 | `ciclo6_lanzamiento.md` (sección 4), `impacto_ciclo6.md` (2.1) | Trabajo futuro; el visor entregado es por cortes 2D (`Visor.jsx`) |
+| DICOM en `.zip` | Parte de RF-02 y RF-03 (Must) | Condicionado el 24/11; no entró | `admision.py` acepta solo `.nii` y `.nii.gz`; `test_rechazo_no_registra_nada` rechaza un `.zip` con 422 | Limitación de la versión entregada; riesgo RT-04 aceptado |
+| Usabilidad con personas | RU-01 (Should) | Reducida el 24/11; la replanificación del ciclo 7 del 27/11 la saca del repositorio | `ciclo7_lanzamiento.md` (rama `tester/fernando-angulo`, `dbae946`); RT-08 en `riesgos_residuales.md` | Pendiente y riesgo residual; la prueba de comprensión del panel (RF-17) tampoco se hizo |
+| Reproducibilidad desde cero | RA-01 (Should) | Va en el ciclo 7 (1807) | `impacto_ciclo6.md` (2.1); `ciclo7_lanzamiento.md` | Se verifica en el ciclo 7 |
+
 ## Notas
 
 - RF-13, RF-14, RF-17 y la parte del resultado de RF-15 están en ramas sin PR al redactar T6. Si alguna no entra a `desarrollo` antes del congelamiento, el requisito vuelve a «Implementado parcialmente» en la siguiente versión.
