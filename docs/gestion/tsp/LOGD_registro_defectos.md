@@ -1,10 +1,10 @@
 # Registro de defectos (LOGD) · Prosta-AI
 
-**Versión:** D6.2 · **Fecha:** 26/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** D6.3 · **Fecha:** 27/11/2026 · **Autor:** Juan David Riascos Erazo (Gerente de calidad y proceso) · TSP adaptado (ver `docs/gestion/metodologia_tsp.md`)
 
-Se agrega D-008 (ciclo 4). El 23/11/2026 se agregan al resumen los defectos del ciclo 5 (D-009 y D-010). El 13/11/2026 (PR #50) se corrigió D-006 en el diseño; queda abierto hasta implementarlo en la interfaz del ciclo 6.
+Se agrega D-008 (ciclo 4). El 23/11/2026 se agregan al resumen los defectos del ciclo 5 (D-009 y D-010). El 13/11/2026 (PR #50) se corrigió D-006 en el diseño; quedó abierto hasta implementarlo en la interfaz del ciclo 6.
 
-El 24/11/2026 se agregan los defectos del ciclo 6 (D-011 a D-019) y la fase COMP (compilación del frontend). El 25/11/2026 se agregan D-020 a D-022. El 26/11/2026 se agregan D-023 a D-029 (D-024 es del ciclo 7).
+El 24/11/2026 se agregan los defectos del ciclo 6 (D-011 a D-019) y la fase COMP (compilación del frontend). El 25/11/2026 se agregan D-020 a D-022. El 26/11/2026 se agregan D-023 a D-029 (D-024 es del ciclo 7). El 27/11/2026 se agregan D-030 a D-032, se cierra D-006 (verificado en la 1714) y se cierra el resumen del ciclo 6.
 
 ## Leyenda
 
@@ -36,7 +36,7 @@ El 24/11/2026 se agregan los defectos del ciclo 6 (D-011 a D-019) y la fase COMP
 | INT | Integración |
 | COMP | Compilación / construcción (`npm run build`) |
 
-El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar el de encontrarlo. «—» significa que sigue abierto.
+El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar el de encontrarlo. «—» solo significa que sigue abierto; «— (dentro de …)», que se corrigió dentro de las horas de otra tarea.
 
 ## Registro
 
@@ -47,7 +47,7 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | D-003 | 23/10 | C1 | 1203 | 10 | DIS | REV | 0,2 h | La ficha de PROMISE12 dejaba «por verificar» si la carpeta de prueba trae máscaras; el inventario muestra 30 máscaras. | Fernando | Juan | PR #10 |
 | D-004 | 29/10 | C2 | 1301 | 60 | IMP | PU | 1,5 h | Un `.nii.gz` truncado pasaba el control de calidad: SimpleITK lo abre sin error y rellena con ceros los cortes faltantes. Ahora se comprueba el flujo gzip completo antes de leer. | Fernando (prueba `test_archivo_truncado_se_excluye`) | Yeison | PR #19 |
 | D-005 | 29/10 | C2 | 1304 | 80 | IMP | PU | 0,2 h | `verificar_fuga.py` comparaba el Dice de las máscaras con `== 1.0` (flotante) y no marcaba prostate_16 ≡ Case23 como misma máscara. | Fernando | Fernando (con Juan) | PR #19 |
-| D-006 | 28/10 | C2 | 1307 | 50 | DIS | REV (detectado; sin corregir) | — (abierto) | La pantalla CU03 y el diagrama de navegación dicen «Ejecutar»; debe ser «Procesar». El diseño se corrigió el 13/11/2026 (pantalla CU03, diagrama de navegación e introducción); (PR #50); queda pendiente aplicarlo en la implementación del ciclo 6. | Juan (revisión del PR #17) | Sergio (pendiente) | PR #17 (abierto) |
+| D-006 | 28/10 | C2 | 1307 | 50 | DIS | REV | — (dentro del PR #50 y de la 1710) | La pantalla CU03 y el diagrama de navegación dicen «Ejecutar»; debe ser «Procesar». El diseño se corrigió el 13/11/2026 (pantalla CU03, diagrama de navegación e introducción; PR #50) y la implementación con la pantalla de estado (1710). Verificado en la 1714 el 27/11/2026: la interfaz dice «Procesar» y «Procesar de nuevo» (`frontend/src/pages/Estado.jsx`) y el indicador de pasos dice «Procesar» (`frontend/src/components/Pasos.jsx`); no aparece «Ejecutar» en ninguna pantalla. | Juan (revisión del PR #17) | Sergio | PR #50 y `3cde9d0` |
 | D-007 | 05/11 | C3 | 1407 | 80 | IMP | PU | 2,5 h | Sin `.eval()` el dropout (0,15) y la normalización por lotes seguían en modo entrenamiento: prostate_13 Dice 0,2065 (61 289 vóxeles) y prostate_28 0,1726; con `.eval()` 0,9012 (22 172 vóxeles) y 0,8320. Prueba de regresión `assert not modelo.training`. | Fernando (depuración en pareja) | Yeison | PR #29 |
 | D-008 | 10/11 | C4 | 1503 | 50 | IMP | PU | 0,5 h | Al agregar la etapa ROI, `PipelineInput` exige `output_dir` y `entrenamiento/evaluar.py` dejó de funcionar; ahora escribe las salidas en una carpeta temporal. | Yeison (al correr la evaluación) | Yeison | PR #41 |
 | D-009 | 19/11 | C5 | 1604 | 80 | IMP | PU | 0,2 h | `hd95()` y `distancia_media_superficie()` devuelven `nan` en vez de `inf` cuando solo una máscara está vacía (`np.percentile`/`np.mean` de `[inf]`); la prueba `test_metricas_superficie_mascaras_vacias` falla. Origen: tarea 1604. No afecta los 5 casos reales (ninguna máscara vacía). | Juan (prueba `test_metricas_superficie_mascaras_vacias`) | Juan | `fix(evaluacion): HD95 y distancia media devuelven inf con una máscara vacía (1604)` |
@@ -71,6 +71,9 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | D-027 | 26/11 | C6 | 1711 | 80 | DIS | INT | 0,2 h | Ningún componente marcaba el estudio como `no compatible` cuando fallaba el control de calidad, como pide el contrato (4.4); el 409 «no compatible» de la API nunca se alcanzaba. Ahora lo marca el servicio en la misma transacción del fallo. | Yeison (al integrar la 1709) | Yimis | `94bb45c` |
 | D-028 | 26/11 | C6 | 1711 | 80 | IMP | REV | 0,4 h | `procesar_siguiente()` cerraba la sesión del `SELECT … FOR UPDATE SKIP LOCKED` antes de marcar el trabajo `en proceso`, así que el bloqueo no protegía nada: con dos procesos ambos podían tomar el mismo trabajo. Prueba con dos sesiones contra PostgreSQL: «el segundo proceso tomó el mismo trabajo que el primero». | Yeison (revisión del código de la 1711) | Yimis | `a09077b` |
 | D-029 | 26/11 | C6 | 1708 | 60 | IMP | PU | 0,1 h | La prueba de integración `test_esquema_creado_por_la_migracion` esperaba la revisión `0001` fija y falló al agregar la migración `0002` («assert '0002' == '0001'»). | Yimis (pruebas con PostgreSQL) | Yimis | `a09077b` |
+| D-030 | 27/11 | C6 | 1713 | 80 | IMP | PU | 0,1 h | La validación del índice del corte usaba `0 <= indice <= cortes` y no `< cortes`: con `indice == cortes` el renderizador lanzaba `IndexError` y la API respondía 500 en vez de 422. Prueba `test_corte_fuera_de_rango_da_422` (`assert 500 == 422`). | Yeison (prueba `test_corte_fuera_de_rango_da_422`) | Yeison | `daee4dd` |
+| D-031 | 27/11 | C6 | 1713 | 80 | IMP | PU | 0,2 h | El visor de CU04 creaba una URL con `URL.createObjectURL` por cada PNG de corte y nunca la liberaba; tras 6 cambios de corte quedaban 12 URLs vivas en vez de 2. Prueba del visor en jsdom. | Sergio (prueba del visor en jsdom) | Sergio | `e146119` |
+| D-032 | 27/11 | C6 | 1715 | 50 | IMP | PU | 0,2 h | El script de RR-01 leía Dice e IoU de `GET /api/trabajos/{id}/resultado`, que todavía no estaba integrado en `desarrollo` (es de la 1713): respondía 404 y el script fallaba con `TypeError`. Ahora, si la ruta no existe, los toma del detalle del estudio comprobando el trabajo. | Fernando (pruebas del script) | Fernando | `10b1645` |
 
 ## Resumen por ciclo
 
@@ -82,9 +85,9 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | C3 | 1 | IMP 1 | PU 1 | 80: 1 | 2,5 h | 0 de 1 (0 %) |
 | C4 | 1 | IMP 1 | PU 1 | 50: 1 | 0,5 h | 0 de 1 (0 %) |
 | C5 | 2 | IMP 2 | PU 1, EJE 1 | 80: 2 | 0,2 h (D-010 dentro de 1602) | 0 de 2 (0 %) |
-| C6 (al 26/11) | 18 | IMP 13, DIS 3, REQ 2 | PU 8, REV 6, INT 2, EJE 1, COMP 1 | 80: 7, 10: 3, 50: 3, 20: 1, 40: 1, 60: 1, 70: 1, 100: 1 | 5,4 h | 6 de 18 (33 %) |
+| C6 | 21 | IMP 16, DIS 3, REQ 2 | PU 11, REV 6, INT 2, EJE 1, COMP 1 | 80: 9, 50: 4, 10: 3, 20: 1, 40: 1, 60: 1, 70: 1, 100: 1 | 5,9 h | 6 de 21 (29 %) |
 | C7 (al 26/11) | 1 | DIS 1 | REV 1 | 10: 1 | 0,1 h | 1 de 1 (100 %) |
-| **Acumulado** | 29 | | | | 11,2 h | 11 de 29 (38 %) |
+| **Acumulado** | 32 | | | | 11,7 h | 11 de 32 (34 %) |
 
 **Defectos por fase (acumulado):**
 
@@ -92,10 +95,10 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 |---|---:|---:|
 | REQ | 3 | 0 |
 | DIS | 6 | 0 |
-| IMP | 20 | 0 |
+| IMP | 23 | 0 |
 | REV | 0 | 11 |
 | EJE | 0 | 2 |
-| PU | 0 | 13 |
+| PU | 0 | 16 |
 | COMP | 0 | 1 |
 | INT | 0 | 2 |
 
@@ -106,11 +109,11 @@ El tiempo de corrección es el tiempo que costó arreglarlo (horas), sin contar 
 | 10 Documentación | 6 |
 | 20 Sintaxis | 1 |
 | 40 Asignación | 1 |
-| 50 Interfaz | 5 |
+| 50 Interfaz | 6 |
 | 60 Chequeo | 2 |
 | 70 Datos | 1 |
-| 80 Función | 12 |
+| 80 Función | 14 |
 | 100 Entorno | 1 |
 
-Rendimiento de revisión = defectos encontrados en revisión (REV) / defectos totales del ciclo. En D-006 la revisión lo encontró pero todavía no está corregido, así que cuenta como encontrado en REV y sigue abierto.
+Rendimiento de revisión = defectos encontrados en revisión (REV) / defectos totales del ciclo. D-006 cuenta como encontrado en REV (revisión del PR #17); se corrigió en el diseño (PR #50) y en la implementación (1710), y quedó cerrado el 27/11/2026 tras verificarlo en la 1714. Su tiempo de corrección va dentro de esas tareas, así que no suma al tiempo de C2.
 
