@@ -40,7 +40,10 @@ function errorDe(datos, estado) {
   return new ErrorApi(mensaje, estado, campos);
 }
 
-async function pedir(ruta, { metodo = 'GET', json, formData, conToken = true } = {}) {
+// Hace la petición con el token Bearer de la sesión. Se exporta para que los demás módulos de
+// api/ (historial.js) compartan el manejo de errores y el cierre de sesión ante un 401.
+// Con `binario: true` devuelve el cuerpo como Blob (los PNG de los cortes, contrato 4.9).
+export async function pedir(ruta, { metodo = 'GET', json, formData, conToken = true, binario = false } = {}) {
   const cabeceras = {};
   const token = sesion.token();
   if (conToken && token) cabeceras.Authorization = `Bearer ${token}`;
@@ -59,13 +62,14 @@ async function pedir(ruta, { metodo = 'GET', json, formData, conToken = true } =
     throw new ErrorApi('No hay conexión con la API. Revisa que esté en ejecución.', 0);
   }
 
-  const datos = await respuesta.json().catch(() => null);
   if (!respuesta.ok) {
+    const datos = await respuesta.json().catch(() => null);
     // Con sesión abierta, un 401 es token vencido o no válido; en /acceso es contraseña incorrecta
     if (respuesta.status === 401 && conToken && token) alExpirar();
     throw errorDe(datos, respuesta.status);
   }
-  return datos;
+  if (binario) return respuesta.blob();
+  return respuesta.json().catch(() => null);
 }
 
 // 4.1 GET /api/salud -> {"estado": "ok", "version": "0.6.0"}
@@ -101,3 +105,17 @@ export const procesarEstudio = (idEstudio) =>
 
 // 4.7 GET /api/trabajos/{id_trabajo} -> estado del trabajo y de cada etapa (se consulta cada 2 s)
 export const obtenerTrabajo = (idTrabajo) => pedir(`/trabajos/${encodeURIComponent(idTrabajo)}`);
+
+// 4.8 GET /api/trabajos/{id_trabajo}/resultado -> {id_trabajo, codigo, dice, iou, tiempo_total_s,
+// modelo: {nombre, version}, cortes, forma, aviso}; 404 si el trabajo no está `completado`
+export const obtenerResultado = (idTrabajo) =>
+  pedir(`/trabajos/${encodeURIComponent(idTrabajo)}/resultado`);
+
+// 4.9 GET /api/trabajos/{id_trabajo}/corte/{indice}?capa=imagen|mascara -> PNG (Blob)
+// `indice` va de 0 a cortes - 1. La ruta pide token y un <img src> no manda cabeceras, así que el
+// PNG se pide aquí y quien lo muestra crea la URL con URL.createObjectURL y la libera después.
+export const obtenerCorte = (idTrabajo, indice, capa = 'imagen') =>
+  pedir(
+    `/trabajos/${encodeURIComponent(idTrabajo)}/corte/${encodeURIComponent(indice)}?capa=${encodeURIComponent(capa)}`,
+    { binario: true }
+  );
