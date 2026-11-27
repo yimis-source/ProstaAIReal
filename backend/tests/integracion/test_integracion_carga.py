@@ -47,7 +47,7 @@ def _comprobar_archivo(entorno, archivo: Archivo, codigo: str, rol: str) -> None
 
 
 def test_esquema_creado_por_la_migracion(entorno):
-    assert entorno.version_alembic() == "0001"
+    assert entorno.version_alembic() == "0002"  # 0002: rutas de salida del resultado (1711)
     assert entorno.conteos() == {"usuario": 0, "estudio": 0, "archivo": 0}
 
 

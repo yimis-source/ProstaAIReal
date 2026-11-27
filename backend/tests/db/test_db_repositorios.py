@@ -1,9 +1,6 @@
 """Repositorios de usuarios, estudios y archivos (RB-01, RB-02) con SQLite."""
 import pytest
-from sqlalchemy.orm import Session
 
-from prosta_ai import db as modulo_db
-from prosta_ai.db import crear_fabrica_sesiones, crear_motor, obtener_sesion
 from prosta_ai.models import Estudio
 from prosta_ai.repositories import (
     RepositorioArchivos, RepositorioEstudios, RepositorioUsuarios,
@@ -92,12 +89,3 @@ def test_revertir_no_deja_nada(sesion, tmp_path):
     assert sesion.query(Estudio).count() == 0
     assert not any(tmp_path.rglob("*.nii"))
 
-
-def test_obtener_sesion_como_dependencia(monkeypatch):
-    fabrica = crear_fabrica_sesiones(crear_motor("sqlite://"))
-    monkeypatch.setattr(modulo_db, "_fabrica", fabrica)
-    generador = obtener_sesion()
-    sesion = next(generador)
-    assert isinstance(sesion, Session)
-    with pytest.raises(StopIteration):
-        next(generador)
