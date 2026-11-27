@@ -104,7 +104,7 @@ def corte(
     """Corte axial en PNG: `imagen` en gris; `mascara` RGBA con fondo transparente."""
     trabajo = _trabajo_o_404(db, id_trabajo, usuario)
     _, vol = _volumen(db, trabajo, almacen, _cache(request))
-    if not 0 <= indice <= vol.cortes:
+    if not 0 <= indice < vol.cortes:
         raise HTTPException(422, f"El corte debe estar entre 0 y {vol.cortes - 1}.")
     if capa == "mascara" and vol.mascara is None:
         raise HTTPException(404, MSG_SIN_MASCARA)
