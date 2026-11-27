@@ -7,15 +7,19 @@ function useCapa(idTrabajo, indice, capa) {
   const [fallo, setFallo] = useState(false);
   useEffect(() => {
     let activo = true;
+    let actual = null;
     setFallo(false);
     obtenerCorte(idTrabajo, indice, capa)
       .then((blob) => {
         if (!activo) return;
-        setUrl(URL.createObjectURL(blob));
+        actual = URL.createObjectURL(blob);
+        setUrl(actual);
       })
       .catch(() => activo && setFallo(true));
+    // Al cambiar de corte o salir de la pantalla se libera la URL del PNG anterior
     return () => {
       activo = false;
+      if (actual) URL.revokeObjectURL(actual);
     };
   }, [idTrabajo, indice, capa]);
   return { url, fallo };
