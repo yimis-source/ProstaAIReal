@@ -2,7 +2,7 @@
 
 > Corrección del 21/11/2026: se ajustaron las horas reales de Yeison (tareas 1204, 1301, 1305, 1404, 1406, 1412, 1503 y 1504, y sus ayudas) y de Sergio (1502) en los ciclos 1 a 4, con estimaciones retrospectivas. Los postmortems de esos ciclos conservan las cifras registradas al cierre; las vigentes son las de este registro.
 
-**Versión:** L11 · **Fecha:** 25/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
+**Versión:** L12 · **Fecha:** 26/11/2026 · **Autor:** Fernando José Angulo Núñez (Gerente de planeación) · **Formato:** TSP adaptado al curso (ver `docs/gestion/metodologia_tsp.md`)
 
 Convenciones: desviación = (real − plan) / plan. Valor planificado % = horas plan de la tarea / horas plan del ciclo. Valor ganado = suma del valor planificado de las tareas **terminadas**. Las ayudas entre integrantes se registran aparte, con quién ayudó a quién y en qué tarea. Responsables: Yimis (YB), Juan (JR), Sergio (SM), Yeison (YE), Fernando (FA).
 
@@ -278,10 +278,10 @@ Plan del lanzamiento (`ciclo6_lanzamiento.md`, 24/11/2026). Las horas reales las
 | 1706 | CU01 acceso y CU02 pantalla de carga | Sergio | 6 | 6,5 | +8 % | 7,4 % | 7,4 % |
 | 1707 | Persistencia de estudios y archivos (RB-01, RB-02) | Yimis | 5 | 4,5 | -10 % | 6,2 % | 6,2 % |
 | 1708 | Pruebas de integración de la carga | Fernando | 4 | 3,5 | -12 % | 4,9 % | 4,9 % |
-| 1709 | CU03 procesamiento en segundo plano, estado y errores (API) | Yeison | 7 | — | — | 8,6 % | — |
-| 1710 | CU03 pantalla de estado | Sergio | 5 | — | — | 6,2 % | — |
-| 1711 | Integración API, base de datos y pipeline | Yimis | 5 | — | — | 6,2 % | — |
-| 1712 | CU05 historial (si hay tiempo) | Juan | 4 | — | — | 4,9 % | — |
+| 1709 | CU03 procesamiento en segundo plano, estado y errores (API) | Yeison | 7 | 7,5 | +7 % | 8,6 % | 8,6 % |
+| 1710 | CU03 pantalla de estado | Sergio | 5 | 5,5 | +10 % | 6,2 % | 6,2 % |
+| 1711 | Integración API, base de datos y pipeline | Yimis | 5 | 6 | +20 % | 6,2 % | 6,2 % |
+| 1712 | CU05 historial (si hay tiempo) | Juan | 4 | 3 | -25 % | 4,9 % | 4,9 % |
 | 1713 | CU04 ROI con y sin máscara, panel y aviso | Yeison / Sergio | 8 | — | — | 9,9 % | — |
 | 1714 | D-006 «Procesar» en la interfaz | Sergio | 1 | — | — | 1,2 % | — |
 | 1715 | RR-01 con 5 casos por la API | Fernando | 3 | — | — | 3,7 % | — |
@@ -294,6 +294,8 @@ Plan del lanzamiento (`ciclo6_lanzamiento.md`, 24/11/2026). Las horas reales las
 
 **Avance al 25/11:** terminadas 1705 a 1708: plan 21 h, real 21,5 h, desviación +2 %. La 1705 se pasó (+17 %) porque incluyó la API de acceso de CU01, que el lanzamiento dejó dentro de esa tarea, y la corrección de RF-05 (D-022). La 1707 y la 1708 quedaron por debajo: los repositorios siguieron los modelos del 24/11 sin cambiar el esquema y las pruebas de integración no encontraron fallas. Acumulado del ciclo 6: plan 43 h, real 47,5 h, desviación +10 %. Valor ganado: 43 h plan de 81 (53,1 %). Plan para el 26/11: 1709 a 1712 (21 h; la 1712 depende del punto de decisión de las 12:00).
 
+**Avance al 26/11:** terminadas 1709 a 1712: plan 21 h, real 22 h, desviación +5 %. La 1711 se pasó (+20 %) por las dos correcciones de la tarde que salieron al integrar la API (D-027 y D-028). La 1712 se abrió en el punto de decisión de las 12:00 (registro de decisiones, RD-33) y quedó por debajo (-25 %) porque reutilizó las vistas del detalle del estudio. Primer caso procesado de punta a punta desde la interfaz: prostate_13, 18 s, Dice 0,901. Acumulado del ciclo 6: plan 64 h, real 69,5 h, desviación +9 %. Valor ganado: 64 h plan de 81 (79,0 %). Plan para el 27/11: 1713 a 1717 (17 h).
+
 ### Ciclo 7 · Cierre académico (REPLANIFICADO 25/11–28/11, en paralelo con el ciclo 6; plan original 03/12–09/12)
 
 Plan del lanzamiento (`ciclo7_lanzamiento.md`, 25/11/2026). Las horas reales las anota cada integrante al terminar su tarea, separadas de las del ciclo 6, y Fernando las consolida aquí cada noche; el valor ganado final se calcula en el postmortem.
@@ -301,7 +303,7 @@ Plan del lanzamiento (`ciclo7_lanzamiento.md`, 25/11/2026). Las horas reales las
 | ID | Tarea | Responsable | Plan h | Real h | Desviación | Valor planificado % | Valor ganado % |
 |---|---|---|---:|---:|---:|---:|---:|
 | 1800 | Lanzamiento del ciclo 7 | Fernando | 2 | 1,5 | -25 % | 7,4 % | 7,4 % |
-| 1801 | Riesgos residuales y registro de decisiones | Juan | 3 | — | — | 11,1 % | — |
+| 1801 | Riesgos residuales y registro de decisiones | Juan | 3 | 3,5 | +17 % | 11,1 % | 11,1 % |
 | 1802 | Documentación técnica de la aplicación (instalación, uso y API) | Yeison / Sergio | 4 | — | — | 14,8 % | — |
 | 1803 | Acta de aceptación | Sergio | 2 | — | — | 7,4 % | — |
 | 1804 | Informe de Fin de Proyecto (OpenPM²) | Sergio / Yimis | 5 | — | — | 18,5 % | — |
@@ -317,6 +319,8 @@ Plan del lanzamiento (`ciclo7_lanzamiento.md`, 25/11/2026). Las horas reales las
 **Carga sumada de los ciclos 6 y 7 (plan):** 25/11 23 h, 26/11 24 h, 27/11 19 h, 28/11 20 h; total 86 h (59 h del ciclo 6 desde el 25/11 más 27 h del ciclo 7). Por persona del 25/11 al 28/11: Sergio 22,5 h, Yimis 19 h, Yeison 19 h, Fernando 14 h, Juan 11,5 h (incluye las 4 h de la 1712, condicionada). El detalle por fecha está en el lanzamiento, sección 5.
 
 **Avance al 25/11:** terminada la 1800: plan 2 h, real 1,5 h (-25 %). Valor ganado: 2 h plan de 27 (7,4 %).
+
+**Avance al 26/11:** terminada la 1801: plan 3 h, real 3,5 h (+17 %). Acumulado del ciclo 7: plan 5 h, real 5 h. Valor ganado: 5 h plan de 27 (18,5 %).
 
 ### Horas por día por persona
 
