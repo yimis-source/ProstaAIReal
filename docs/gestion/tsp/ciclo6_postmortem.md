@@ -127,7 +127,7 @@ Ninguna tarea se corrió de fecha. Contra el plan original, el ciclo empezó 2 d
 D-024 es del ciclo 7 (tarea 1801) y no cuenta aquí.
 
 - **Rendimiento de revisión:** 6 de 21 (29 %): D-015 a D-019 y D-028. Al 26/11 iba en 6 de 18 (33 %); los tres del 27/11 los encontraron pruebas y el uso, no la revisión. Aun así es mejor que el 0 % de los ciclos 3, 4 y 5.
-- Casi todos los defectos se inyectaron en implementación y los encontraron las pruebas unitarias o de integración antes de fusionar. Los de documentación (D-015, D-018, D-019) salieron en la revisión de integración del 24/11, cuando se comparó el análisis de impacto con el lanzamiento y el contrato.
+- De los 18 registrados hasta el 26/11, 13 se inyectaron en implementación, y 10 los encontraron las pruebas unitarias (8) o la integración (2) antes de fusionar; uno salió al ejecutar (D-012) y otro al compilar (D-014). Los de documentación (D-015, D-018, D-019) salieron en la revisión de integración del 24/11, cuando se comparó el análisis de impacto con el lanzamiento y el contrato.
 - **D-006** («Ejecutar» en lugar de «Procesar»), abierto desde el 28/10, queda cerrado: la pantalla de estado dice «Procesar».
 
 ## 5. Valor ganado
