@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from prosta_ai.config import Settings
 from prosta_ai.models import Usuario
+from prosta_ai.processing import ServicioProcesamiento
 from prosta_ai.repositories import RepositorioUsuarios
 from prosta_ai.seguridad import TokenNoValido, leer_token
 from prosta_ai.storage import AlmacenamientoPrivado
@@ -28,6 +29,10 @@ def ajustes(request: Request) -> Settings:
 
 def almacenamiento(request: Request) -> AlmacenamientoPrivado:
     return request.app.state.almacenamiento
+
+
+def servicio(request: Request) -> ServicioProcesamiento:
+    return request.app.state.servicio
 
 
 def usuario_actual(
