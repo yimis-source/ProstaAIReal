@@ -24,8 +24,8 @@ from apoyo_procesamiento import (  # noqa: E402
 from prosta_ai import seguridad  # noqa: E402
 from prosta_ai.pipeline import stages  # noqa: E402
 from scripts.medir_rr01_api import (  # noqa: E402
-    DIVISION, ErrorMedicion, ResultadoCaso, casos_de_prueba, condiciones_equipo, crear_cuenta,
-    informe, medir, medir_caso, resumen, rutas_caso,
+    DIVISION, FUENTE_ESTUDIO, FUENTE_RESULTADO, ErrorMedicion, ResultadoCaso, casos_de_prueba, condiciones_equipo, crear_cuenta,
+    informe, medir, medir_caso, obtener_resultado, resumen, rutas_caso,
 )
 
 CASOS = ["prostate_13", "prostate_17"]
@@ -99,7 +99,13 @@ def test_medir_recorre_los_casos_y_toma_tiempos_y_metricas(entorno, datos):
     res = medir(entorno.client, CASOS, imagenes, etiquetas, intervalo_s=0,
                 dormir=_procesar_al_esperar(entorno))
     assert res["version_api"]
-    assert res["modelo"]["nombre"] == "modelo_falso"
+    fuentes = {f.fuente for f in res["filas"]}
+    assert len(fuentes) == 1
+    # con la ruta del resultado (1713) el modelo viene de la API; sin ella, del detalle del estudio
+    if fuentes == {FUENTE_RESULTADO}:
+        assert res["modelo"]["nombre"] == "modelo_falso"
+    else:
+        assert fuentes == {FUENTE_ESTUDIO} and res["modelo"] is None
     assert [f.caso for f in res["filas"]] == CASOS
     for f in res["filas"]:
         assert f.estado == "completado" and f.error is None
@@ -229,3 +235,67 @@ def test_informe_sin_ningun_caso_completado():
     texto = informe({"filas": filas, "version_api": "0.6.0", "modelo": None}, _condiciones(),
                     "2026-11-27")
     assert "RR-01 no se puede comprobar" in texto
+
+
+# --- De dónde sale el resultado ---
+
+class _Respuesta:
+    def __init__(self, codigo, cuerpo):
+        self.status_code = codigo
+        self._cuerpo = cuerpo
+        self.text = json.dumps(cuerpo)
+
+    def json(self):
+        return self._cuerpo
+
+
+class _ClienteRutas:
+    """Responde según la ruta; las que no están dan el 404 genérico de FastAPI."""
+
+    def __init__(self, rutas):
+        self.rutas = rutas
+        self.pedidas = []
+
+    def get(self, ruta, headers=None):
+        self.pedidas.append(ruta)
+        return self.rutas.get(ruta, _Respuesta(404, {"detalle": "Recurso no encontrado."}))
+
+
+def test_resultado_usa_la_ruta_del_contrato_si_existe():
+    cliente = _ClienteRutas({"/api/trabajos/7/resultado": _Respuesta(200, {
+        "dice": 0.9, "iou": 0.8, "modelo": {"nombre": "m", "version": "1"}})})
+    cuerpo, fuente = obtener_resultado(cliente, {}, 7, 12)
+    assert fuente == FUENTE_RESULTADO and cuerpo["dice"] == 0.9
+    assert cliente.pedidas == ["/api/trabajos/7/resultado"]
+
+
+def test_sin_la_ruta_del_resultado_usa_el_detalle_del_estudio():
+    cliente = _ClienteRutas({"/api/estudios/12": _Respuesta(200, {
+        "id": 12, "id_ultimo_trabajo": 7, "dice": 0.87, "iou": 0.77})})
+    cuerpo, fuente = obtener_resultado(cliente, {}, 7, 12)
+    assert fuente == FUENTE_ESTUDIO and cuerpo["dice"] == 0.87 and cuerpo["iou"] == 0.77
+
+
+def test_detalle_de_otro_trabajo_no_se_acepta():
+    cliente = _ClienteRutas({"/api/estudios/12": _Respuesta(200, {
+        "id": 12, "id_ultimo_trabajo": 8, "dice": 0.5, "iou": 0.4})})
+    with pytest.raises(ErrorMedicion, match="no es el medido"):
+        obtener_resultado(cliente, {}, 7, 12)
+
+
+def test_404_del_contrato_no_cae_al_detalle():
+    cliente = _ClienteRutas({"/api/trabajos/7/resultado": _Respuesta(
+        404, {"detalle": "El trabajo no tiene resultado disponible."})})
+    with pytest.raises(ErrorMedicion, match="Resultado: HTTP 404: El trabajo no tiene resultado"):
+        obtener_resultado(cliente, {}, 7, 12)
+    assert cliente.pedidas == ["/api/trabajos/7/resultado"]
+
+
+def test_informe_dice_de_donde_salen_las_metricas():
+    fila = _fila("prostate_13", 1.0, 30.0)
+    fila.fuente = FUENTE_ESTUDIO
+    cond = _condiciones()
+    cond["modelo"] = "`prostate_mri_anatomy` 0.3.6"
+    texto = informe({"filas": [fila], "version_api": "0.6.0", "modelo": None}, cond, "2026-11-27")
+    assert "Dice e IoU salen de `GET /api/estudios/{id}` porque la ruta del resultado" in texto
+    assert "- Modelo: `prostate_mri_anatomy` 0.3.6." in texto

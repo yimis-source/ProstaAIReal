@@ -11,7 +11,9 @@ Contra una API ya levantada (no la arranca), el script:
    carga la imagen con su máscara de referencia (`POST /api/estudios`), pulsa
    «Procesar» (`POST /api/estudios/{id}/procesar`), consulta el trabajo
    (`GET /api/trabajos/{id}`) hasta `completado` o `fallido` y pide el resultado
-   (`GET /api/trabajos/{id}/resultado`);
+   (`GET /api/trabajos/{id}/resultado`, contrato 4.8). Si esa ruta todavía no existe
+   en la versión medida (responde el 404 genérico «Recurso no encontrado.»), lee Dice
+   e IoU del detalle del estudio (`GET /api/estudios/{id}`, contrato 4.5);
 3. escribe un informe en Markdown con los tiempos y el Dice e IoU de cada caso.
 
 Tiempos por caso (reloj del script, `time.perf_counter`):
@@ -53,6 +55,10 @@ RAIZ = Path(__file__).resolve().parents[1]
 DIVISION = RAIZ / "entrenamiento" / "division_task05.json"
 LIMITE_S = 120.0  # RR-01: dos minutos por estudio
 TERMINALES = ("completado", "fallido")
+# 404 de FastAPI cuando la ruta no existe (distinto del 404 «Trabajo no encontrado.»)
+RUTA_INEXISTENTE = "Recurso no encontrado."
+FUENTE_RESULTADO = "GET /api/trabajos/{id}/resultado"
+FUENTE_ESTUDIO = "GET /api/estudios/{id}"
 AVISO = ("Uso académico y experimental. Los resultados de Prosta-AI no son un diagnóstico, no "
          "sustituyen la valoración de un profesional de la salud y la aplicación no es un "
          "dispositivo médico.")
@@ -75,6 +81,7 @@ class ResultadoCaso:
     dice: float | None = None
     iou: float | None = None
     modelo: dict | None = None
+    fuente: str | None = None  # ruta de la que salieron Dice e IoU
     consultas: int = 0
     error: str | None = None
 
@@ -160,8 +167,7 @@ def medir_caso(cliente, cab: dict, caso: str, imagen: Path, mascara: Path, *,
                          f"{trabajo.get('mensaje_error')}")
             return res
 
-        resultado = _json(cliente.get(f"/api/trabajos/{id_trabajo}/resultado", headers=cab),
-                          200, "Resultado")
+        resultado, res.fuente = obtener_resultado(cliente, cab, id_trabajo, estudio["id"])
         t2 = reloj()
         res.procesar_s = t2 - t1
         res.total_s = t2 - t0
@@ -172,6 +178,24 @@ def medir_caso(cliente, cab: dict, caso: str, imagen: Path, mascara: Path, *,
         res.estado = "error" if res.estado == "sin medir" else res.estado
         res.error = str(e)
     return res
+
+
+def obtener_resultado(cliente, cab: dict, id_trabajo: int, id_estudio: int) -> tuple[dict, str]:
+    """Resultado del trabajo (4.8); si la ruta no existe en la versión medida, el detalle del estudio (4.5)."""
+    r = cliente.get(f"/api/trabajos/{id_trabajo}/resultado", headers=cab)
+    if r.status_code == 404 and _detalle(r) == RUTA_INEXISTENTE:
+        estudio = _json(cliente.get(f"/api/estudios/{id_estudio}", headers=cab), 200, "Detalle")
+        if estudio.get("id_ultimo_trabajo") != id_trabajo:
+            raise ErrorMedicion("Detalle: el último trabajo del estudio no es el medido.")
+        return estudio, FUENTE_ESTUDIO
+    return _json(r, 200, "Resultado"), FUENTE_RESULTADO
+
+
+def _detalle(r) -> str | None:
+    try:
+        return r.json().get("detalle")
+    except ValueError:
+        return None
 
 
 def medir(cliente, casos: list[str], imagenes: Path, etiquetas: Path, **opciones) -> dict:
@@ -222,6 +246,9 @@ def informe(res: dict, condiciones: dict, fecha: str) -> str:
     filas: list[ResultadoCaso] = res["filas"]
     rs = resumen(filas)
     modelo = res.get("modelo") or {}
+    texto_modelo = (f"`{modelo['nombre']}` {modelo.get('version', '—')}" if modelo.get("nombre")
+                    else condiciones.get("modelo") or "—")
+    fuentes = sorted({f.fuente for f in filas if f.fuente})
     nombres_etapas: list[str] = []
     for f in filas:
         for nombre in f.etapas:
@@ -238,7 +265,7 @@ def informe(res: dict, condiciones: dict, fecha: str) -> str:
          f"({', '.join(f'`{f.caso}`' for f in filas)}), cada uno con su máscara de referencia.",
          f"- API: versión {res.get('version_api') or '—'} en `{condiciones['url']}`, con PostgreSQL "
          "local y la tarea en segundo plano de la propia API (un trabajo a la vez).",
-         f"- Modelo: `{modelo.get('nombre', '—')}` {modelo.get('version', '—')}.",
+         f"- Modelo: {texto_modelo}.",
          f"- Dispositivo: {condiciones['dispositivo']}. CPU: {condiciones['cpu']}; "
          f"RAM {condiciones['ram_gb']:.1f} GB; {condiciones['so']}.",
          f"- Software: {condiciones['software']}.",
@@ -250,8 +277,15 @@ def informe(res: dict, condiciones: dict, fecha: str) -> str:
          "## Qué se mide", "",
          "- **Carga:** desde que empieza a subir la imagen y la referencia hasta la respuesta 201.",
          "- **Procesamiento (RR-01):** desde que se pulsa «Procesar» hasta que el resultado está "
-         "disponible (`GET /api/trabajos/{id}/resultado` responde 200). Incluye la espera en cola, "
+         "disponible (la API devuelve el Dice y el IoU del trabajo terminado). Incluye la espera en cola, "
          "las cinco etapas, guardar el resultado y el retardo de la consulta periódica.",
+         *([f"- Dice e IoU salen de `{fuentes[0]}`"
+            + (" porque la ruta del resultado (contrato 4.8) todavía no está en la versión medida; "
+               "en ese caso el resultado está disponible cuando el trabajo queda `completado` y el "
+               "detalle del estudio trae sus métricas." if fuentes[0] == FUENTE_ESTUDIO else ".")]
+           if len(fuentes) == 1 else
+           [f"- Dice e IoU salen de {', '.join(f'`{x}`' for x in fuentes)} según el caso."]
+           if fuentes else []),
          "- **Total:** de punta a punta, desde que empieza la carga hasta que el resultado está "
          "disponible.",
          "- **Cola (API)** y **Proceso (API):** tiempos que registra la API en el trabajo "
@@ -377,6 +411,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--intervalo", type=float, default=0.5, help="Segundos entre consultas del estado")
     ap.add_argument("--espera-max", type=float, default=600.0, help="Segundos máximos por trabajo")
     ap.add_argument("--commit", default=None, help="Versión del código medida (por defecto, HEAD)")
+    ap.add_argument("--modelo", default=None,
+                    help="Modelo para el informe si la API medida no lo devuelve (p. ej. «prostate_mri_anatomy 0.3.6»)")
     ap.add_argument("--fecha", default=date.today().isoformat(), help="Fecha del informe (AAAA-MM-DD)")
     args = ap.parse_args(argv)
 
@@ -389,6 +425,7 @@ def main(argv: list[str] | None = None) -> int:
         res = medir(cliente, casos, args.imagenes, args.etiquetas,
                     intervalo_s=args.intervalo, espera_max_s=args.espera_max)
     cond = condiciones_equipo(args.url, args.dispositivo, args.intervalo, args.commit)
+    cond["modelo"] = args.modelo
     args.salida.parent.mkdir(parents=True, exist_ok=True)
     args.salida.write_text(informe(res, cond, args.fecha), encoding="utf-8")
     print(f"Informe: {args.salida}")
