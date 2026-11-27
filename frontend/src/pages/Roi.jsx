@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { obtenerEstudio, obtenerResultado } from '../api/cliente.js';
 import ErrorApi from '../components/ErrorApi.jsx';
 import Mensaje from '../components/Mensaje.jsx';
+import PanelExplicativo from '../components/PanelExplicativo.jsx';
 import Pasos from '../components/Pasos.jsx';
 import Visor from '../components/Visor.jsx';
 
@@ -54,9 +55,17 @@ export default function Roi() {
         </Mensaje>
       )}
       {resultado && (
-        <div className="roi">
-          <Visor key={resultado.id_trabajo} idTrabajo={resultado.id_trabajo} cortes={resultado.cortes} />
-        </div>
+        <>
+          {/* RF-15: el aviso de la respuesta, en la pantalla de resultados además del aviso fijo del pie */}
+          <div className="aviso aviso-resultado" role="note">
+            <span className="aviso-icono" aria-hidden="true">i</span>
+            <p>{resultado.aviso}</p>
+          </div>
+          <div className="roi">
+            <Visor key={resultado.id_trabajo} idTrabajo={resultado.id_trabajo} cortes={resultado.cortes} />
+            <PanelExplicativo resultado={resultado} />
+          </div>
+        </>
       )}
     </section>
   );
