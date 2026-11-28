@@ -122,3 +122,35 @@ Si una etapa falla, el trabajo trae `etapa_fallida` y `mensaje_error`, y las eta
 `pendiente`. Prueba del 26/11/2026 con `prostate_13` (caso público de MSD) y su máscara, en CPU: el trabajo pasó
 por `pendiente` → `en proceso` → `completado` en 21,5 s desde «Procesar» (segmentación 17,5 s) y el resultado
 quedó con Dice 0,901 e IoU 0,820, igual que en la evaluación del modelo.
+
+### Ver la ROI de un trabajo (CU04)
+
+Cuando el trabajo queda `completado`, dos rutas alimentan la pantalla de resultados:
+
+```bash
+# Métricas, número de cortes, forma del volumen y el aviso de uso no diagnóstico
+curl -s localhost:8000/api/trabajos/1/resultado -H "Authorization: Bearer $TOKEN"
+# {"id_trabajo":1,"codigo":"EST-0001","dice":0.901,"iou":0.82,"tiempo_total_s":17.26,
+#  "modelo":{"nombre":"prostate_mri_anatomy","version":"0.3.6"},"cortes":20,"forma":[320,320,20],"aviso":"..."}
+
+# Un corte axial en PNG: la imagen en gris y, encima, la máscara (RGBA, fondo transparente)
+curl -s localhost:8000/api/trabajos/1/corte/12 -H "Authorization: Bearer $TOKEN" -o corte.png
+curl -s "localhost:8000/api/trabajos/1/corte/12?capa=mascara" -H "Authorization: Bearer $TOKEN" -o roi.png
+```
+
+- `dice` e `iou` quedan en `null` si el estudio se cargó sin máscara de referencia.
+- `indice` va de `0` a `cortes - 1`. Las dos capas tienen el mismo tamaño (ancho = `forma[0]`, alto =
+  `forma[1]`), así que la interfaz las apila; para ver la imagen sin la ROI solo oculta la capa `mascara`.
+- El volumen se lee una vez por trabajo y queda en un caché pequeño en memoria (los últimos 4 trabajos):
+  mover el deslizador no vuelve a leer el NIfTI.
+
+| Respuesta | Cuándo |
+|---|---|
+| `404` «Trabajo no encontrado.» | No existe o es de otro usuario |
+| `404` «El trabajo no tiene resultado disponible.» | El trabajo no está `completado` |
+| `422` «El corte debe estar entre 0 y 19.» | `indice` fuera de rango (el número final depende de `cortes`) |
+| `422` «Datos no válidos.» con `campos: ["capa"]` | `capa` no es `imagen` ni `mascara` |
+
+Prueba del 27/11/2026 con `prostate_13` y su máscara: Dice 0,901, 20 cortes, forma `[320, 320, 20]`; los cortes
+salen en menos de 10 ms una vez cargado el volumen y, en el corte 12 (el de más máscara), la capa `mascara` tiene
+3395 píxeles visibles sobre la próstata y el resto transparente.
